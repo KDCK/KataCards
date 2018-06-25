@@ -1,65 +1,37 @@
 import React, { Component } from 'react'
-import firebase from 'firebase'
-import UserCards from './UserCards'
-
-const db = firebase.database();
-
-const dummyUser = {
-  id: 2,
-  name: "Rhodie Foulsham",
-  handle: "Rhodie",
-  codewars_name: "eu",
-  cards: [
-    {
-      id: 2,
-      name: "Bérengère",
-      atk: 47,
-      def: 14,
-      tier: 2,
-      description:
-        "Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus."
-    },
-    {
-      id: 2,
-      name: "Bérengère",
-      atk: 47,
-      def: 14,
-      tier: 2,
-      description:
-        "Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus."
-    },
-    {
-      id: 2,
-      name: "Bérengère",
-      atk: 47,
-      def: 14,
-      tier: 2,
-      description:
-        "Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus."
-    }],
-  "game_history": [{}, {}, {}, {}, {}],
-  "gold": 9265
-}
-
-//const user = db.ref('users/' + this.state.user.Id)
+import firebase from '../../firebase.js'
 
 class User extends Component{
   constructor(){
     super()
+    this.state ={
+      user:{}
+    }
   }
 
   componentDidMount(){
+    const userInfo = firebase.database().ref('/users/' + 1)
+    userInfo.on('value', (data) => {
+      let user = data.val()
+      this.setState({
+        user
+      })
+    })
+
     console.log('User Mounted')
   }
 
   render(){
+    const user = this.state.user
     return(
       <div>
-        {dummyUser.name}
-        <div>
-          <UserCards cards={dummyUser.cards}/>
-        </div>
+        {user.name}
+          <div>
+            I_WILL_BE_CARDS
+          </div>
       </div>
     )
   }
 }
+
+export default User;

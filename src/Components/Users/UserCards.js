@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
-import Card from 'react-materialize'
+import {Card, CardTitle} from 'react-materialize'
 //import firebase from 'firebase'
 
 
 class UserCards extends Component{
-  constructor(){
-    super()
-  }
 
   componentDidMount(){
     console.log('User Cards Mounted')
