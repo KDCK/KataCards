@@ -26,11 +26,11 @@ class Profile extends Component{
   render(){
     const user = this.state.user
     return(
-      <div>
+      <div className="profile">
         <UserCard user={this.state.user}/>
-          <div>
-            I_WILL_BE_CARDS
-          </div>
+        <div>
+          I_WILL_BE_CARDS
+        </div>
       </div>
     )
   }
