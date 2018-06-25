@@ -19,9 +19,41 @@
       "atk": 47,
       "def": 14,
       "tier": 2,
+      "global_count": 10,
       "description":
         "Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus."
-    }],
+    },
+    {
+      "id": 2,
+      "name": "Bérengère",
+      "atk": 47,
+      "def": 14,
+      "tier": 2,
+      "global_count": 10,
+      "description":
+        "Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus."
+    },
+    {
+      "id": 2,
+      "name": "Bérengère",
+      "atk": 47,
+      "def": 14,
+      "tier": 2,
+      "global_count": 10,
+      "description":
+        "Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus."
+    },
+    {
+      "id": 2,
+      "name": "Bérengère",
+      "atk": 47,
+      "def": 14,
+      "tier": 2,
+      "global_count": 10,
+      "description":
+        "Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus."
+    }
+  ],
     "game_history": [{}, {}, {}, {}, {}],
     "gold": 9265
   },

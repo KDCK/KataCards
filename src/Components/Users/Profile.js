@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import UserCard from './UserCard'
+import Spinner from '../Loader/Spinner.js'
+import SingleCard from '../Cards/SingleCard.js'
 import firebase from '../../firebase.js'
 
 
@@ -13,24 +15,27 @@ class Profile extends Component{
 
   componentDidMount(){
     const userInfo = firebase.database().ref('/users/' + 1)
-    userInfo.on('value', (data) => {
-      let user = data.val()
+    userInfo.on('value', (snapshot) => {
+      let user = snapshot.val()
+      console.log(user)
       this.setState({
         user
       })
     })
 
     console.log('User Mounted')
+
   }
 
   render(){
-    const user = this.state.user
+    const cards = this.state.user.cards
+
     return(
       <div className="profile">
         <UserCard user={this.state.user}/>
-        <div>
-          I_WILL_BE_CARDS
-        </div>
+        {!cards ? <Spinner /> :
+          cards.map(card=><SingleCard key={card.id} card={card} />)
+        }
       </div>
     )
   }
