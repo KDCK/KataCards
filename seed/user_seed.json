@@ -1,0 +1,100 @@
+[
+  {
+    "id": 1,
+    "name": "Nora Corlett",
+    "handle": "Nora",
+    "codewars_name": "nulla",
+    "cards": [{}, {}],
+    "game_history": [{}, {}, {}, {}],
+    "gold": 21384
+  },
+  {
+    "id": 2,
+    "name": "Rhodie Foulsham",
+    "handle": "Rhodie",
+    "codewars_name": "eu",
+    "cards": [{
+      "id": 2,
+      "name": "Bérengère",
+      "atk": 47,
+      "def": 14,
+      "tier": 2,
+      "description":
+        "Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus."
+    }],
+    "game_history": [{}, {}, {}, {}, {}],
+    "gold": 9265
+  },
+  {
+    "id": 3,
+    "name": "Rossy Lugg",
+    "handle": "Rossy",
+    "codewars_name": "justo",
+    "cards": [{}],
+    "game_history": [{}, {}, {}],
+    "gold": 81458
+  },
+  {
+    "id": 4,
+    "name": "Roberta Casiero",
+    "handle": "Roberta",
+    "codewars_name": "in",
+    "cards": [{}, {}, {}],
+    "game_history": [{}, {}, {}],
+    "gold": 96024
+  },
+  {
+    "id": 5,
+    "name": "Dalila Weins",
+    "handle": "Dalila",
+    "codewars_name": "viverra",
+    "cards": [{}, {}, {}],
+    "game_history": [{}, {}],
+    "gold": 40183
+  },
+  {
+    "id": 6,
+    "name": "Stephen Libreros",
+    "handle": "Stephen",
+    "codewars_name": "iaculis",
+    "cards": [{}],
+    "game_history": [{}, {}, {}, {}],
+    "gold": 60792
+  },
+  {
+    "id": 7,
+    "name": "Conni Appleton",
+    "handle": "Conni",
+    "codewars_name": "aliquet",
+    "cards": [{}],
+    "game_history": [{}, {}, {}, {}],
+    "gold": 43447
+  },
+  {
+    "id": 8,
+    "name": "Stearne Dobrowolski",
+    "handle": "Stearne",
+    "codewars_name": "in",
+    "cards": [{}, {}, {}],
+    "game_history": [{}, {}, {}, {}, {}],
+    "gold": 86635
+  },
+  {
+    "id": 9,
+    "name": "Lauren Borthe",
+    "handle": "Lauren",
+    "codewars_name": "tortor",
+    "cards": [{}, {}],
+    "game_history": [{}, {}],
+    "gold": 69986
+  },
+  {
+    "id": 10,
+    "name": "Alick Budgen",
+    "handle": "Alick",
+    "codewars_name": "nonummy",
+    "cards": [{}, {}, {}, {}, {}],
+    "game_history": [{}, {}, {}],
+    "gold": 22277
+  }
+]
