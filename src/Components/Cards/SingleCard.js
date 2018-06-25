@@ -3,8 +3,6 @@ import { Card, Image, Icon } from 'semantic-ui-react'
 
 const SingleCard = (props) => {
   const { card } = props
-  console.log(card);
-  
   return (
     <Card>
       <Card.Content>
