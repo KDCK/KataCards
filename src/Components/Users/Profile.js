@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import UserCard from './UserCard'
 import firebase from '../../firebase.js'
 
-class User extends Component{
+
+class Profile extends Component{
   constructor(){
     super()
     this.state ={
@@ -25,7 +27,7 @@ class User extends Component{
     const user = this.state.user
     return(
       <div>
-        {user.name}
+        <UserCard user={this.state.user}/>
           <div>
             I_WILL_BE_CARDS
           </div>
@@ -34,4 +36,4 @@ class User extends Component{
   }
 }
 
-export default User;
+export default Profile;

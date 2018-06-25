@@ -7,7 +7,7 @@ const Nav = props => {
     <Navbar brand="Kata Cards" right>
       <NavItem href="/login">Login</NavItem>
       <NavItem href="/home">Home</NavItem>
-      {/* <Icon>search</Icon> */}
+      <NavItem href="/profile">Profile</NavItem>
     </Navbar>
   )
 }

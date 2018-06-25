@@ -1,16 +1,18 @@
 import React, {Component} from 'react'
 import {Route, Switch} from 'react-router-dom'
 
-import { Home, User } from './Components'
+import { Home, Profile, Nav } from './Components'
 
 class Routes extends Component {
   render() {
     return (
-      <Switch>
-        <Route exact path="/user" component={User}/>
-        <Route path="/" component={Home} />
-        {/* <Route path="/card" component="TODO" /> */}
-      </Switch>
+      <div>
+        <Nav />
+        <Switch>
+          <Route exact path="/profile" component={Profile}/>
+          <Route path="/" component={Home} />
+        </Switch>
+      </div>
     )
   }
 }
