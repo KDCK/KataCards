@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {Navbar, NavItem, Icon} from 'react-materialize'
+import React from 'react'
+import {Navbar, NavItem} from 'react-materialize'
 import './Nav.css'
 
 const Nav = props => {
