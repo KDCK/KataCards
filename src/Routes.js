@@ -1,6 +1,15 @@
 import React, {Component} from 'react'
 import {Route, Switch} from 'react-router-dom'
-import {Home, Login, Signup, Logout, Nav, Profile, BuyCard} from './Components'
+import {
+  Home,
+  Login,
+  Signup,
+  Logout,
+  Nav,
+  Profile,
+  BuyCard,
+  GameBoard
+} from './Components'
 import SingleCard from './Components/Cards/SingleCard'
 import AllCards from './Components/Cards/AllCards'
 import LandingPage from './Components/Landing/LandingPage';
@@ -31,6 +40,7 @@ class Routes extends Component {
             path="/cardstore"
             render={() => <BuyCard authUser={this.props.authUser} />}
           />
+          <Route exact path="/gameboard" component={GameBoard} />
         </Switch>
       </div>
     )
