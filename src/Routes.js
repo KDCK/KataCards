@@ -15,7 +15,9 @@ class Routes extends Component {
         <Nav authUser={this.props.authUser} />
         <Switch>
           <Route exact path="/" component={Home} /> {/* maybe we replace w/ a splash screen */}
-          <Route exact path="/home" component={Home} />
+          <Route exact path="/home"
+            render={() => <Home authUser={this.props.authUser}/>}
+          />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/profile" component={Profile} />

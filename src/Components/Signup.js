@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import firebase, {auth} from '../firebase'
+import firebase, {auth, db} from '../firebase'
 import {withRouter} from 'react-router-dom'
 import {Row, Input, Button} from 'react-materialize'
 import './Login.css'
@@ -11,7 +11,8 @@ class Signin extends Component {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      user: null
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -28,6 +29,9 @@ class Signin extends Component {
     event.preventDefault()
     auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
     .then(authUser => {
+      db.ref(`users/${authUser.user.uid}`).set({email: this.state.email, gold: 20})
+    })
+    .then(authUser => {
       this.setState(() => ({
         email: '',
         password: ''
@@ -37,7 +41,6 @@ class Signin extends Component {
     .catch(error => {
       console.log(error)
     })
-
   }
 
   handleGoogle() {
@@ -45,7 +48,8 @@ class Signin extends Component {
     .then((result) => {
       const token = result.credential.accessToken
       const user = result.user
-    }).catch((error) => {
+    })
+      .catch((error) => {
       const errorCode = error.code
       const errorMessage = error.message
       const email = error.email
