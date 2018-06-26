@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import firebase, {auth} from '../firebase'
+import {withRouter} from 'react-router-dom'
 import {Row, Input, Button} from 'react-materialize'
 import './Login.css'
 
@@ -24,30 +25,33 @@ class Signin extends Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault()
     auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
     .then(authUser => {
       this.setState(() => ({
         email: '',
         password: ''
       }))
+      this.props.history.push('/home')
     })
     .catch(error => {
       console.log(error)
     })
-    event.preventDefault()
+
   }
 
   handleGoogle() {
     firebase.auth().signInWithRedirect(googleProvider)
     .then((result) => {
-      const token = result.credential.accessToken;
-      const user = result.user;
+      const token = result.credential.accessToken
+      const user = result.user
     }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.email;
-      const credential = error.credential;
-    });
+      const errorCode = error.code
+      const errorMessage = error.message
+      const email = error.email
+      const credential = error.credential
+    })
+    this.props.history.push('/home')
   }
 
   render() {
@@ -64,4 +68,4 @@ class Signin extends Component {
   }
 }
 
-export default Signin
+export default withRouter(Signin)

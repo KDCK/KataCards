@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import firebase, {auth} from '../firebase'
+import {withRouter} from 'react-router-dom'
 import {Row, Input, Button} from 'react-materialize'
 import './Login.css'
 
@@ -31,6 +32,7 @@ class Login extends Component {
         email: '',
         password: ''
       }))
+      this.props.history.push('/home')
     })
     .catch(error => {
       console.log(error)
@@ -41,14 +43,15 @@ class Login extends Component {
   handleGoogle() {
     firebase.auth().signInWithRedirect(googleProvider)
     .then((result) => {
-      const token = result.credential.accessToken;
-      const user = result.user;
+      const token = result.credential.accessToken
+      const user = result.user
     }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.email;
-      const credential = error.credential;
-    });
+      const errorCode = error.code
+      const errorMessage = error.message
+      const email = error.email
+      const credential = error.credential
+    })
+    this.props.history.push('/home')
   }
 
   render() {
@@ -65,4 +68,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default withRouter(Login)

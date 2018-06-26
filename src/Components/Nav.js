@@ -18,7 +18,8 @@ class Nav extends Component {
     if(this.props.authUser) {
       return (
         <Navbar brand="Kata Cards" right>
-          <li><NavLink to='/home' onClick={this.handleClick}>Logout</NavLink></li>
+          <li><NavLink to='/logout' onClick={this.handleClick}>Logout</NavLink></li>
+          <li><NavLink to="/profile">Profile</NavLink></li>
           <li><NavLink to="/home">Home</NavLink></li>
           {/* <Icon>search</Icon> */}
         </Navbar>
