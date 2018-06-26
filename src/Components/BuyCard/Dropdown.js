@@ -24,7 +24,7 @@ class FormDropDown extends Component {
   render() {
     console.log(this.props)
     return (
-      <Form>
+      <Form onClick={this.props.purchaseCard}>
         <Form.Group widths="equal">
           <Form.Field
             required

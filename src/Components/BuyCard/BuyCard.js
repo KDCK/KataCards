@@ -8,14 +8,18 @@ class BuyCard extends Component {
     super(props)
     this.state = {goldSpent: 0}
     this.handleChange = this.handleChange.bind(this)
+    this.purchaseCard = this.purchaseCard.bind(this)
   }
 
-  purchaseCard() {}
+  // This is essentially "handleSubmit"
+  purchaseCard(evt) {
+    evt.preventDefault()
+    console.log(`YOU CLICKED ME and spent: ${this.state.goldSpent} gold`)
+  }
 
-  handleChange(evt) {
-    // this.setState({goldSpent: evt.target.value})
-    // console.log(this.state)
-    console.log('NEW OPTION!')
+  // Must destructure value because of the way Semantic UI Component (Dropdown.js) handles options
+  handleChange(evt, {value}) {
+    this.setState({goldSpent: value})
   }
 
   render() {
@@ -31,7 +35,10 @@ class BuyCard extends Component {
         <p>
           Tier 1: 1 Gold<br />Tier 2: 2 Gold<br />Tier 3: 3 Gold
         </p>
-        <FormDropDown handleChange={this.handleChange} />
+        <FormDropDown
+          purchaseCard={this.purchaseCard}
+          handleChange={this.handleChange}
+        />
       </div>
     )
   }
