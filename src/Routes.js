@@ -3,6 +3,8 @@ import {Route, Switch} from 'react-router-dom'
 import {Home, Login, Signup, Logout, Nav, Profile, BuyCard} from './Components'
 import SingleCard from './Components/Cards/SingleCard'
 import AllCards from './Components/Cards/AllCards'
+import LandingPage from './Components/Landing/LandingPage';
+
 
 class Routes extends Component {
   constructor(props) {
@@ -14,9 +16,11 @@ class Routes extends Component {
       <div>
         <Nav authUser={this.props.authUser} />
         <Switch>
-          <Route exact path="/" component={Home} />{' '}
-          {/* maybe we replace w/ a splash screen */}
-          <Route exact path="/home" component={Home} />
+          <Route exact path="/splash" component={LandingPage} />
+          <Route exact path="/" component={Home} /> {/* maybe we replace w/ a splash screen */}
+          <Route exact path="/home"
+            render={() => <Home authUser={this.props.authUser}/>}
+          />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/profile" component={Profile} />

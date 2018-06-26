@@ -9,3 +9,5 @@ export {default as Logout} from './Logout'
 export {default as SingleCard} from './Cards/SingleCard'
 export {default as AllCards} from './Cards/AllCards'
 export {default as BuyCard} from './BuyCard/BuyCard'
+export {default as LandingPage} from './Landing/LandingPage'
+

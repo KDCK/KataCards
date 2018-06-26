@@ -1,0 +1,25 @@
+.title-img {
+  object-fit: "cover";
+  width: 100%;
+  height: 100vh;
+}
+
+.title {
+  position: absolute;
+  top: 30vh;
+  text-align: center;
+  margin-top: -50px;
+  width: 100vw;
+}
+
+.title-button {
+  margin: 10px;
+}
+
+.title-buttons {
+  position: absolute;
+  text-align: center;
+  top: 60vh;
+  width: 100vw;
+  margin-top: -50px;
+}

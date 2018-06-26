@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import firebase, {auth} from '../firebase'
-import {Navbar, Button, Icon} from 'react-materialize'
-import {NavLink} from 'react-router-dom'
+import React, { Component } from 'react'
+import firebase, { auth } from '../firebase'
+import { Navbar, Button, Icon } from 'react-materialize'
+import { NavLink, withRouter } from 'react-router-dom'
 import './Nav.css'
 
 class Nav extends Component {
@@ -50,4 +50,4 @@ class Nav extends Component {
   }
 }
 
-export default Nav
+export default withRouter(Nav)
