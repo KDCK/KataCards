@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
-import firebase, {auth} from '../firebase'
-import {Navbar, Button, Icon} from 'react-materialize'
-import {NavLink} from 'react-router-dom'
+import React, { Component } from 'react'
+import firebase, { auth } from '../firebase'
+import { Navbar, Button, Icon } from 'react-materialize'
+import { NavLink, withRouter } from 'react-router-dom'
 import './Nav.css'
 
 class Nav extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
   }
@@ -15,7 +15,9 @@ class Nav extends Component {
   }
 
   render() {
-    if(this.props.authUser) {
+    console.log(this.props);
+
+    if (this.props.authUser) {
       return (
         <Navbar brand="Kata Cards" right>
           <li><NavLink to='/logout' onClick={this.handleClick}>Logout</NavLink></li>
@@ -35,4 +37,4 @@ class Nav extends Component {
   }
 }
 
-export default Nav
+export default withRouter(Nav)
