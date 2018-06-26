@@ -22,12 +22,13 @@ class FormDropDown extends Component {
   handleChange = (e, {value}) => this.setState({value})
 
   render() {
-    const {value} = this.state
+    console.log(this.props)
     return (
       <Form>
         <Form.Group widths="equal">
           <Form.Field
             required
+            onChange={this.props.handleChange}
             control={Select}
             label="Choose a Tier"
             options={options}

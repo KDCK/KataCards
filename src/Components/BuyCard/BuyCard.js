@@ -13,8 +13,9 @@ class BuyCard extends Component {
   purchaseCard() {}
 
   handleChange(evt) {
-    this.setState({goldSpent: evt.target.value})
-    console.log(this.state)
+    // this.setState({goldSpent: evt.target.value})
+    // console.log(this.state)
+    console.log('NEW OPTION!')
   }
 
   render() {
@@ -30,7 +31,7 @@ class BuyCard extends Component {
         <p>
           Tier 1: 1 Gold<br />Tier 2: 2 Gold<br />Tier 3: 3 Gold
         </p>
-        <FormDropDown />
+        <FormDropDown handleChange={this.handleChange} />
       </div>
     )
   }
