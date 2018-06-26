@@ -22,7 +22,11 @@ class Routes extends Component {
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/logout" component={Logout} />{' '}
           {/* maybe we replace w/ a splash screen */}
-          <Route exact path="/cardstore" component={BuyCard} />
+          <Route
+            exact
+            path="/cardstore"
+            render={() => <BuyCard authUser={this.props.authUser} />}
+          />
         </Switch>
       </div>
     )
