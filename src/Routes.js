@@ -2,6 +2,11 @@ import React, {Component} from 'react'
 import {Route, Switch} from 'react-router-dom'
 
 import {Home, Login, Signup, Logout, Nav} from './Components'
+import React, { Component } from 'react'
+import { Route, Switch } from 'react-router-dom'
+import { Home, Profile, Nav } from './Components'
+import SingleCard from './Components/Cards/SingleCard'
+import AllCards from './Components/Cards/AllCards'
 
 class Routes extends Component {
   constructor(props) {
