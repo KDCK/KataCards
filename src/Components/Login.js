@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import firebase, {auth} from '../firebase'
+import firebase, {auth, db} from '../firebase'
 import {withRouter} from 'react-router-dom'
 import {Row, Input, Button} from 'react-materialize'
 import './Login.css'
@@ -22,22 +22,26 @@ class Login extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log(this.state)
   }
 
   handleSubmit(event) {
+    event.preventDefault()
     auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+    .then(authUser => {
+      db.ref(`users/${authUser.uid}`).set({email: this.state.email})
+    })
     .then(authUser => {
       this.setState(() => ({
         email: '',
         password: ''
       }))
+
       this.props.history.push('/home')
     })
     .catch(error => {
       console.log(error)
     })
-    event.preventDefault()
+
   }
 
   handleGoogle() {
@@ -45,6 +49,7 @@ class Login extends Component {
     .then((result) => {
       const token = result.credential.accessToken
       const user = result.user
+
     }).catch((error) => {
       const errorCode = error.code
       const errorMessage = error.message
