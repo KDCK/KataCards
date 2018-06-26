@@ -34,7 +34,7 @@ class Routes extends Component {
           <Route
             exact
             path="/cardstore"
-            render={() => <BuyCard authUser={this.props.authUser} />}
+            render={props => <BuyCard {...this.props} {...props} />}
           />
           <Route exact path="/gameboard" component={GameBoard} />
         </Switch>

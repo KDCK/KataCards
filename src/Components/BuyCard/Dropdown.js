@@ -22,7 +22,6 @@ class FormDropDown extends Component {
   handleChange = (e, {value}) => this.setState({value})
 
   render() {
-    console.log(this.props)
     return (
       <Form onClick={this.props.purchaseCard}>
         <Form.Group widths="equal">
