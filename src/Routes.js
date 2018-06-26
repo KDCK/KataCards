@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { Home, Profile, Nav } from './Components'
+import { Home, Profile, Nav, Trade } from './Components'
 import SingleCard from './Components/Cards/SingleCard'
 import AllCards from './Components/Cards/AllCards'
 
@@ -13,6 +13,7 @@ class Routes extends Component {
           <Route exact path="/profile" component={Profile}/>
           <Route exact path="/allcard" component={AllCards} />
           <Route exact path="/card" component={SingleCard} />
+          <Route exact path="/trade" component={Trade} />
           <Route path="/" component={Home} />
         </Switch>
       </div>
