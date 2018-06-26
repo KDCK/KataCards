@@ -5,12 +5,7 @@ import { Link } from 'react-router-dom'
 import './landing.css'
 
 class LandingPage extends Component {
-  constructor() {
-    super()
-  }
   render() {
-    console.log(this.props);
-    
     return (
       <div>
         <img className="title-img" alt="title background"
