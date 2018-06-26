@@ -1,11 +1,5 @@
 .game-container {
-  background: linear-gradient(
-      rgba(255, 0, 0, 0.5) 0%,
-      rgba(255, 0, 0, 0.25) 25%,
-      rgba(0, 0, 255, 0.25) 50%,
-      rgba(0, 0, 255, 0.5) 75%
-    ),
-    url(https://i.pinimg.com/originals/d9/ef/06/d9ef061b0b79df1790174e57bb9fc548.jpg);
+  background: url('../../Img/1.jpg');
   height: calc(100vh - 64px);
   margin: auto;
   background-attachment: fixed;
@@ -21,8 +15,9 @@ hr {
   display: block;
   height: 1px;
   border: 0;
-  border-top: 10px solid #000;
+  border-bottom: 5px solid rgba(105, 68, 0, 0.973);
   margin: 1em 0;
   padding: 0;
-  width: 85vw;
+  width: 100vw;
+  box-shadow: 3px 3px 3px 3px rgb(61, 47, 0);
 }
