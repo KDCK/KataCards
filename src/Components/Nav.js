@@ -19,6 +19,9 @@ class Nav extends Component {
       return (
         <Navbar brand="Kata Cards" right>
           <li>
+            <NavLink to="/cardstore">Buy Cards</NavLink>
+          </li>
+          <li>
             <NavLink to="/home">Home</NavLink>
           </li>
           <li>
