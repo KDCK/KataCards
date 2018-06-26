@@ -15,22 +15,35 @@ class Nav extends Component {
   }
 
   render() {
-    console.log(this.props);
-
     if (this.props.authUser) {
       return (
         <Navbar brand="Kata Cards" right>
-          <li><NavLink to='/logout' onClick={this.handleClick}>Logout</NavLink></li>
-          <li><NavLink to="/profile">Profile</NavLink></li>
-          <li><NavLink to="/home">Home</NavLink></li>
+          <li>
+            <NavLink to="/cardstore">Buy Cards</NavLink>
+          </li>
+          <li>
+            <NavLink to="/home">Home</NavLink>
+          </li>
+          <li>
+            <NavLink to="/logout" onClick={this.handleClick}>
+              Logout
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/profile">Profile</NavLink>
+          </li>
           {/* <Icon>search</Icon> */}
         </Navbar>
       )
     }
     return (
       <Navbar brand="Kata Cards" right>
-        <li><NavLink to="/signup">Signup</NavLink></li>
-        <li><NavLink to="/login">Login</NavLink></li>
+        <li>
+          <NavLink to="/signup">Signup</NavLink>
+        </li>
+        <li>
+          <NavLink to="/login">Login</NavLink>
+        </li>
         {/* <Icon>search</Icon> */}
       </Navbar>
     )
