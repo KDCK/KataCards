@@ -14,24 +14,24 @@ class UpdateGold extends Component {
   }
 
   async handleClick() {
-    // const uid = this.props.authUser.uid
-    // const user = firebase.database().ref('/users/' + uid)
-    // let codeWarsObject = await axios.get('/api/code/rando')
-    // console.log(`CODEWARS OBJECT: `, codeWarsObject)
-    // let newChallengesNumber = codeWarsObject.data.codeChallenges.totalCompleted
-    // user.once('value', snapshot => {
-    //   let thisUser = snapshot.val()
-    //   console.log(thisUser)
-    //   let prevGold = thisUser.gold
-    //   console.log(prevGold)
-    //   prevGold += newChallengesNumber - thisUser.challenges
-    //   console.log(prevGold)
-    //   db.ref(`users/${uid}`).update({
-    //     gold: prevGold,
-    //     prevChallenges: newChallengesNumber,
-    //     nextChallenges: newChallengesNumber
-    //   })
-    // })
+    const uid = this.props.authUser.uid
+    const user = firebase.database().ref('/users/' + uid)
+    let codeWarsObject = await axios.get('/api/code/rando')
+    console.log(`CODEWARS OBJECT: `, codeWarsObject)
+    let newChallengesNumber = codeWarsObject.data.codeChallenges.totalCompleted
+    user.once('value', snapshot => {
+      let thisUser = snapshot.val()
+      console.log(thisUser)
+      let prevGold = thisUser.gold
+      console.log(prevGold)
+      prevGold += newChallengesNumber - thisUser.challenges
+      console.log(prevGold)
+      db.ref(`users/${uid}`).update({
+        gold: prevGold,
+        prevChallenges: newChallengesNumber,
+        nextChallenges: newChallengesNumber
+      })
+    })
   }
 
   render() {
