@@ -11,23 +11,43 @@ class BuyCard extends Component {
     this.state = {goldSpent: 0, user: undefined}
     this.handleChange = this.handleChange.bind(this)
     this.purchaseCard = this.purchaseCard.bind(this)
+    this.randomCardGenerator = this.randomCardGenerator.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
     console.log('USER', nextProps.authUser)
+    this.setState({user: nextProps.authUser})
   }
 
   // This is essentially "handleSubmit"
   purchaseCard(evt) {
-    evt.preventDefault()
+    // evt.preventDefault()
     console.log(`YOU CLICKED ME and spent: ${this.state.goldSpent} gold`)
-    console.log('STATE', this.state)
+    // const userRef = db.ref(`users/${this.state.user.uid}`)
+    // userRef.set({cards: [...cards, chosenCard]})
+    // console.log(userRef)
+    this.randomCardGenerator()
+  }
+
+  async randomCardGenerator() {
+    const cardsRef = db.ref('cards')
+    const cardsArr = []
+
+    await cardsRef.once('value', snapshot => {
+      snapshot.forEach(child => {
+        let childKey = child.key
+        let childData = child.val()
+        cardsArr.push(childData)
+      })
+    })
+    console.log(cardsArr)
   }
 
   // Must destructure value because of the way Semantic UI Component (Dropdown.js) handles options
   handleChange(evt, {value}) {
     this.setState({goldSpent: value})
   }
+  const
 
   render() {
     // console.log('UserOnState', this.props.authUser.uid)
