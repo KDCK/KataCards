@@ -5,6 +5,7 @@ import FormDropDown from './Dropdown'
 import {randomCardGenerator} from './RandomCardGenerator'
 import SingleCard from '../Cards/SingleCard'
 import {Button} from 'react-materialize'
+import Spinner from '../Loader/Spinner'
 
 import './BuyCard.css'
 
