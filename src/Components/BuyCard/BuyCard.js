@@ -30,34 +30,56 @@ class BuyCard extends Component {
         cardsArr.push(childData)
       })
     })
-    console.log(cardsArr)
     return cardsArr
   }
 
   async randomCardGenerator() {
     const allCards = await this.getCards()
+
     const tier1 = allCards.filter(card => card.tier === 1)
-    // console.log(tier1)
     const tier2 = allCards.filter(card => card.tier === 2)
-    // console.log(tier2)
     const tier3 = allCards.filter(card => card.tier === 3)
-    // console.log(tier3)
+
     const purchaseArr = []
-    if (this.state.goldSpent === '1') {
-      console.log(tier1, tier2, tier3, tier1.length, tier2.length, tier3.length)
-      for (let i = 0; i < 7; i++)
+    let chosenCard = {}
+
+    if (this.state.goldSpent === 1) {
+      for (let i = 0; i < 7; i++) {
         purchaseArr.push(tier1[Math.floor(Math.random() * tier1.length)])
-      for (let i = 0; i < 2; i++)
+      }
+      for (let i = 0; i < 2; i++) {
         purchaseArr.push(tier2[Math.floor(Math.random() * tier2.length)])
-      for (let i = 0; i < 1; i++)
+      }
+      for (let i = 0; i < 1; i++) {
         purchaseArr.push(tier3[Math.floor(Math.random() * tier3.length)])
+      }
     }
     if (this.state.goldSpent === 2) {
+      for (let i = 0; i < 3; i++) {
+        purchaseArr.push(tier1[Math.floor(Math.random() * tier1.length)])
+      }
+      for (let i = 0; i < 5; i++) {
+        purchaseArr.push(tier2[Math.floor(Math.random() * tier2.length)])
+      }
+      for (let i = 0; i < 2; i++) {
+        purchaseArr.push(tier3[Math.floor(Math.random() * tier3.length)])
+      }
     }
     if (this.state.goldSpent === 3) {
+      for (let i = 0; i < 2; i++) {
+        purchaseArr.push(tier1[Math.floor(Math.random() * tier1.length)])
+      }
+      for (let i = 0; i < 5; i++) {
+        purchaseArr.push(tier2[Math.floor(Math.random() * tier2.length)])
+      }
+      for (let i = 0; i < 3; i++) {
+        purchaseArr.push(tier3[Math.floor(Math.random() * tier3.length)])
+      }
     }
-    console.log('purchasearr', purchaseArr)
-    return purchaseArr
+
+    chosenCard = purchaseArr[Math.floor(Math.random() * purchaseArr.length)]
+    // console.log('chosenCard', chosenCard)
+    return chosenCard
   }
 
   // This is essentially "handleSubmit"
@@ -72,7 +94,7 @@ class BuyCard extends Component {
 
   // Must destructure value because of the way Semantic UI Component (Dropdown.js) handles options
   handleChange(evt, {value}) {
-    this.setState({goldSpent: value})
+    this.setState({goldSpent: Number(value)})
   }
   const
 
