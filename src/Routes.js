@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {Route, Switch} from 'react-router-dom'
+import { firebaseConnect } from 'fire-connect'
+
 import {
   Home,
   Login,
@@ -11,23 +13,18 @@ import {
   BuyCard,
   GameBoard
 } from './Components'
-import SingleCard from './Components/Cards/SingleCard'
-import AllCards from './Components/Cards/AllCards'
 import LandingPage from './Components/Landing/LandingPage';
+import AuthorizedUser from './Components/HOC/AuthorizedUser';
 
 
 class Routes extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <div>
         <Nav authUser={this.props.authUser} />
         <Switch>
           <Route exact path="/splash" component={LandingPage} />
-          <Route exact path="/" component={Home} /> {/* maybe we replace w/ a splash screen */}
+          <Route exact path="/" component={AuthorizedUser(Home)} /> {/* maybe we replace w/ a splash screen */}
           <Route exact path="/home"
             render={() => <Home authUser={this.props.authUser}/>}
           />
@@ -46,4 +43,4 @@ class Routes extends Component {
   }
 }
 
-export default Routes
+export default firebaseConnect()(Routes)

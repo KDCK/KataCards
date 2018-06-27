@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { firebaseConnect, authConnect } from 'fire-connect'
+
 import firebase, { auth } from '../firebase'
 import { Navbar, Button, Icon } from 'react-materialize'
 import { NavLink, withRouter } from 'react-router-dom'
@@ -15,7 +17,9 @@ class Nav extends Component {
   }
 
   render() {
-    if (this.props.authUser) {
+    console.log(this.props);
+    
+    if (this.props.user) {
       return (
         <Navbar brand="Kata Cards" right>
           <li>
@@ -50,4 +54,10 @@ class Nav extends Component {
   }
 }
 
-export default withRouter(Nav)
+const addDispatchers = (connector, auth) => ({
+  logout() {
+    auth.signOut()
+  }
+})
+
+export default authConnect(null, addDispatchers)(withRouter(Nav))
