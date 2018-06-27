@@ -7,6 +7,7 @@ import {
   Logout,
   Nav,
   Profile,
+  Trade,
   BuyCard,
   GameBoard
 } from './Components'
@@ -32,14 +33,12 @@ class Routes extends Component {
           />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/trade" component={Trade} />
+          <Route exact path="/logout" component={Logout} /> {/* maybe we replace w/ a splash screen */}
+          <Route exact path="/profile" render={() => <Profile authUser={this.props.authUser} />} />
           <Route exact path="/logout" component={Logout} />{' '}
           {/* maybe we replace w/ a splash screen */}
-          <Route
-            exact
-            path="/cardstore"
-            render={() => <BuyCard authUser={this.props.authUser} />}
-          />
+          <Route exact path="/cardstore" render={() => <BuyCard authUser={this.props.authUser} />} />
           <Route exact path="/gameboard" component={GameBoard} />
         </Switch>
       </div>

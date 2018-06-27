@@ -18,6 +18,7 @@ class AllCards extends Component {
       const allCards = snapshot.val()
       this.setState({ cards: allCards })
     })
+    console.log("mounted all cards")
   }
 
   componentWillUnmount() {

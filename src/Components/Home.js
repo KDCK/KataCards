@@ -4,17 +4,34 @@ import {withRouter} from 'react-router-dom'
 import './Home.css'
 
 class Home extends Component {
-  constructor(props){
-    super(props)
-  }
 
-  componentDidUpdate(prevProps) {
-    const uid = this.props.authUser.uid
-    const email = this.props.authUser.email
-    db.ref(`users/${uid}`).set({email})
+  componentDidUpdate() {
+    if(this.props.authUser){
+      const uid = this.props.authUser.uid
+      const email = this.props.authUser.email
+      const user =  firebase.database().ref('/users/' + uid)
+      user.once('value', (snapshot) => {
+        let thisUser = snapshot.val()
+        if(!thisUser){
+          //USER MODEL
+          db.ref(`users/${uid}`).set({
+            email,
+            name: this.props.authUser.displayName,
+            //codewars_name: CODEWARSOBJ.username,
+            prevChallenges: 100, //CODEWARSOBJ.codeChallenges.totalCompleted,
+            nextChallenges: 100, //CODEWARSOBJ.codeChallenges.totalCompleted
+            online: true,
+            in_battle: false,
+            cards:[],
+            gold: 20,
+          })
+        }
+      })
+    }
   }
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <div className="home-container">
