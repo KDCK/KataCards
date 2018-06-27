@@ -35,7 +35,11 @@ class BuyCard extends Component {
   }
 
   // This is essentially "handleSubmit"
-  async purchaseCard(evt) {
+  async purchaseCard() {
+    const uid = this.props.authUser.uid
+    const goldSpent = this.state.goldSpent
+
+    console.log('id', uid)
     console.log(`YOU CLICKED ME and spent: ${this.state.goldSpent} gold`)
 
     const allCards = await this.getCards()
@@ -46,7 +50,21 @@ class BuyCard extends Component {
     this.setState({purchasedCard: chosenCard})
     console.log(this.state)
 
-    // const userCardsRef = db.ref(`users/${this.state.user.uid}`).cards
+    const userRef = db.ref(`users/${uid}`)
+    userRef.once('value', snapshot => {
+      let thisUser = snapshot.val()
+      let prevGold = thisUser.gold
+      let prevCards = thisUser.cards
+
+      prevGold -= goldSpent
+      prevCards = [...prevCards, chosenCard]
+
+      db.ref(`users/${uid}`).update({
+        gold: prevGold,
+        cards: prevCards
+      })
+    })
+    console.log('ref', userRef)
     // userCardsRef.push(chosenCard)
     // console.log(userRef)
   }
