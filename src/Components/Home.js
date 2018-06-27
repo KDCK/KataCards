@@ -4,15 +4,14 @@ import {withRouter} from 'react-router-dom'
 import './Home.css'
 
 class Home extends Component {
-
   componentDidUpdate() {
-    if(this.props.authUser){
+    if (this.props.authUser) {
       const uid = this.props.authUser.uid
       const email = this.props.authUser.email
-      const user =  firebase.database().ref('/users/' + uid)
-      user.once('value', (snapshot) => {
+      const user = firebase.database().ref('/users/' + uid)
+      user.once('value', snapshot => {
         let thisUser = snapshot.val()
-        if(!thisUser){
+        if (!thisUser) {
           //USER MODEL
           db.ref(`users/${uid}`).set({
             email,
@@ -21,8 +20,18 @@ class Home extends Component {
             challenges: 0, //CODEWARSOBJ.codeChallenges.totalCompleted,
             online: true,
             in_battle: false,
-            cards:[],
-            gold: 20,
+            cards: [
+              {
+                atk: 28,
+                def: 10,
+                description: "I'm a card",
+                global_count: 1,
+                id: 55,
+                name: 'JOE',
+                tier: 2
+              }
+            ],
+            gold: 20
           })
         }
       })
@@ -30,7 +39,7 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.props);
+    console.log(this.props)
     return (
       <div>
         <div className="home-container">

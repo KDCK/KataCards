@@ -7,9 +7,3 @@
   align-content: center;
   text-align: center;
 }
-
-.row {
-  z-index: 9999;
-  height: 33%;
-  width: 33%;
-}

@@ -10,18 +10,21 @@ class App extends Component {
     super(props)
 
     this.state = {
-      authUser: null,
+      authUser: null
     }
   }
 
   componentDidMount() {
-    auth.onAuthStateChanged(authUser => {
+    this.unsubscribe = auth.onAuthStateChanged(authUser => {
       authUser
-        ? this.setState(() => ({ authUser }))
-        : this.setState(() => ({ authUser: null }));
-    });
+        ? this.setState(() => ({authUser}))
+        : this.setState(() => ({authUser: null}))
+    })
   }
 
+  ComponentWillUnmount() {
+    this.unsubscribe()
+  }
 
   render() {
     return (
