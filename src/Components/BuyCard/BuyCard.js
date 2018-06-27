@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import {db} from '../../firebase'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import FormDropDown from './Dropdown'
 import {randomCardGenerator} from './RandomCardGenerator'
 import SingleCard from '../Cards/SingleCard'
+import {Button} from 'react-materialize'
 
 import './BuyCard.css'
 
@@ -12,18 +13,25 @@ class BuyCard extends Component {
     super(props)
     this.state = {
       goldSpent: 0,
+      gold: 0,
+      enoughCurrency: true,
       purchased: false,
       user: undefined,
       purchasedCard: undefined
     }
     this.handleChange = this.handleChange.bind(this)
     this.purchaseCard = this.purchaseCard.bind(this)
+    this.backToStore = this.backToStore.bind(this)
   }
 
   // Set authUser on state
   componentWillReceiveProps(nextProps) {
-    console.log('USER', nextProps.authUser)
-    this.setState({user: nextProps.authUser})
+    const uid = nextProps.authUser.uid
+    const userRef = db.ref(`users/${uid}`)
+    userRef.once('value', snapshot => {
+      let gold = snapshot.val().gold
+      this.setState({user: nextProps.authUser, gold: gold})
+    })
   }
 
   async getCards() {
@@ -32,7 +40,6 @@ class BuyCard extends Component {
 
     await cardsRef.once('value', snapshot => {
       snapshot.forEach(child => {
-        // let childKey = child.key
         let childData = child.val()
         cardsArr.push(childData)
       })
@@ -44,6 +51,12 @@ class BuyCard extends Component {
   async purchaseCard() {
     const uid = this.props.authUser.uid
     const goldSpent = this.state.goldSpent
+    if (this.state.gold < goldSpent) {
+      this.setState({enoughCurrency: false})
+      return
+    } else {
+      this.setState({enoughCurrency: true})
+    }
 
     const allCards = await this.getCards()
     const chosenCard = randomCardGenerator(allCards, this.state.goldSpent)
@@ -51,13 +64,10 @@ class BuyCard extends Component {
     this.setState(prevState => {
       return {
         purchasedCard: chosenCard,
-        purchased: true
+        purchased: true,
+        gold: Number(prevState.gold) - Number(goldSpent)
       }
     })
-    console.log('id', uid)
-    console.log(`YOU CLICKED ME and spent: ${this.state.goldSpent} gold`)
-    console.log('CARD', chosenCard)
-    console.log(this.state)
 
     const userRef = db.ref(`users/${uid}`)
     userRef.once('value', snapshot => {
@@ -80,6 +90,10 @@ class BuyCard extends Component {
     this.setState({goldSpent: Number(value)})
   }
 
+  backToStore(evt) {
+    this.setState({purchased: false})
+  }
+
   render() {
     return !this.state.purchased ? (
       <div className="store-container">
@@ -88,6 +102,7 @@ class BuyCard extends Component {
           Purchasing from a higher Tier increases the likelihood of getting a
           better card, but does not guarantee it!
         </p>
+        <h3>You have {this.state.gold} gold</h3>
         <h3>How much do you want to spend?</h3>
         <p>
           Tier 1: 1 Gold<br />Tier 2: 2 Gold<br />Tier 3: 3 Gold
@@ -96,10 +111,21 @@ class BuyCard extends Component {
           purchaseCard={this.purchaseCard}
           handleChange={this.handleChange}
         />
+        {this.state.enoughCurrency ? null : <h1>Not enough gold!</h1>}
       </div>
     ) : (
-      <div>
+      <div className="store-container">
+        <h1>You bought: {this.state.purchasedCard.name}!</h1>
+        <h2>Tier {this.state.purchasedCard.tier}</h2>
         <SingleCard card={this.state.purchasedCard} />
+        <h3>You have {this.state.gold} gold left</h3>
+        <Button
+          onClick={this.backToStore}
+          className="back-to-store"
+          waves="red"
+        >
+          Try Again?
+        </Button>
       </div>
     )
   }
