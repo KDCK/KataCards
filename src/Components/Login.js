@@ -1,13 +1,16 @@
-import React, {Component} from 'react'
-import firebase, {auth, db} from '../firebase'
-import {withRouter} from 'react-router-dom'
-import {Row, Input, Button} from 'react-materialize'
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import { Row, Input, Button } from 'react-materialize'
+import { firebaseConnect } from 'fire-connect'
+
+import Spinner from '../Components/Loader/Spinner'
+import firebase, { auth, db } from '../firebase'
 import './Login.css'
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
 
 class Login extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       email: '',
@@ -16,6 +19,14 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleGoogle = this.handleGoogle.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.checkUser().onAuthStateChanged(user => {
+      if (user && this.props.match.url === '/login') {
+        this.props.history.push('/home')
+      }
+    })
   }
 
   handleChange(event) {
@@ -27,39 +38,37 @@ class Login extends Component {
   handleSubmit(event) {
     event.preventDefault()
     auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-    .then(authUser => {
-      db.ref(`users/${authUser.uid}`).set({email: this.state.email})
-    })
-    .then(authUser => {
-      this.setState(() => ({
-        email: '',
-        password: ''
-      }))
+      .then(authUser => {
+        this.setState(() => ({
+          email: '',
+          password: ''
+        }))
 
-      this.props.history.push('/home')
-    })
-    .catch(error => {
-      console.log(error)
-    })
+        this.props.history.push('/home')
+      })
+      .catch(error => {
+        console.log(error)
+      })
 
   }
 
   handleGoogle() {
     firebase.auth().signInWithRedirect(googleProvider)
-    .then((result) => {
-      const token = result.credential.accessToken
-      const user = result.user
-
-    }).catch((error) => {
-      const errorCode = error.code
-      const errorMessage = error.message
-      const email = error.email
-      const credential = error.credential
-    })
-    this.props.history.push('/home')
+      .then((result) => {
+        const token = result.credential.accessToken
+        const user = result.user
+      }).catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        const email = error.email
+        const credential = error.credential
+      })
   }
 
   render() {
+    if (this.props.user) {
+      return (<Spinner />)
+    }
     return (
       <div className='login-outer-container' >
         <Row handleSubmit={this.handleSubmit}>
@@ -73,4 +82,10 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login)
+const addDispatcher = (connector) => ({
+  checkUser() {
+    return connector.props.auth
+  }
+})
+
+export default firebaseConnect(null, addDispatcher)(withRouter(Login))

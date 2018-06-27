@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
-import firebase, {auth, db} from '../firebase'
-import {withRouter} from 'react-router-dom'
-import {Row, Input, Button} from 'react-materialize'
+import React, { Component } from 'react'
+import firebase, { auth, db } from '../firebase'
+import { withRouter } from 'react-router-dom'
+import { Row, Input, Button } from 'react-materialize'
 import './Login.css'
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
 
 class Signin extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       email: '',
@@ -28,33 +28,42 @@ class Signin extends Component {
   handleSubmit(event) {
     event.preventDefault()
     auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
-    .then(authUser => {
-      db.ref(`users/${authUser.user.uid}`).set({email: this.state.email, gold: 20})
-    })
-    .then(authUser => {
-      this.setState(() => ({
-        email: '',
-        password: ''
-      }))
-      this.props.history.push('/home')
-    })
-    .catch(error => {
-      console.log(error)
-    })
+      .then(authUser => {
+        db.ref(`users/${authUser.user.uid}`).set({
+          email: this.state.email,
+          // name: this.props.authUser.displayName,
+          //codewars_name: CODEWARSOBJ.username,
+          challenges: 0, //CODEWARSOBJ.codeChallenges.totalCompleted,
+          online: true,
+          in_battle: false,
+          cards: [],
+          gold: 20,
+        })
+      })
+      .then(authUser => {
+        this.setState(() => ({
+          email: '',
+          password: ''
+        }))
+        this.props.history.push('/home')
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   handleGoogle() {
     firebase.auth().signInWithRedirect(googleProvider)
-    .then((result) => {
-      const token = result.credential.accessToken
-      const user = result.user
-    })
+      .then((result) => {
+        const token = result.credential.accessToken
+        const user = result.user
+      })
       .catch((error) => {
-      const errorCode = error.code
-      const errorMessage = error.message
-      const email = error.email
-      const credential = error.credential
-    })
+        const errorCode = error.code
+        const errorMessage = error.message
+        const email = error.email
+        const credential = error.credential
+      })
     this.props.history.push('/home')
   }
 

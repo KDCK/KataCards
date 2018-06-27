@@ -17,8 +17,6 @@ class Nav extends Component {
   }
 
   render() {
-    console.log(this.props);
-    
     if (this.props.user) {
       return (
         <Navbar brand="Kata Cards" right>
@@ -54,10 +52,4 @@ class Nav extends Component {
   }
 }
 
-const addDispatchers = (connector, auth) => ({
-  logout() {
-    auth.signOut()
-  }
-})
-
-export default authConnect(null, addDispatchers)(withRouter(Nav))
+export default authConnect()(withRouter(Nav))

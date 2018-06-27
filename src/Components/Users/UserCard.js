@@ -1,17 +1,19 @@
 import React from 'react'
 import {Row, Col, CardPanel} from 'react-materialize'
+import { firebaseConnect } from 'fire-connect'
 
 const UserCard = (props) => {
-  const user = props.user
+  console.log(props);
+  
   return(
     <Row>
       <Col s={8} m={4}>
         <CardPanel className="blue-grey black-text">
         <Row>
-        <span>{user.name}</span>
+        <span>{props.user.name}</span>
         </Row>
-        <div >Gold: {user.gold}</div>
-        <div>Handle: {user.handle}</div>
+        <div >Gold: {props.user.gold}</div>
+        <div>Handle: {props.user.handle}</div>
         <div>Battles Won: <span className="red-text">BATTLE_WON_COUNT</span></div>
         </CardPanel>
       </Col>
@@ -19,4 +21,4 @@ const UserCard = (props) => {
   )
 }
 
-export default UserCard;
+export default firebaseConnect()(UserCard)

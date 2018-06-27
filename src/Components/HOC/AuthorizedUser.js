@@ -1,17 +1,32 @@
 import React, { Component } from 'react'
-import { firebaseConnect } from 'fire-connect';
+import { firebaseConnect } from 'fire-connect'
+
+import Spinner from '../Loader/Spinner'
 
 
-export default function(ComposedComponent) {
+export default function (ComposedComponent) {
   class AuthorizedUser extends Component {
     componentDidMount() {
-      console.log(this.props);
+      this.props.checkUser().onAuthStateChanged(user => {
+        if(!user) {
+          this.props.history.push('/')
+        }
+      })
     }
 
     render() {
-      return (<ComposedComponent {...this.props} />)
+      if (!this.props.user) {
+        return (<Spinner />)
+      }
+      return (<ComposedComponent />)
     }
   }
 
-  return firebaseConnect()(AuthorizedUser)
+  const addDispatcher = (connector) => ({
+    checkUser() {
+      return connector.props.auth
+    }
+  })
+
+  return firebaseConnect(null, addDispatcher)(AuthorizedUser)
 }

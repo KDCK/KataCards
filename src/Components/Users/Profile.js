@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
+import { firebaseConnect } from 'fire-connect'
+
 import UserCard from './UserCard'
 import Spinner from '../Loader/Spinner.js'
 import SingleCard from '../Cards/SingleCard.js'
-import firebase from '../../firebase.js'
 
-
-class Profile extends Component{
-  constructor(){
+class Profile extends Component {
+  constructor() {
     super()
     this.state = {
       user: {},
@@ -23,30 +23,25 @@ class Profile extends Component{
     }
   }
 
-  //currently only loads user on page refresh -- need to fix this bug
-  componentWillReceiveProps(nextProps){
-    console.log(nextProps)
-    const userInfo =  firebase.database().ref('/users/' + nextProps.authUser.uid)
-    userInfo.once('value', (snapshot) => {
-      let user = snapshot.val()
-        this.setState({
-          user
-        })
-      }
-    )
-  }
+  render() {
+    console.log(this.props);
 
-  render(){
     const cards = this.state.cards
-    return(
+    return (
       <div className="profile">
-        <UserCard user={this.state.user}/>
+        <UserCard {...this.props}/>
         {!cards ? <Spinner /> :
-          cards.map(card=><SingleCard key={card.id} card={card} />)
+          cards.map(card => <SingleCard key={card.id} card={card} />)
         }
       </div>
     )
   }
 }
 
-export default Profile;
+const addListener = (connector, ref, user, setEventType) => ({
+  listenUser: () => ref(`/users/${connector.props.user.uid}`).on(setEventType('value'), snapshot => {
+      connector.setState({ user: snapshot.val() })
+  })
+})
+
+export default firebaseConnect(addListener)(Profile)
