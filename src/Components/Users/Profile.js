@@ -17,7 +17,6 @@ class Profile extends Component{
     const userInfo = firebase.database().ref('/users/' + 9)
     userInfo.on('value', (snapshot) => {
       let user = snapshot.val()
-      console.log(user)
       this.setState({
         user
       })
