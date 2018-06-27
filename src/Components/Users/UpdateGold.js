@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import firebase, { db } from '../../firebase'
+import React, {Component} from 'react'
+import firebase, {db} from '../../firebase'
 import {Button, Label, Icon} from 'semantic-ui-react'
 import axios from 'axios'
 
@@ -15,16 +15,16 @@ class UpdateGold extends Component {
 
   async handleClick() {
     const uid = this.props.authUser.uid
-    const user =  firebase.database().ref('/users/' + uid)
+    const user = firebase.database().ref('/users/' + uid)
     let codeWarsObject = await axios.get('/api/code/rando')
     console.log(`CODEWARS OBJECT: `, codeWarsObject)
     let newChallengesNumber = codeWarsObject.data.codeChallenges.totalCompleted
-    user.once('value', (snapshot) => {
+    user.once('value', snapshot => {
       let thisUser = snapshot.val()
       console.log(thisUser)
       let prevGold = thisUser.gold
       console.log(prevGold)
-      prevGold += (newChallengesNumber - thisUser.challenges)
+      prevGold += newChallengesNumber - thisUser.challenges
       console.log(prevGold)
       db.ref(`users/${uid}`).update({
         gold: prevGold,
@@ -39,26 +39,24 @@ class UpdateGold extends Component {
       return <Button loading>Loading</Button>
     } else {
       const uid = this.props.authUser.uid
-      const user =  firebase.database().ref('/users/' + uid)
-      user.once('value', (snapshot) => {
-        let thisUser = snapshot.val()
-        this.setState({gold: thisUser.gold})
-      })
-      if(this.state.gold > 0) {
+      const user = firebase.database().ref('/users/' + uid)
+      // user.once('value', (snapshot) => {
+      //   let thisUser = snapshot.val()
+      //   this.setState({gold: thisUser.gold})
+      // })
+      if (this.state.gold > 0) {
         return (
           <div onClick={this.handleClick}>
-            <Button as='div' labelPosition='right'>
-              <Button icon>
-                Update Gold
-              </Button>
-              <Label as='a' basic pointing='left'>
+            <Button as="div" labelPosition="right">
+              <Button icon>Update Gold</Button>
+              <Label as="a" basic pointing="left">
                 {this.state.gold}
               </Label>
             </Button>
           </div>
         )
       } else {
-          return <Button loading>Loading</Button>
+        return <Button loading>Loading</Button>
       }
     }
   }
