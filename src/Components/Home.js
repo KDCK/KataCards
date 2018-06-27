@@ -38,8 +38,7 @@ class Home extends Component {
     }
   }
 
-  render() {
-    console.log(this.props)
+  render() {    
     return (
       <div>
         <div className="home-container">

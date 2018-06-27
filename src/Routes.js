@@ -1,50 +1,41 @@
 import React, {Component} from 'react'
 import {Route, Switch} from 'react-router-dom'
+import { firebaseConnect } from 'fire-connect'
+
 import {
   Home,
   Login,
   Signup,
-  Logout,
   Nav,
   Profile,
   Trade,
   BuyCard,
   GameBoard
 } from './Components'
-import SingleCard from './Components/Cards/SingleCard'
-import AllCards from './Components/Cards/AllCards'
-import LandingPage from './Components/Landing/LandingPage'
+import LandingPage from './Components/Landing/LandingPage';
+import AuthorizedUser from './Components/HOC/AuthorizedUser';
+
 
 class Routes extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
+    console.log(this.props)
     return (
       <div>
         <Nav authUser={this.props.authUser} />
         <Switch>
-          <Route exact path="/splash" component={LandingPage} />
-          <Route exact path="/" component={Home} />{' '}
-          {/* maybe we replace w/ a splash screen */}
-          <Route
-            exact
-            path="/home"
-            render={() => <Home authUser={this.props.authUser} />}
-          />
+          <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/trade" component={Trade} />
-          <Route exact path="/logout" component={Logout} />{' '}
+          <Route exact path="/logout" component={LandingPage} />
+          <Route exact path="/home" component={AuthorizedUser(Home)} /> {/* maybe we replace w/ a splash screen */}
+          <Route exact path="/trade" component={AuthorizedUser(Trade)} />
+          <Route exact path="/profile" component={AuthorizedUser(Profile)} />
           {/* maybe we replace w/ a splash screen */}
           <Route
             exact
             path="/profile"
             render={() => <Profile authUser={this.props.authUser} />}
           />
-          <Route exact path="/logout" component={Logout} />{' '}
-          {/* maybe we replace w/ a splash screen */}
           <Route
             exact
             path="/cardstore"
@@ -57,4 +48,4 @@ class Routes extends Component {
   }
 }
 
-export default Routes
+export default firebaseConnect()(Routes)
