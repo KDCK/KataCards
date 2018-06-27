@@ -1,0 +1,15 @@
+.store-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 50vw;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.row {
+  z-index: 9999;
+  height: 33%;
+  width: 33%;
+}
