@@ -5,6 +5,7 @@ import firebase, { auth } from '../firebase'
 import { Navbar, Button, Icon } from 'react-materialize'
 import { NavLink, withRouter } from 'react-router-dom'
 import './Nav.css'
+import UpdateGold from './Users/UpdateGold';
 
 class Nav extends Component {
   constructor(props) {
@@ -20,6 +21,9 @@ class Nav extends Component {
     if (this.props.user) {
       return (
         <Navbar brand="Kata Cards" right>
+          <li className='middle'>
+            <UpdateGold authUser={this.props.authUser} />
+          </li>
           <li>
             <NavLink to="/cardstore">Buy Cards</NavLink>
           </li>

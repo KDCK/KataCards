@@ -4,6 +4,7 @@ import { firebaseConnect } from 'fire-connect'
 import UserCard from './UserCard'
 import Spinner from '../Loader/Spinner.js'
 import SingleCard from '../Cards/SingleCard.js'
+import './profile.css'
 
 class Profile extends Component {
   constructor() {
@@ -24,8 +25,6 @@ class Profile extends Component {
   }
 
   render() {
-    console.log(this.props);
-
     const cards = this.state.cards
     return (
       <div className="profile">
