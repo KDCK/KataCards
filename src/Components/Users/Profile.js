@@ -7,21 +7,24 @@ import SingleCard from '../Cards/SingleCard.js'
 import './profile.css'
 
 class Profile extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      user: {},
-      cards: [{
-        "id": 1,
-        "name": "Vérane",
-        "atk": 28,
-        "def": 10,
-        "tier": 2,
-        "global_count": 10,
-        "description":
-          "Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc."
-      }]
+      user: props.authUser || {},
+      cards: [
+        {
+          id: 1,
+          name: 'Vérane',
+          atk: 28,
+          def: 10,
+          tier: 2,
+          global_count: 10,
+          description:
+            'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc.'
+        }
+      ]
     }
+    console.log('constructing with user', this.state.user.uid)
   }
 
   render() {
