@@ -11,12 +11,53 @@ class BuyCard extends Component {
     this.state = {goldSpent: 0, user: undefined}
     this.handleChange = this.handleChange.bind(this)
     this.purchaseCard = this.purchaseCard.bind(this)
-    this.randomCardGenerator = this.randomCardGenerator.bind(this)
   }
 
+  // Set authUser on state
   componentWillReceiveProps(nextProps) {
     console.log('USER', nextProps.authUser)
     this.setState({user: nextProps.authUser})
+  }
+
+  async getCards() {
+    const cardsRef = db.ref('cards')
+    const cardsArr = []
+
+    await cardsRef.once('value', snapshot => {
+      snapshot.forEach(child => {
+        // let childKey = child.key
+        let childData = child.val()
+        cardsArr.push(childData)
+      })
+    })
+    console.log(cardsArr)
+    return cardsArr
+  }
+
+  async randomCardGenerator() {
+    const allCards = await this.getCards()
+    const tier1 = allCards.filter(card => card.tier === 1)
+    // console.log(tier1)
+    const tier2 = allCards.filter(card => card.tier === 2)
+    // console.log(tier2)
+    const tier3 = allCards.filter(card => card.tier === 3)
+    // console.log(tier3)
+    const purchaseArr = []
+    if (this.state.goldSpent === '1') {
+      console.log(tier1, tier2, tier3, tier1.length, tier2.length, tier3.length)
+      for (let i = 0; i < 7; i++)
+        purchaseArr.push(tier1[Math.floor(Math.random() * tier1.length)])
+      for (let i = 0; i < 2; i++)
+        purchaseArr.push(tier2[Math.floor(Math.random() * tier2.length)])
+      for (let i = 0; i < 1; i++)
+        purchaseArr.push(tier3[Math.floor(Math.random() * tier3.length)])
+    }
+    if (this.state.goldSpent === 2) {
+    }
+    if (this.state.goldSpent === 3) {
+    }
+    console.log('purchasearr', purchaseArr)
+    return purchaseArr
   }
 
   // This is essentially "handleSubmit"
@@ -27,20 +68,6 @@ class BuyCard extends Component {
     // userRef.set({cards: [...cards, chosenCard]})
     // console.log(userRef)
     this.randomCardGenerator()
-  }
-
-  async randomCardGenerator() {
-    const cardsRef = db.ref('cards')
-    const cardsArr = []
-
-    await cardsRef.once('value', snapshot => {
-      snapshot.forEach(child => {
-        let childKey = child.key
-        let childData = child.val()
-        cardsArr.push(childData)
-      })
-    })
-    console.log(cardsArr)
   }
 
   // Must destructure value because of the way Semantic UI Component (Dropdown.js) handles options
