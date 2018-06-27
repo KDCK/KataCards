@@ -17,8 +17,7 @@ class Home extends Component {
             email,
             name: this.props.authUser.displayName,
             //codewars_name: CODEWARSOBJ.username,
-            prevChallenges: 100, //CODEWARSOBJ.codeChallenges.totalCompleted,
-            nextChallenges: 100, //CODEWARSOBJ.codeChallenges.totalCompleted
+            challenges: 0, //CODEWARSOBJ.codeChallenges.totalCompleted,
             online: true,
             in_battle: false,
             cards: [
