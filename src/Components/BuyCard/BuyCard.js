@@ -46,8 +46,8 @@ class BuyCard extends Component {
     this.setState({purchasedCard: chosenCard})
     console.log(this.state)
 
-    const userCardsRef = db.ref(`users/${this.state.user.uid}`).cards
-    userCardsRef.push(chosenCard)
+    // const userCardsRef = db.ref(`users/${this.state.user.uid}`).cards
+    // userCardsRef.push(chosenCard)
     // console.log(userRef)
   }
 
