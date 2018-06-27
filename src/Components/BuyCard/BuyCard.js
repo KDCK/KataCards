@@ -1,14 +1,15 @@
 import React, {Component} from 'react'
 import FormDropDown from './Dropdown'
-import {auth, db} from '../../firebase'
+import {db} from '../../firebase'
 import {withRouter} from 'react-router-dom'
+import {randomCardGenerator} from './RandomCardGenerator'
 
 import './BuyCard.css'
 
 class BuyCard extends Component {
   constructor(props) {
     super(props)
-    this.state = {goldSpent: 0, user: undefined}
+    this.state = {goldSpent: 0, user: undefined, purchasedCard: undefined}
     this.handleChange = this.handleChange.bind(this)
     this.purchaseCard = this.purchaseCard.bind(this)
   }
@@ -33,70 +34,27 @@ class BuyCard extends Component {
     return cardsArr
   }
 
-  async randomCardGenerator() {
-    const allCards = await this.getCards()
-
-    const tier1 = allCards.filter(card => card.tier === 1)
-    const tier2 = allCards.filter(card => card.tier === 2)
-    const tier3 = allCards.filter(card => card.tier === 3)
-
-    const purchaseArr = []
-    let chosenCard = {}
-
-    if (this.state.goldSpent === 1) {
-      for (let i = 0; i < 7; i++) {
-        purchaseArr.push(tier1[Math.floor(Math.random() * tier1.length)])
-      }
-      for (let i = 0; i < 2; i++) {
-        purchaseArr.push(tier2[Math.floor(Math.random() * tier2.length)])
-      }
-      for (let i = 0; i < 1; i++) {
-        purchaseArr.push(tier3[Math.floor(Math.random() * tier3.length)])
-      }
-    }
-    if (this.state.goldSpent === 2) {
-      for (let i = 0; i < 3; i++) {
-        purchaseArr.push(tier1[Math.floor(Math.random() * tier1.length)])
-      }
-      for (let i = 0; i < 5; i++) {
-        purchaseArr.push(tier2[Math.floor(Math.random() * tier2.length)])
-      }
-      for (let i = 0; i < 2; i++) {
-        purchaseArr.push(tier3[Math.floor(Math.random() * tier3.length)])
-      }
-    }
-    if (this.state.goldSpent === 3) {
-      for (let i = 0; i < 2; i++) {
-        purchaseArr.push(tier1[Math.floor(Math.random() * tier1.length)])
-      }
-      for (let i = 0; i < 5; i++) {
-        purchaseArr.push(tier2[Math.floor(Math.random() * tier2.length)])
-      }
-      for (let i = 0; i < 3; i++) {
-        purchaseArr.push(tier3[Math.floor(Math.random() * tier3.length)])
-      }
-    }
-
-    chosenCard = purchaseArr[Math.floor(Math.random() * purchaseArr.length)]
-    // console.log('chosenCard', chosenCard)
-    return chosenCard
-  }
-
   // This is essentially "handleSubmit"
-  purchaseCard(evt) {
-    // evt.preventDefault()
+  async purchaseCard(evt) {
     console.log(`YOU CLICKED ME and spent: ${this.state.goldSpent} gold`)
-    // const userRef = db.ref(`users/${this.state.user.uid}`)
-    // userRef.set({cards: [...cards, chosenCard]})
+
+    const allCards = await this.getCards()
+    const chosenCard = randomCardGenerator(allCards, this.state.goldSpent)
+
+    console.log('CARD', chosenCard)
+
+    this.setState({purchasedCard: chosenCard})
+    console.log(this.state)
+
+    const userCardsRef = db.ref(`users/${this.state.user.uid}`).cards
+    userCardsRef.push(chosenCard)
     // console.log(userRef)
-    this.randomCardGenerator()
   }
 
   // Must destructure value because of the way Semantic UI Component (Dropdown.js) handles options
   handleChange(evt, {value}) {
     this.setState({goldSpent: Number(value)})
   }
-  const
 
   render() {
     // console.log('UserOnState', this.props.authUser.uid)
