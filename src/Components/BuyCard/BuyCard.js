@@ -1,15 +1,21 @@
 import React, {Component} from 'react'
-import FormDropDown from './Dropdown'
 import {db} from '../../firebase'
 import {withRouter} from 'react-router-dom'
+import FormDropDown from './Dropdown'
 import {randomCardGenerator} from './RandomCardGenerator'
+import SingleCard from '../Cards/SingleCard'
 
 import './BuyCard.css'
 
 class BuyCard extends Component {
   constructor(props) {
     super(props)
-    this.state = {goldSpent: 0, user: undefined, purchasedCard: undefined}
+    this.state = {
+      goldSpent: 0,
+      purchased: false,
+      user: undefined,
+      purchasedCard: undefined
+    }
     this.handleChange = this.handleChange.bind(this)
     this.purchaseCard = this.purchaseCard.bind(this)
   }
@@ -39,15 +45,18 @@ class BuyCard extends Component {
     const uid = this.props.authUser.uid
     const goldSpent = this.state.goldSpent
 
-    console.log('id', uid)
-    console.log(`YOU CLICKED ME and spent: ${this.state.goldSpent} gold`)
-
     const allCards = await this.getCards()
     const chosenCard = randomCardGenerator(allCards, this.state.goldSpent)
 
+    this.setState(prevState => {
+      return {
+        purchasedCard: chosenCard,
+        purchased: true
+      }
+    })
+    console.log('id', uid)
+    console.log(`YOU CLICKED ME and spent: ${this.state.goldSpent} gold`)
     console.log('CARD', chosenCard)
-
-    this.setState({purchasedCard: chosenCard})
     console.log(this.state)
 
     const userRef = db.ref(`users/${uid}`)
@@ -64,9 +73,6 @@ class BuyCard extends Component {
         cards: prevCards
       })
     })
-    console.log('ref', userRef)
-    // userCardsRef.push(chosenCard)
-    // console.log(userRef)
   }
 
   // Must destructure value because of the way Semantic UI Component (Dropdown.js) handles options
@@ -75,9 +81,7 @@ class BuyCard extends Component {
   }
 
   render() {
-    // console.log('UserOnState', this.props.authUser.uid)
-    // console.log(userRef)
-    return (
+    return !this.state.purchased ? (
       <div className="store-container">
         <h1>Welcome to the Card Store</h1>
         <p>
@@ -92,6 +96,10 @@ class BuyCard extends Component {
           purchaseCard={this.purchaseCard}
           handleChange={this.handleChange}
         />
+      </div>
+    ) : (
+      <div>
+        <SingleCard card={this.state.purchasedCard} />
       </div>
     )
   }
