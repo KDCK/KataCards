@@ -20,7 +20,7 @@ class Routes extends Component {
           />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/profile" render={() => <Profile authUser={this.props.authUser} />} />
           <Route exact path="/trade" component={Trade} />
           <Route exact path="/logout" component={Logout} /> {/* maybe we replace w/ a splash screen */}
         </Switch>

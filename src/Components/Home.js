@@ -12,7 +12,6 @@ class Home extends Component {
       const user =  firebase.database().ref('/users/' + uid)
       user.once('value', (snapshot) => {
         let thisUser = snapshot.val()
-        console.log(`THIS USER FROM DID Update`, thisUser)
         if(!thisUser){
           //USER MODEL
           db.ref(`users/${uid}`).set({
