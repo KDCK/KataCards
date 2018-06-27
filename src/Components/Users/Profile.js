@@ -3,7 +3,7 @@ import UserCard from './UserCard'
 import Spinner from '../Loader/Spinner.js'
 import SingleCard from '../Cards/SingleCard.js'
 import firebase from '../../firebase.js'
-
+import './profile.css'
 
 class Profile extends Component{
   constructor(){
