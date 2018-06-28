@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {firebaseConnect} from 'fire-connect'
 import {Button, Modal} from 'semantic-ui-react'
-import { Row, Input } from 'react-materialize'
 import Spinner from './Loader/Spinner'
 
 class Update extends Component {
@@ -16,8 +15,16 @@ class Update extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
+  componentWillUpdate() {
+    if (this.props.user) {
+      this.props.newUserDefault()
+    }
+    if (this.props.codeWarsCheck()) {
+      this.props.history.push('/home')
+    }
+  }
+
   handleChange(event) {
-    console.log(`HERE'S THE EVENT INSIDE THE FORM: `, event)
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -32,16 +39,11 @@ class Update extends Component {
     if (!this.props.user) {
         return <Spinner />
       } else {
-          this.props.newUserDefault()
           return (
             <div>
               <Spinner />
               <Modal open={!this.props.user.code_wars_name}>
                 <h4>Give us your CodeWars user name to get gold for your completed code challenges</h4>
-                {/* <form handleSubmit={this.handleSubmit}>
-                  <input name='code_wars_name' value={this.state.code_wars_name} placeholder='CodeWars User Name' s={8} onChange={this.handleChange} />
-                  <Button waves='light' className='button' onClick={this.handleSubmit}>Submit CodeWars User Name</Button>
-                </form> */}
                 <form onSubmit={this.handleSubmit}>
                   <input placeholder='CodeWars User Name' type="text" name="code_wars_name"
                   onChange={this.handleChange}
@@ -54,9 +56,15 @@ class Update extends Component {
     }
 }
 
+const addListener = (connector, ref, user, setEventType) => ({
+  listenUser: () =>
+    ref(`users/${connector.props.auth.O}`).on(setEventType('value'), snapshot => {
+      connector.setState({user: snapshot.val()})
+    })
+})
+
 const addDispatcher = (connector, ref, user) => ({
   newUserDefault() {
-    console.log(connector)
     ref(`/users/${connector.props.auth.O}`).once('value', snapshot => {
       if (!snapshot.val()) {
         ref(`/users/${connector.props.auth.O}`).set({
@@ -86,7 +94,19 @@ const addDispatcher = (connector, ref, user) => ({
     ref(`/users/${connector.props.auth.O}`).update({
       code_wars_name: codeWarsName
     })
+  },
+  codeWarsCheck() {
+    ref(`/users/${connector.props.auth.O}`).once('value', snapshot => {
+      let user = snapshot.val()
+      if (user) {
+        if(user.code_wars_name){
+          connector.props.history.push('/home')
+        }
+      } else {
+          return false
+      }
+    })
   }
 })
 
-export default firebaseConnect(null, addDispatcher)(Update)
+export default firebaseConnect(addListener, addDispatcher)(Update)

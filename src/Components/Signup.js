@@ -60,7 +60,6 @@ class Signin extends Component {
     return (
       <div className='login-outer-container' >
         <Row handleSubmit={this.handleSubmit}>
-          <Input name='codeWarsName' label='Code Wars User Name' s={4} onChange={this.handleChange} />
           <Input name='email' type='email' label='Email' s={4} onChange={this.handleChange} />
           <Input name='password' type='password' label='Password' s={4} onChange={this.handleChange} />
           <Button waves='light' className='button' onClick={this.handleSubmit}>Sign Up</Button>

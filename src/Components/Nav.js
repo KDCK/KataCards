@@ -45,7 +45,10 @@ class Nav extends Component {
     return (
       <Navbar brand="Kata Cards" right>
         <li>
-          <NavLink to="/login">Login/Signup</NavLink>
+          <NavLink to="/signup">Signup</NavLink>
+        </li>
+        <li>
+          <NavLink to="/login">Login</NavLink>
         </li>
         {/* <Icon>search</Icon> */}
       </Navbar>
