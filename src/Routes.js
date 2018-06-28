@@ -5,7 +5,7 @@ import { firebaseConnect } from 'fire-connect'
 import {
   Home,
   Login,
-  Signup,
+  Update,
   Nav,
   Profile,
   Trade,
@@ -25,7 +25,7 @@ class Routes extends Component {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/update" component={Update} />
           <Route exact path="/logout" component={LandingPage} />
           <Route exact path="/home" component={AuthorizedUser(Home)} /> {/* maybe we replace w/ a splash screen */}
           <Route exact path="/trade" component={AuthorizedUser(Trade)} />

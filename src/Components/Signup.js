@@ -12,7 +12,8 @@ class Signin extends Component {
     this.state = {
       email: '',
       password: '',
-      user: null
+      user: null,
+      codeWarsName: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -29,23 +30,11 @@ class Signin extends Component {
     event.preventDefault()
     auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(authUser => {
-        db.ref(`users/${authUser.user.uid}`).set({
-          email: this.state.email,
-          // name: this.props.authUser.displayName,
-          //codewars_name: CODEWARSOBJ.username,
-          challenges: 0, //CODEWARSOBJ.codeChallenges.totalCompleted,
-          online: true,
-          in_battle: false,
-          cards: [],
-          gold: 20,
-        })
-      })
-      .then(authUser => {
         this.setState(() => ({
           email: '',
           password: ''
         }))
-        this.props.history.push('/home')
+        this.props.history.push('/update')
       })
       .catch(error => {
         console.log(error)
@@ -64,15 +53,16 @@ class Signin extends Component {
         const email = error.email
         const credential = error.credential
       })
-    this.props.history.push('/home')
+    this.props.history.push('/update')
   }
 
   render() {
     return (
       <div className='login-outer-container' >
         <Row handleSubmit={this.handleSubmit}>
-          <Input name='email' type='email' label='Email' s={6} onChange={this.handleChange} />
-          <Input name='password' type='password' label='Password' s={6} onChange={this.handleChange} />
+          <Input name='codeWarsName' label='Code Wars User Name' s={4} onChange={this.handleChange} />
+          <Input name='email' type='email' label='Email' s={4} onChange={this.handleChange} />
+          <Input name='password' type='password' label='Password' s={4} onChange={this.handleChange} />
           <Button waves='light' className='button' onClick={this.handleSubmit}>Sign Up</Button>
           <Button waves='light' className='button' onClick={this.handleGoogle}>Sign Up With Google</Button>
         </Row>
