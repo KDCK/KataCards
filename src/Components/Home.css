@@ -3,3 +3,25 @@
   flex-direction: column;
   align-items: center;
 }
+
+.home-img{
+  width: 100%;
+  height: 100vh;
+  object-fit: "cover";
+}
+
+.home-button{
+  margin:  0 20px;
+}
+
+.home-buttons-top{
+  margin: 50px 0;
+}
+
+.home-buttons{
+  position: absolute;
+  text-align: center;
+  top: 45vh;
+  width: 100vw;
+  margin-top: -50px;
+}

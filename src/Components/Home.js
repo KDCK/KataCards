@@ -1,48 +1,35 @@
 import React, {Component} from 'react'
 import firebase, {auth, db} from '../firebase'
 import {withRouter} from 'react-router-dom'
+import { Button } from 'react-materialize'
+import { Link } from 'react-router-dom'
 import './Home.css'
 
 class Home extends Component {
   componentDidUpdate() {
     if (this.props.authUser) {
       const uid = this.props.authUser.uid
-      const email = this.props.authUser.email
       const user = firebase.database().ref('/users/' + uid)
       user.once('value', snapshot => {
         let thisUser = snapshot.val()
-        if (!thisUser) {
-          //USER MODEL
-          db.ref(`users/${uid}`).set({
-            email,
-            name: this.props.authUser.displayName,
-            //codewars_name: CODEWARSOBJ.username,
-            challenges: 0, //CODEWARSOBJ.codeChallenges.totalCompleted,
-            online: true,
-            in_battle: false,
-            cards: [
-              {
-                atk: 28,
-                def: 10,
-                description: "I'm a card",
-                global_count: 1,
-                id: 55,
-                name: 'JOE',
-                tier: 2
-              }
-            ],
-            gold: 20
-          })
-        }
+        console.log('You got a user here: ', thisUser)
       })
     }
   }
 
-  render() {    
+  render() {
     return (
       <div>
-        <div className="home-container">
-          <h5>WELCOME TO KATA CARDS</h5>
+        <img className="home-img" alt="home background"
+          src="home.png" />
+        <div className="home-buttons">
+          <div className="home-buttons-top">
+            <Link to="/battle"><Button large className="home-button" waves="purple">Join Battle</Button></Link>
+          </div>
+          <div className="home-buttons-bottom">
+            <Link to="/cards"><Button className="home-button" waves="purple">Cards</Button></Link>
+            <Link to="/profile"><Button className="home-button" waves="purple">Profile</Button></Link>
+          </div>
         </div>
       </div>
     )
