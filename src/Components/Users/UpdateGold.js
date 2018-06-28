@@ -2,64 +2,53 @@ import React, {Component} from 'react'
 import firebase, {db} from '../../firebase'
 import {Button, Label, Icon} from 'semantic-ui-react'
 import axios from 'axios'
+import {firebaseConnect} from 'fire-connect'
 
 class UpdateGold extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      gold: 0
-    }
-
     this.handleClick = this.handleClick.bind(this)
   }
 
   async handleClick() {
-    const uid = this.props.authUser.uid
-    const user = firebase.database().ref('/users/' + uid)
-    let codeWarsObject = await axios.get('/api/code/rando')
-    console.log(`CODEWARS OBJECT: `, codeWarsObject)
+    let codeWarsObject = await axios.get(`/api/code/${this.props.user.codeName}`)
     let newChallengesNumber = codeWarsObject.data.codeChallenges.totalCompleted
-    user.once('value', snapshot => {
-      let thisUser = snapshot.val()
-      console.log(thisUser)
-      let prevGold = thisUser.gold
-      console.log(prevGold)
-      prevGold += newChallengesNumber - thisUser.challenges
-      console.log(prevGold)
-      db.ref(`users/${uid}`).update({
-        gold: prevGold,
-        prevChallenges: newChallengesNumber,
-        nextChallenges: newChallengesNumber
-      })
-    })
+    let prevGold = this.props.user.gold
+    prevGold += newChallengesNumber - this.props.user.challenges
+    this.props.updateGold(prevGold, newChallengesNumber)
   }
 
   render() {
-    if (!this.props.authUser) {
+    if (!this.props.user) {
       return <Button loading>Loading</Button>
-    } else {
-      const uid = this.props.authUser.uid
-      const user = firebase.database().ref('/users/' + uid)
-      // user.once('value', (snapshot) => {
-      //   let thisUser = snapshot.val()
-      //   this.setState({gold: thisUser.gold})
-      // })
-      if (this.state.gold > 0) {
-        return (
-          <div onClick={this.handleClick}>
-            <Button as="div" labelPosition="right">
-              <Button icon>Update Gold</Button>
-              <Label as="a" basic pointing="left">
-                {this.state.gold}
-              </Label>
-            </Button>
-          </div>
-        )
-      } else {
-        return <Button loading>Loading</Button>
-      }
     }
+    return (
+      <div onClick={this.handleClick}>
+        <Button as="div" labelPosition="right">
+          <Button icon>Update Gold</Button>
+          <Label as="a" basic pointing="left">
+            {this.props.user.gold}
+          </Label>
+        </Button>
+      </div>
+    )
   }
 }
 
-export default UpdateGold
+const addListener = (connector, ref, user, setEventType) => ({
+  listenUser: () =>
+    ref(`users/${user.uid}`).on(setEventType('value'), snapshot => {
+      connector.setState({user: snapshot.val()})
+    })
+})
+
+const addDispatcher = (connector, ref, user) => ({
+  updateGold(newGold, newChallenges) {
+    ref(`users/${user.uid}`).update({
+      gold: newGold,
+      challenges: newChallenges
+    })
+  }
+})
+
+export default firebaseConnect(addListener, addDispatcher)(UpdateGold)

@@ -14,7 +14,8 @@ class Login extends Component {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      codeWarsName: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -24,7 +25,7 @@ class Login extends Component {
   componentDidMount() {
     this.props.checkUser().onAuthStateChanged(user => {
       if (user && this.props.match.url === '/login') {
-        this.props.history.push('/home')
+        this.props.history.push('/update')
       }
     })
   }
@@ -44,7 +45,7 @@ class Login extends Component {
           password: ''
         }))
 
-        this.props.history.push('/home')
+        this.props.history.push('/update')
       })
       .catch(error => {
         console.log(error)
@@ -63,6 +64,7 @@ class Login extends Component {
         const email = error.email
         const credential = error.credential
       })
+
   }
 
   render() {
@@ -72,8 +74,8 @@ class Login extends Component {
     return (
       <div className='login-outer-container' >
         <Row handleSubmit={this.handleSubmit}>
-          <Input name='email' type='email' label='Email' s={6} onChange={this.handleChange} />
-          <Input name='password' type='password' label='Password' s={6} onChange={this.handleChange} />
+          <Input name='email' type='email' label='Email' s={4} onChange={this.handleChange} />
+          <Input name='password' type='password' label='Password' s={4} onChange={this.handleChange} />
           <Button waves='light' className='button' onClick={this.handleSubmit}>Login</Button>
           <Button waves='light' className='button' onClick={this.handleGoogle}>Login With Google</Button>
         </Row>
