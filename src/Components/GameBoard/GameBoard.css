@@ -1,6 +1,6 @@
 .game-container {
   background: url('../../Img/1.jpg');
-  height: calc(100vh - 64px);
+  height: 100vh;
   margin: auto;
   background-attachment: fixed;
   background-size: cover;

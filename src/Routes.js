@@ -21,7 +21,7 @@ class Routes extends Component {
   render() {
     return (
       <div>
-        <Nav authUser={this.props.authUser} />
+        {/* <Nav authUser={this.props.authUser} /> */}
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={Login} />
