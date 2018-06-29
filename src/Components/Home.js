@@ -14,8 +14,9 @@ class Home extends Component {
     this.props.queueUser(user)
   }
 
-  startBattle(user, queue, battles) {
-    this.props.joinBattle(user, queue, battles)
+  async startBattle(user, queue, battles) {
+    await this.props.joinBattle(user, queue, battles)
+    this.props.history.push('/stagingarea')
   }
 
   render() {
@@ -119,7 +120,6 @@ const addDispatcher = (connector, ref) => ({
       updates[`/users/${queuedPlayers[1]}/in_battle`] = newBattleKey
 
       ref().update(updates)
-      connector.props.history.push('/stagingarea')
     }
   }
 })
