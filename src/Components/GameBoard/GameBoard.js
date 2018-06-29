@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
+import { firebaseConnect } from 'fire-connect';
+
 import './GameBoard.css'
 
 class GameBoard extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   render() {
+    console.log(this.props);
+    
     return (
       <div className="game-container">
         <div className="player1-board-deck">
@@ -28,4 +27,4 @@ class GameBoard extends Component {
   }
 }
 
-export default GameBoard
+export default firebaseConnect()(GameBoard)

@@ -40,7 +40,7 @@ class Routes extends Component {
             render={() => <Profile authUser={this.props.authUser} />}
           />
           <Route exact path="/cardstore" component={AuthorizedUser(BuyCard)} />
-          <Route exact path="/gameboard" component={GameBoard} />
+          <Route exact path="/gameboard" component={AuthorizedUser(GameBoard)} />
         </Switch>
       </div>
     )
