@@ -4,7 +4,7 @@ import { firebaseConnect } from 'fire-connect'
 import UserCard from './UserCard'
 import Spinner from '../Loader/Spinner.js'
 import SingleCard from '../Cards/SingleCard.js'
-import './Profile.css'
+import './profile.css'
 
 class Profile extends Component {
   constructor(props) {
