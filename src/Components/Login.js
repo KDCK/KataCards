@@ -48,7 +48,7 @@ class Login extends Component {
         this.props.history.push('/update')
       })
       .catch(error => {
-        alert('You need to sign up before you can log in! Click the signup tab.')
+        alert('You need to sign up before you can log in! Click the signup tab to complete a signup form or login in with Google here.')
       })
 
   }

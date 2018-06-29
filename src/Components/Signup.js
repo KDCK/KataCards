@@ -1,23 +1,33 @@
 import React, { Component } from 'react'
-import firebase, { auth, db } from '../firebase'
 import { withRouter } from 'react-router-dom'
 import { Row, Input, Button } from 'react-materialize'
+import { firebaseConnect } from 'fire-connect'
+
+import Spinner from '../Components/Loader/Spinner'
+import firebase, { auth, db } from '../firebase'
 import './Login.css'
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
 
-class Signin extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: '',
       password: '',
-      user: null,
       codeWarsName: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleGoogle = this.handleGoogle.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.checkUser().onAuthStateChanged(user => {
+      if (user && this.props.match.url === '/login') {
+        this.props.history.push('/update')
+      }
+    })
   }
 
   handleChange(event) {
@@ -34,11 +44,13 @@ class Signin extends Component {
           email: '',
           password: ''
         }))
+
         this.props.history.push('/update')
       })
       .catch(error => {
-        console.log(error)
+        alert('You need to sign up before you can log in! Click the signup tab.')
       })
+
   }
 
   handleGoogle() {
@@ -46,28 +58,35 @@ class Signin extends Component {
       .then((result) => {
         const token = result.credential.accessToken
         const user = result.user
-      })
-      .catch((error) => {
+      }).catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
         const email = error.email
         const credential = error.credential
       })
-    this.props.history.push('/update')
+
   }
 
   render() {
+    if (this.props.user) {
+      return (<Spinner />)
+    }
     return (
       <div className='login-outer-container' >
         <Row handleSubmit={this.handleSubmit}>
           <Input name='email' type='email' label='Email' s={4} onChange={this.handleChange} />
           <Input name='password' type='password' label='Password' s={4} onChange={this.handleChange} />
-          <Button waves='light' className='button' onClick={this.handleSubmit}>Sign Up</Button>
-          <Button waves='light' className='button' onClick={this.handleGoogle}>Sign Up With Google</Button>
+          <Button waves='light' className='button' onClick={this.handleSubmit}>Signup</Button>
         </Row>
       </div>
     )
   }
 }
 
-export default withRouter(Signin)
+const addDispatcher = (connector) => ({
+  checkUser() {
+    return connector.props.auth
+  }
+})
+
+export default firebaseConnect(null, addDispatcher)(withRouter(Signup))
