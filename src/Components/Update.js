@@ -8,7 +8,7 @@ class Update extends Component {
     super(props)
 
     this.state = {
-      code_wars_name: ''
+      codeName: ''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -31,7 +31,7 @@ class Update extends Component {
   }
 
   handleSubmit(event) {
-    this.props.updateCodeWarsName(this.state.code_wars_name)
+    this.props.updateCodeWarsName(this.state.codeName)
     this.props.history.push('/home')
   }
 
@@ -42,10 +42,10 @@ class Update extends Component {
           return (
             <div>
               <Spinner />
-              <Modal open={!this.props.user.code_wars_name}>
+              <Modal open={!this.props.user.codeName}>
                 <h4>Give us your CodeWars user name to get gold for your completed code challenges</h4>
                 <form onSubmit={this.handleSubmit}>
-                  <input placeholder='CodeWars User Name' type="text" name="code_wars_name"
+                  <input placeholder='CodeWars User Name' type="text" name="codeName"
                   onChange={this.handleChange}
                   />
                 </form>
@@ -69,7 +69,7 @@ const addDispatcher = (connector, ref, user) => ({
       if (!snapshot.val()) {
         ref(`/users/${connector.props.auth.O}`).set({
           email: connector.props.user.email,
-          code_wars_name: null,
+          codeName: null,
           challenges: 0,
           online: true,
           in_battle: false,
@@ -185,14 +185,14 @@ const addDispatcher = (connector, ref, user) => ({
   },
   updateCodeWarsName(codeWarsName) {
     ref(`/users/${connector.props.auth.O}`).update({
-      code_wars_name: codeWarsName
+      codeName: codeWarsName
     })
   },
   codeWarsCheck() {
     ref(`/users/${connector.props.auth.O}`).once('value', snapshot => {
       let user = snapshot.val()
       if (user) {
-        if(user.code_wars_name){
+        if(user.codeName){
           connector.props.history.push('/home')
         }
       } else {
