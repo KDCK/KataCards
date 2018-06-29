@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {firebaseConnect} from 'fire-connect'
 import {Button} from 'react-materialize'
-import {withRouter, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import './Home.css'
 
 class Home extends Component {
@@ -124,4 +124,4 @@ const addDispatcher = (connector, ref) => ({
   }
 })
 
-export default firebaseConnect(addListener, addDispatcher)(withRouter(Home))
+export default firebaseConnect(addListener, addDispatcher)(Home)
