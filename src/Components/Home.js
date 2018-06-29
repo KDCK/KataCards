@@ -38,7 +38,7 @@ const addListener = (connector, ref, user, setEventType) => ({
 const addDispatcher = (connector, ref) =>({
    queueUser(user){
     if(!user.in_battle){
-      ref(`/queue/${connector.props.user.uid}`).push(user.uid)
+      ref(`/queue/${connector.props.user.uid}`).push(user)
       ref(`/users/${connector.props.user.uid}`).update({
         in_battle: "waiting"
       })
