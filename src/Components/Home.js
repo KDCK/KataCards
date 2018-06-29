@@ -102,8 +102,10 @@ const addDispatcher = (connector, ref) => ({
       const player1 = queue[player1Id]
       const player2 = queue[player2Id]
       newBattle = {
-        p1: player1,
-        p2: player2
+        [queuedPlayers[0]]: player1,
+        // p1UID: player1Id,
+        [queuedPlayers[1]]: player2
+        // p2UID: player2Id
       }
     }
     ref(`/queue/${queuedPlayers[0]}`).remove()
@@ -126,8 +128,10 @@ const addDispatcher = (connector, ref) => ({
 
     let newBattleKey = ref('battles').push().key
     let updates = {}
+
     updates[`/battles/${newBattleKey}`] = newBattle
-    updates[`/users/${connector.props.user.uid}/in_battle`] = newBattleKey
+    updates[`/users/${queuedPlayers[0]}/in_battle`] = newBattleKey
+    updates[`/users/${queuedPlayers[1]}/in_battle`] = newBattleKey
 
     ref().update(updates)
     // ref(`/battles/${newBattleKey}/${connector.props.user.uid}`).push(user)
