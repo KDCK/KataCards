@@ -5,8 +5,9 @@ import BattleCard from './BattleCard'
 
 const Deck = (props) => {  
   const { deck } = props
-  console.log(deck);
-  
+  if(deck === undefined) {
+    return null
+  }
   return (
     <Row>
       {Object.values(deck).map(card => (
