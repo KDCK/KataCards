@@ -29,7 +29,23 @@ class Home extends Component {
                 )
               }
             >
-              Join Battle
+              Join Battle Queue
+            </Button>
+          </div>
+          <div className="home-buttons-top">
+            <Button
+              large
+              className="home-button"
+              waves="purple"
+              onClick={() =>
+                this.handleClick(
+                  this.props.user,
+                  this.props.queue,
+                  this.props.battles
+                )
+              }
+            >
+              Start Battle!
             </Button>
           </div>
           <div className="home-buttons-bottom">
