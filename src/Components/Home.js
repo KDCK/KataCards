@@ -55,11 +55,11 @@ const addListener = (connector, ref, user, setEventType) => ({
       }
     ),
   listenQueue: () =>
-    ref('queue').on(setEventType('value'), snapshot => {
+    ref('/queue').on(setEventType('value'), snapshot => {
       connector.setState({queue: snapshot.val()})
     }),
   listenBattle: () =>
-    ref('battles').on(setEventType('value'), snapshot => {
+    ref('/battles').on(setEventType('value'), snapshot => {
       connector.setState({battles: snapshot.val()})
     })
 })
@@ -75,49 +75,52 @@ const addDispatcher = (connector, ref) => ({
       })
     }
   },
-  // joinBattle(user, battles, uid) {
-  //   console.log('BATTLESSSSSSSSSSSS', battles)
-  //   const randomPlayerTurn = Math.random()
-  //   const battleArray = []
+  joinBattle(user, battles) {
+    console.log('BATTLESSSSSSSSSSSS', battles)
+    const randomPlayerTurn = Math.random()
+    const battleArray = []
 
-  //   if (!battles) {
-  //     ref(`battles`)
-  //       .push(user.id)
-  //       .set({
-  //         p1: user,
-  //         p2: null,
-  //         p1uid: uid,
-  //         p1atk: null,
-  //         p1def: null,
-  //         p2atk: null,
-  //         p2def: null,
-  //         turn: randomPlayerTurn < 0.5 ? 'p1' : 'p2'
-  //       })
-  //   } else {
-  //     for (let key in battles) {
-  //       battleArray.push(battles[key])
-  //     }
+    if (!battles) {
+      let newBattle = {
+        p1: user,
+        p2: null,
+        p1atk: null,
+        p1def: null,
+        p2atk: null,
+        p2def: null,
+        turn: randomPlayerTurn < 0.5 ? 'p1' : 'p2'
+      }
 
-  //     console.log('BATTLEARRAY', battleArray)
-  //     const foundBattle = battleArray.find(battle => !battle.p2)
-  //     console.log('FOUNDBATTLE', foundBattle)
-  //     if (!foundBattle) {
-  //       ref(`battles`)
-  //         .push()
-  //         .set({
-  //           p1: user,
-  //           p2: null,
-  //           p1uid: uid,
-  //           p1atk: null,
-  //           p1def: null,
-  //           p2atk: null,
-  //           p2def: null,
-  //           turn: randomPlayerTurn < 0.5 ? 'p1' : 'p2'
-  //         })
-  //     }
-  //   }
-  // }
-  joinBattle(user, battles) {}
+      let newBattleKey = ref('battles').push().key
+      let updates = {}
+      updates[`/battles/${newBattleKey}`] = newBattle
+      updates[`/users/${connector.props.user.uid}/in_battle`] = newBattleKey
+
+      ref().update(updates)
+      ref(`/battles/${newBattleKey}/${connector.props.user.uid}`).push(user)
+    } else {
+      for (let key in battles) {
+        battleArray.push(battles[key])
+      }
+
+      console.log('BATTLEARRAY', battleArray)
+      const foundBattle = battleArray.find(battle => !battle.p2)
+      console.log('FOUNDBATTLE', foundBattle)
+      if (!foundBattle) {
+        ref(`battles`)
+          .push()
+          .set({
+            p1: user,
+            p2: null,
+            p1atk: null,
+            p1def: null,
+            p2atk: null,
+            p2def: null,
+            turn: randomPlayerTurn < 0.5 ? 'p1' : 'p2'
+          })
+      }
+    }
+  }
 })
 
 export default firebaseConnect(addListener, addDispatcher)(Home)
