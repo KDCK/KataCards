@@ -5,6 +5,8 @@ import BattleCard from './BattleCard'
 
 const Deck = (props) => {  
   const { deck } = props
+  console.log(deck);
+  
   return (
     <Row>
       {Object.values(deck).map(card => (

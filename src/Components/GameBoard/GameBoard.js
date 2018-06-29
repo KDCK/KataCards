@@ -17,7 +17,7 @@ class GameBoard extends Component {
           {/* TODO: GET CARDBACK PLACEHOLDERS */}
         </div>
         <div className="gameboard-player1">
-          {this.props.user.uid === Object.keys(this.props.game.p1)[0]
+          {this.props.user.uid === Object.keys(this.props.game.p2)[0]
             ? <Board {...this.props.game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1}/>
             : <Board {...this.props.game.p2.caCrOjoGxEamloCVeLGfcDtJDS92}/>}
         </div>
@@ -52,7 +52,7 @@ const addDispatcher = (connector, ref, user) => ({
           ref(`/game/specialid/p2/${user.uid}/board/${card.id}`).set(card)
         })
         ref(`/game/specialid/p2/${user.uid}/deck/${cardId}`).remove()
-      } else {
+      } else if(snapshot.exists()){
         ref(`/game/specialid/p1/${user.uid}/deck/${cardId}`).once('value', snapshot => {
           const card = snapshot.val()
           ref(`/game/specialid/p1/${user.uid}/board/${card.id}`).set(card)
