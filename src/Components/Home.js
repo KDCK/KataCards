@@ -1,11 +1,16 @@
 import React, {Component} from 'react'
 import {firebaseConnect} from 'fire-connect'
 import {Button} from 'react-materialize'
-import {Link} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import './Home.css'
 
 class Home extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {waiting: false}
+  }
   joinQueue(user) {
+    this.setState({waiting: true})
     this.props.queueUser(user)
   }
 
@@ -14,7 +19,6 @@ class Home extends Component {
   }
 
   render() {
-    // console.log('PROPPPPPPPSSSSSSSS', this.props)
     return (
       <div>
         <img className="home-img" alt="home background" src="home.png" />
@@ -26,7 +30,9 @@ class Home extends Component {
               waves="purple"
               onClick={() => this.joinQueue(this.props.user)}
             >
-              Join Battle Queue
+              {this.state.waiting
+                ? 'Waiting For Match...'
+                : 'Join Battle Queue'}
             </Button>
           </div>
           <div className="home-buttons-top">
@@ -103,55 +109,19 @@ const addDispatcher = (connector, ref) => ({
         p1: player1Id,
         p2: player2Id
       }
+      ref(`/queue/${queuedPlayers[0]}`).remove()
+      ref(`/queue/${queuedPlayers[1]}`).remove()
+
+      let newBattleKey = ref('battles').push().key
+      let updates = {}
+      updates[`/battles/${newBattleKey}`] = newBattle
+      updates[`/users/${queuedPlayers[0]}/in_battle`] = newBattleKey
+      updates[`/users/${queuedPlayers[1]}/in_battle`] = newBattleKey
+
+      ref().update(updates)
+      connector.props.history.push('/stagingarea')
     }
-    ref(`/queue/${queuedPlayers[0]}`).remove()
-    ref(`/queue/${queuedPlayers[1]}`).remove()
-
-    // console.log('BATTLESSSSSSSSSSSS', battles)
-    // const randomPlayerTurn = Math.random()
-    // const battleArray = []
-
-    // if (!battles) {
-    //   let newBattle = {
-    //     p1: user,
-    //     p2: null,
-    //     p1atk: null,
-    //     p1def: null,
-    //     p2atk: null,
-    //     p2def: null,
-    //     turn: randomPlayerTurn < 0.5 ? 'p1' : 'p2'
-    //   }
-
-    let newBattleKey = ref('battles').push().key
-    let updates = {}
-    updates[`/battles/${newBattleKey}`] = newBattle
-    updates[`/users/${queuedPlayers[0]}/in_battle`] = newBattleKey
-    updates[`/users/${queuedPlayers[1]}/in_battle`] = newBattleKey
-
-    ref().update(updates)
-    // ref(`/battles/${newBattleKey}/${connector.props.user.uid}`).push(user)
-
-    // for (let key in battles) {
-    //   battleArray.push(battles[key])
-    // }
-
-    // console.log('BATTLEARRAY', battleArray)
-    // const foundBattle = battleArray.find(battle => !battle.p2)
-    // console.log('FOUNDBATTLE', foundBattle)
-    // if (!foundBattle) {
-    //   ref(`battles`)
-    //     .push()
-    //     .set({
-    //       p1: user,
-    //       p2: null,
-    //       p1atk: null,
-    //       p1def: null,
-    //       p2atk: null,
-    //       p2def: null,
-    //       turn: randomPlayerTurn < 0.5 ? 'p1' : 'p2'
-    //     })
-    // }
   }
 })
 
-export default firebaseConnect(addListener, addDispatcher)(Home)
+export default firebaseConnect(addListener, addDispatcher)(withRouter(Home))
