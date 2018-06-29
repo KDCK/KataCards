@@ -5,13 +5,13 @@ import {Link} from 'react-router-dom'
 import './Home.css'
 
 class Home extends Component {
-  handleClick(user, battles) {
+  handleClick(user, queue, battles) {
     this.props.queueUser(user)
-    this.props.joinBattle(user, battles)
+    this.props.joinBattle(user, queue, battles)
   }
 
   render() {
-    console.log('PROPPPPPPPSSSSSSSS', this.props)
+    // console.log('PROPPPPPPPSSSSSSSS', this.props)
     return (
       <div>
         <img className="home-img" alt="home background" src="home.png" />
@@ -22,7 +22,11 @@ class Home extends Component {
               className="home-button"
               waves="purple"
               onClick={() =>
-                this.handleClick(this.props.user, this.props.battles)
+                this.handleClick(
+                  this.props.user,
+                  this.props.queue,
+                  this.props.battles
+                )
               }
             >
               Join Battle
@@ -75,51 +79,62 @@ const addDispatcher = (connector, ref) => ({
       })
     }
   },
-  joinBattle(user, battles) {
-    console.log('BATTLESSSSSSSSSSSS', battles)
-    const randomPlayerTurn = Math.random()
-    const battleArray = []
-
-    if (!battles) {
-      let newBattle = {
-        p1: user,
-        p2: null,
-        p1atk: null,
-        p1def: null,
-        p2atk: null,
-        p2def: null,
-        turn: randomPlayerTurn < 0.5 ? 'p1' : 'p2'
-      }
-
-      let newBattleKey = ref('battles').push().key
-      let updates = {}
-      updates[`/battles/${newBattleKey}`] = newBattle
-      updates[`/users/${connector.props.user.uid}/in_battle`] = newBattleKey
-
-      ref().update(updates)
-      ref(`/battles/${newBattleKey}/${connector.props.user.uid}`).push(user)
-    } else {
-      for (let key in battles) {
-        battleArray.push(battles[key])
-      }
-
-      console.log('BATTLEARRAY', battleArray)
-      const foundBattle = battleArray.find(battle => !battle.p2)
-      console.log('FOUNDBATTLE', foundBattle)
-      if (!foundBattle) {
-        ref(`battles`)
-          .push()
-          .set({
-            p1: user,
-            p2: null,
-            p1atk: null,
-            p1def: null,
-            p2atk: null,
-            p2def: null,
-            turn: randomPlayerTurn < 0.5 ? 'p1' : 'p2'
-          })
+  joinBattle(user, queue, battles) {
+    const queueLength = Object.keys(queue).length
+    const queuedPlayers = Object.keys(queue)
+    let newBattle = {}
+    if (queueLength >= 2) {
+      newBattle = {
+        p1: queuedPlayers[0],
+        p2: queuedPlayers[1]
       }
     }
+    ref(`/queue/${queuedPlayers[0]}`).remove()
+    ref(`/queue/${queuedPlayers[1]}`).remove()
+
+    // console.log('BATTLESSSSSSSSSSSS', battles)
+    // const randomPlayerTurn = Math.random()
+    // const battleArray = []
+
+    // if (!battles) {
+    //   let newBattle = {
+    //     p1: user,
+    //     p2: null,
+    //     p1atk: null,
+    //     p1def: null,
+    //     p2atk: null,
+    //     p2def: null,
+    //     turn: randomPlayerTurn < 0.5 ? 'p1' : 'p2'
+    //   }
+
+    let newBattleKey = ref('battles').push().key
+    let updates = {}
+    updates[`/battles/${newBattleKey}`] = newBattle
+    updates[`/users/${connector.props.user.uid}/in_battle`] = newBattleKey
+
+    ref().update(updates)
+    // ref(`/battles/${newBattleKey}/${connector.props.user.uid}`).push(user)
+
+    // for (let key in battles) {
+    //   battleArray.push(battles[key])
+    // }
+
+    // console.log('BATTLEARRAY', battleArray)
+    // const foundBattle = battleArray.find(battle => !battle.p2)
+    // console.log('FOUNDBATTLE', foundBattle)
+    // if (!foundBattle) {
+    //   ref(`battles`)
+    //     .push()
+    //     .set({
+    //       p1: user,
+    //       p2: null,
+    //       p1atk: null,
+    //       p1def: null,
+    //       p2atk: null,
+    //       p2def: null,
+    //       turn: randomPlayerTurn < 0.5 ? 'p1' : 'p2'
+    //     })
+    // }
   }
 })
 
