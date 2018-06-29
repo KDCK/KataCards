@@ -99,13 +99,9 @@ const addDispatcher = (connector, ref) => ({
     if (queueLength >= 2) {
       const player1Id = queuedPlayers[0]
       const player2Id = queuedPlayers[1]
-      const player1 = queue[player1Id]
-      const player2 = queue[player2Id]
       newBattle = {
-        [queuedPlayers[0]]: player1,
-        // p1UID: player1Id,
-        [queuedPlayers[1]]: player2
-        // p2UID: player2Id
+        p1: player1Id,
+        p2: player2Id
       }
     }
     ref(`/queue/${queuedPlayers[0]}`).remove()
@@ -128,16 +124,11 @@ const addDispatcher = (connector, ref) => ({
 
     let newBattleKey = ref('battles').push().key
     let updates = {}
+    updates[`/battles/${newBattleKey}`] = newBattle
+    updates[`/users/${queuedPlayers[0]}/in_battle`] = newBattleKey
+    updates[`/users/${queuedPlayers[1]}/in_battle`] = newBattleKey
 
-    ref(`battles/${newBattleKey}`).set(newBattle)
-    ref(`users/${queuedPlayers[0]}`).set({in_battle: newBattleKey})
-    ref(`users/${queuedPlayers[1]}`).set({in_battle: newBattleKey})
-
-    // updates[`/battles/${newBattleKey}`] = newBattle
-    // updates[`/users/${queuedPlayers[0]}/in_battle`] = newBattleKey
-    // updates[`/users/${queuedPlayers[1]}/in_battle`] = newBattleKey
-
-    // ref().update(updates)
+    ref().update(updates)
     // ref(`/battles/${newBattleKey}/${connector.props.user.uid}`).push(user)
 
     // for (let key in battles) {
