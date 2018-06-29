@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {firebaseConnect} from 'fire-connect'
 import {Button} from 'react-materialize'
-import {Link} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import './Home.css'
 
 class Home extends Component {
@@ -14,12 +14,13 @@ class Home extends Component {
     this.props.queueUser(user)
   }
 
-  async startBattle(user, queue, battles) {
-    await this.props.joinBattle(user, queue, battles)
+  startBattle(user, queue, battles) {
+    // this.props.joinBattle(user, queue, battles)
     this.props.history.push('/stagingarea')
   }
 
   render() {
+    console.log(this.props)
     return (
       <div>
         <img className="home-img" alt="home background" src="home.png" />
@@ -124,4 +125,4 @@ const addDispatcher = (connector, ref) => ({
   }
 })
 
-export default firebaseConnect(addListener, addDispatcher)(Home)
+export default firebaseConnect(addListener, addDispatcher)(withRouter(Home))

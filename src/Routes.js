@@ -12,7 +12,8 @@ import {
   Trade,
   BuyCard,
   GameBoard,
-  UserDeck
+  UserDeck,
+  StagingArea
 } from './Components'
 
 import LandingPage from './Components/Landing/LandingPage'
@@ -42,6 +43,7 @@ class Routes extends Component {
           />
           <Route exact path="/cardstore" component={AuthorizedUser(BuyCard)} />
           <Route exact path="/gameboard" component={GameBoard} />
+          <Route exact path="/stagingarea" component={StagingArea} />
         </Switch>
       </div>
     )
