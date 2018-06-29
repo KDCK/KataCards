@@ -129,9 +129,9 @@ const addDispatcher = (connector, ref) => ({
     let newBattleKey = ref('battles').push().key
     let updates = {}
 
-    ref(`battles/${newBattleKey}`).update(newBattle)
-    ref(`users/${queuedPlayers[0]}`).update({in_battle: newBattleKey})
-    ref(`users/${queuedPlayers[1]}`).update({in_battle: newBattleKey})
+    ref(`battles/${newBattleKey}`).set(newBattle)
+    ref(`users/${queuedPlayers[0]}`).set({in_battle: newBattleKey})
+    ref(`users/${queuedPlayers[1]}`).set({in_battle: newBattleKey})
 
     // updates[`/battles/${newBattleKey}`] = newBattle
     // updates[`/users/${queuedPlayers[0]}/in_battle`] = newBattleKey
