@@ -97,9 +97,13 @@ const addDispatcher = (connector, ref) => ({
     const queuedPlayers = Object.keys(queue)
     let newBattle = {}
     if (queueLength >= 2) {
+      const player1Id = queuedPlayers[0]
+      const player2Id = queuedPlayers[1]
+      const player1 = queue[player1Id]
+      const player2 = queue[player2Id]
       newBattle = {
-        p1: queuedPlayers[0],
-        p2: queuedPlayers[1]
+        p1: player1,
+        p2: player2
       }
     }
     ref(`/queue/${queuedPlayers[0]}`).remove()
