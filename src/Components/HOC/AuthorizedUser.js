@@ -21,7 +21,7 @@ export default function (ComposedComponent) {
       if (!this.props.user) {
         return (<Spinner />)
       }
-      if (this.props.location.pathname === '/gameboard') {
+      if (this.props.location.pathname === '/gameboard' || this.props.location.pathname === '/') {
         return (<ComposedComponent />)
       } else {
         return (

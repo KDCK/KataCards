@@ -7,13 +7,15 @@ import './GameBoard.css'
 
 class GameBoard extends Component {
   render() {
-    if(!this.props.game) {
+    
+    if (!this.props.game) {
       return <Spinner />
     }
+    console.log(Object.keys(this.props.game.p1)[0]);
     return (
       <div className="game-container">
         <div className="player1-board-deck">
-          <Deck {...this.props.game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} />
+          {/* TODO: GET CARDBACK PLACEHOLDERS */}
         </div>
         <div className="gameboard-player1">
           <h1>P1 GameBoard Placeholder</h1>
@@ -23,7 +25,9 @@ class GameBoard extends Component {
           <h1>P2 GameBoard Placeholder</h1>
         </div>
         <div className="player2-board-deck">
-          <Deck {...this.props.game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} />
+          {this.props.user.uid === Object.keys(this.props.game.p1)[0]
+            ? <Deck {...this.props.game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} />
+            : <Deck {...this.props.game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} />}
         </div>
       </div>
     )
