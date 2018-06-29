@@ -20,9 +20,6 @@ class Home extends Component {
   }
 
   render() {
-    let counter = 0
-    console.log(`${counter} time rendering: `, this.props)
-    counter++
     return (
       <div>
         <img className="home-img" alt="home background" src="home.png" />
@@ -39,29 +36,24 @@ class Home extends Component {
                 : 'Join Battle Queue'}
             </Button>
           </div>
-          {this.props.queue && this.props.queue.length >= 2
-          ?
-          (
-          <div className="home-buttons-top">
-            <Button
-              large
-              className="home-button"
-              waves="purple"
-              onClick={() =>
-                this.startBattle(
-                  this.props.user,
-                  this.props.queue,
-                  this.props.battles
-                )
-              }
-            >
-              Start Battle!
-            </Button>
-          </div>
-          )
-          :
-          null
-          }
+          {this.props.queue && Object.keys(this.props.queue).length >= 2 ? (
+            <div className="home-buttons-top">
+              <Button
+                large
+                className="home-button"
+                waves="purple"
+                onClick={() =>
+                  this.startBattle(
+                    this.props.user,
+                    this.props.queue,
+                    this.props.battles
+                  )
+                }
+              >
+                Start Battle!
+              </Button>
+            </div>
+          ) : null}
           <div className="home-buttons-bottom">
             <Link to="/userdeck">
               <Button className="home-button" waves="purple">
