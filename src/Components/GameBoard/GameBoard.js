@@ -18,14 +18,14 @@ class GameBoard extends Component {
         </div>
         <div className="gameboard-player1">
           {this.props.user.uid === Object.keys(this.props.game.p1)[0]
-            ? <Board {...this.props.game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} playedCard={this.props.playedCard} />
-            : <Board {...this.props.game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} playedCard={this.props.playedCard} />}
+            ? <Board {...this.props.game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1}/>
+            : <Board {...this.props.game.p2.caCrOjoGxEamloCVeLGfcDtJDS92}/>}
         </div>
         <hr />
         <div className="gameboard-player2">
           {this.props.user.uid === Object.keys(this.props.game.p1)[0]
-            ? <Board {...this.props.game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} playedCard={this.props.playedCard} />
-            : <Board {...this.props.game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} playedCard={this.props.playedCard} />}
+            ? <Board {...this.props.game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1}/>
+            : <Board {...this.props.game.p2.caCrOjoGxEamloCVeLGfcDtJDS92}/>}
         </div>
         <div className="player2-board-deck">
           {this.props.user.uid === Object.keys(this.props.game.p1)[0]
