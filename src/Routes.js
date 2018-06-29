@@ -12,8 +12,9 @@ import {
   Trade,
   BuyCard,
   GameBoard,
-  UserDeck,
+  UserDeck
 } from './Components'
+
 import LandingPage from './Components/Landing/LandingPage'
 import AuthorizedUser from './Components/HOC/AuthorizedUser'
 
