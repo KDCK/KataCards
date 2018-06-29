@@ -5,8 +5,11 @@ import {Link} from 'react-router-dom'
 import './Home.css'
 
 class Home extends Component {
-  handleClick(user, queue, battles) {
+  joinQueue(user) {
     this.props.queueUser(user)
+  }
+
+  startBattle(user, queue, battles) {
     this.props.joinBattle(user, queue, battles)
   }
 
@@ -21,13 +24,7 @@ class Home extends Component {
               large
               className="home-button"
               waves="purple"
-              onClick={() =>
-                this.handleClick(
-                  this.props.user,
-                  this.props.queue,
-                  this.props.battles
-                )
-              }
+              onClick={() => this.joinQueue(this.props.user)}
             >
               Join Battle Queue
             </Button>
@@ -38,7 +35,7 @@ class Home extends Component {
               className="home-button"
               waves="purple"
               onClick={() =>
-                this.handleClick(
+                this.startBattle(
                   this.props.user,
                   this.props.queue,
                   this.props.battles
