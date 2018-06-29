@@ -16,8 +16,6 @@ export default function (ComposedComponent) {
     }
 
     render() {
-      console.log(this.props.location.pathname);
-
       if (!this.props.user) {
         return (<Spinner />)
       }
