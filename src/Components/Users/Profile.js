@@ -4,7 +4,7 @@ import { firebaseConnect } from 'fire-connect'
 import UserCard from './UserCard'
 import Spinner from '../Loader/Spinner.js'
 import SingleCard from '../Cards/SingleCard.js'
-import './profile.css'
+import './Profile.css'
 
 class Profile extends Component {
   constructor(props) {
@@ -40,10 +40,4 @@ class Profile extends Component {
   }
 }
 
-const addListener = (connector, ref, user, setEventType) => ({
-  listenUser: () => ref(`/users/${connector.props.user.uid}`).on(setEventType('value'), snapshot => {
-      connector.setState({ user: snapshot.val() })
-  })
-})
-
-export default firebaseConnect(addListener)(Profile)
+export default Profile
