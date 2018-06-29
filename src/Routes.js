@@ -11,14 +11,14 @@ import {
   Profile,
   Trade,
   BuyCard,
-  GameBoard
+  GameBoard,
+  UserDeck,
 } from './Components'
 import LandingPage from './Components/Landing/LandingPage'
 import AuthorizedUser from './Components/HOC/AuthorizedUser'
 
 class Routes extends Component {
   render() {
-    console.log(this.props)
     return (
       <div>
         <Nav authUser={this.props.authUser} />
@@ -32,6 +32,7 @@ class Routes extends Component {
           {/* maybe we replace w/ a splash screen */}
           <Route exact path="/trade" component={AuthorizedUser(Trade)} />
           <Route exact path="/profile" component={AuthorizedUser(Profile)} />
+          <Route exact path="/userdeck" component={AuthorizedUser(UserDeck)} />
           {/* maybe we replace w/ a splash screen */}
           <Route
             exact
