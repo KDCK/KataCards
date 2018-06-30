@@ -1,0 +1,19 @@
+.ui.card {
+  background-color: rgb(131, 76, 4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  border-radius: 3% 3%;
+}
+
+.ui.card > .content {
+  background-color: rgb(182, 124, 0);
+  margin: 5% 5%;
+}
+
+.ui.card > .content > .description {
+  font-style: italic;
+  font-size: 10px;
+}
