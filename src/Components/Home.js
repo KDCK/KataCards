@@ -15,7 +15,10 @@ class Home extends Component {
   }
 
   async startBattle(user, queue, battles) {
-    await this.props.joinBattle(user, queue, battles)
+    this.props.user.in_battle !== false &&
+    this.props.user.in_battle !== 'waiting'
+      ? this.props.history.push('/stagingarea')
+      : await this.props.joinBattle(user, queue, battles)
     this.props.history.push('/stagingarea')
   }
 
@@ -36,9 +39,8 @@ class Home extends Component {
                 : 'Join Battle Queue'}
             </Button>
           </div>
-          {(this.props.queue && Object.keys(this.props.queue).length >= 2) ||
-          (this.props.user.in_battle !== false &&
-            this.props.user.in_battle !== 'waiting') ? (
+          {this.props.user.in_battle !== false &&
+          this.props.user.in_battle !== 'waiting' ? (
             <div className="home-buttons-top">
               <Button
                 large
