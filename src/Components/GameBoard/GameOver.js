@@ -25,7 +25,7 @@ const GameOver = (props) => {
           <Link to="/home"><Button>Home</Button></Link>
         </div>
       </div>
-      <img src='/gameover.gif'/>
+      <img className="gameover-img" src='/gameover.gif'/>
     </div>
   )
 }

@@ -2,8 +2,6 @@ import React from 'react'
 import { Label, Icon } from 'semantic-ui-react'
 
 const DisplayStatus = (props) => {
-  console.log(props);
-  
   return (
     <div style={{marginBottom: "-25px", marginTop: "-25px"}}>
       <Label size='big'>
