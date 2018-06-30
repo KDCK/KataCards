@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import {db} from '../firebase'
-import {firebaseConnect} from 'fire-connect'
-import {Button} from 'react-materialize'
+import { firebaseConnect } from 'fire-connect'
+import { Button } from 'react-materialize'
 import {withRouter, Link} from 'react-router-dom'
+
+import {db} from '../firebase'
 import './Home.css'
 
 class Home extends Component {

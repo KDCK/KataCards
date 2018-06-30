@@ -7,12 +7,12 @@ import {
   Login,
   Signup,
   Update,
-  Nav,
   Profile,
   Trade,
   BuyCard,
   GameBoard,
   UserDeck,
+  GameOver,
   StagingArea
 } from './Components'
 
@@ -23,7 +23,7 @@ class Routes extends Component {
   render() {
     return (
       <div>
-        <Nav authUser={this.props.authUser} />
+        {/* <Nav authUser={this.props.authUser} /> */}
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={Login} />
@@ -31,18 +31,11 @@ class Routes extends Component {
           <Route exact path="/update" component={Update} />
           <Route exact path="/logout" component={LandingPage} />
           <Route exact path="/home" component={AuthorizedUser(Home)} />{' '}
-          {/* maybe we replace w/ a splash screen */}
           <Route exact path="/trade" component={AuthorizedUser(Trade)} />
           <Route exact path="/profile" component={AuthorizedUser(Profile)} />
           <Route exact path="/userdeck" component={AuthorizedUser(UserDeck)} />
-          {/* maybe we replace w/ a splash screen */}
-          <Route
-            exact
-            path="/profile"
-            render={() => <Profile authUser={this.props.authUser} />}
-          />
           <Route exact path="/cardstore" component={AuthorizedUser(BuyCard)} />
-          <Route exact path="/gameboard" component={GameBoard} />
+          <Route exact path="/gameboard" component={AuthorizedUser(GameBoard)} />
           <Route exact path="/stagingarea/:battleId" component={AuthorizedUser(StagingArea)} />
         </Switch>
       </div>

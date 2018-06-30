@@ -1,14 +1,13 @@
 import React from 'react'
-import {Row, Col, CardPanel} from 'react-materialize'
+import {Col, CardPanel} from 'react-materialize'
 import {firebaseConnect} from 'fire-connect'
 
 const UserCard = props => {
-  console.log(props)
-
   return (
     <Col s={8} m={4}>
       <CardPanel className="blue-grey black-text">
-        <div>Account Name: {props.user.email}</div>
+        <h1>{props.user.codeName}</h1>
+        <div>Email: {props.user.email}</div>
         <div>Gold: {props.user.gold}</div>
         <div>Handle: {props.user.handle}</div>
         <div>

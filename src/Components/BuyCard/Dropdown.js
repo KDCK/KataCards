@@ -7,14 +7,12 @@ const options = [
   {key: '3', text: 'Tier 3', value: '3'}
 ]
 
-class FormDropDown extends Component {
-  state = {}
-
-  handleChange = (e, {value}) => this.setState({value})
-
-  render() {
+class DropDown extends Component {
+  render() {    
+    console.log(this.props);
+    
     return (
-      <Form onClick={this.props.purchaseCard}>
+      <Form onSubmit={this.props.purchaseCard}>
         <Form.Group widths="equal">
           <Form.Field
             required
@@ -25,10 +23,10 @@ class FormDropDown extends Component {
             placeholder="Tier"
           />
         </Form.Group>
-        <Button color="red">Buy!</Button>
+        <Button disabled={!this.props.selected} color="red">Buy!</Button>
       </Form>
     )
   }
 }
 
-export default FormDropDown
+export default DropDown

@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { firebaseConnect } from 'fire-connect'
 
 import Spinner from '../Loader/Spinner'
+import Nav from '../Nav';
 
 
 export default function (ComposedComponent) {
   class AuthorizedUser extends Component {
     componentDidMount() {
       this.props.checkUser().onAuthStateChanged(user => {
-        if(!user) {
+        if (!user) {
           this.props.history.push('/')
         }
       })
@@ -18,7 +19,16 @@ export default function (ComposedComponent) {
       if (!this.props.user) {
         return (<Spinner />)
       }
-      return (<ComposedComponent />)
+      if (this.props.location.pathname === '/gameboard' || this.props.location.pathname === '/') {
+        return (<ComposedComponent />)
+      } else {
+        return (
+          <div>
+            <Nav />
+            <ComposedComponent />
+          </div>
+        )
+      }
     }
   }
 
