@@ -11,9 +11,9 @@ class StagingArea extends Component {
     this.state = {}
   }
   async componentDidUpdate() {
-    if (!this.state.firstUpdate){
+    if (this.props.player && !this.state.firstUpdate){
       let battleId = this.props.history.location.pathname.slice(13)
-      this.props.initialBattleUpdate(battleId, this.props.user, this.props.auth.currentUser.uid)
+      this.props.initialBattleUpdate(battleId, this.props.player, this.props.auth.currentUser.uid)
       this.setState({firstUpdate: true})
     }
   }
@@ -48,7 +48,7 @@ class StagingArea extends Component {
 const addListener = (connector, ref, user, setEventType) => ({
   listenUser: () =>
     ref(`/users/${connector.props.auth.currentUser.uid}`).on(setEventType('value'), snapshot => {
-      connector.setState({user: snapshot.val()})
+      connector.setState({player: snapshot.val()})
     }),
   listenBattle: () =>
     ref('/battles').on(setEventType('child_added'), snapshot => {
@@ -58,7 +58,7 @@ const addListener = (connector, ref, user, setEventType) => ({
 
 const addDispatcher = (connector, ref) => ({
   initialBattleUpdate(battleId, user, uid) {
-    db.ref(`battles`).once('value', snapshot => {
+    ref(`battles`).once('value', snapshot => {
       let battle = snapshot.child(battleId).val()
       if(battle.p1 === uid){
         ref(`/battles/${battleId}`).update({
@@ -72,7 +72,7 @@ const addDispatcher = (connector, ref) => ({
           ready: false,
           turn: 'playerOne'
         })
-      } else {
+      } else if (battle.p2 === uid) {
           ref(`/battles/${battleId}`).update({
             p2: user,
             p1done: false,
