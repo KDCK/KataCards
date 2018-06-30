@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router } from 'react-router-dom'
-import { Provider } from 'fire-connect'
-import firebase, { auth, db } from './firebase'
+import {Router} from 'react-router-dom'
+import {Provider} from 'fire-connect'
+import firebase, {auth, db} from './firebase'
 
 import './index.css'
 import App from './App'
@@ -19,6 +19,6 @@ ReactDOM.render(
       <App />
     </Router>
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 )
 registerServiceWorker()
