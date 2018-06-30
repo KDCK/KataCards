@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import { firebaseConnect } from 'fire-connect'
+import { Image } from 'semantic-ui-react'
 
 import Deck from './Deck'
 import Board from './Board'
 import Spinner from '../Loader/Spinner'
 import './GameBoard.css'
-import { Image } from 'semantic-ui-react';
 
 class GameBoard extends Component {
+  componentDidUpdate() {
+    this.props.checkDeck()    
+  }
+
   render() {
     if (!this.props.game) {
       return <Spinner />
@@ -48,6 +52,18 @@ const addListener = (connector, ref, user, setEventType) => ({
 })
 
 const addDispatcher = (connector, ref, user) => ({
+  checkDeck() {
+    ref(`/game/specialid/p1/${user.uid}/`).once('value', snapshot => {
+      if (snapshot.exists() && !snapshot.child('/deck').exists()) {
+        ref(`/game/specialid/p1done`).set('true')
+      }
+    })
+    ref(`/game/specialid/p2/${user.uid}/`).once('value', snapshot => {
+      if (snapshot.exists() && !snapshot.child('/deck').exists()) {
+        ref(`/game/specialid/p2done`).set('true')
+      }
+    })
+  },
   playedCard(cardId) {
     ref(`/game/specialid/p1/${user.uid}/`).once('value', snapshot => {
       if (!snapshot.exists()) {
@@ -62,19 +78,6 @@ const addDispatcher = (connector, ref, user) => ({
           ref(`/game/specialid/p1/${user.uid}/board/${card.id}`).set(card)
         })
         ref(`/game/specialid/p1/${user.uid}/deck/${cardId}`).remove()
-      }
-    })
-    this.checkDeck()
-  },
-  checkDeck() {
-    ref(`/game/specialid/p1/${user.uid}/`).once('value', snapshot => {
-      if (snapshot.exists() && !snapshot.child('/deck').exists()) {
-        ref(`/game/specialid/p1done`).set('true')
-      }
-    })
-    ref(`/game/specialid/p2/${user.uid}/`).once('value', snapshot => {
-      if (snapshot.exists() && !snapshot.child('/deck').exists()) {
-        ref(`/game/specialid/p2done`).set('true')
       }
     })
   }
