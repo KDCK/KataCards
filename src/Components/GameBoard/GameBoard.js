@@ -20,7 +20,7 @@ class GameBoard extends Component {
     const { playedCard, game, setTurn, setReady, user } = this.props
 
     if (game.p1done && game.p2done) {
-      return <Image src='/gameover.gif' />
+        return <GameOver game={game} />
     }
 
     if (!game.ready) {
