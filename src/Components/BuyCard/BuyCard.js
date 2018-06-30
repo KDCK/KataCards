@@ -58,36 +58,42 @@ class BuyCard extends Component {
 
   render() {
     return !this.state.purchased ? (
-      <div className="store-container">
-        <h1>Welcome to the Card Store</h1>
-        <p>
-          Purchasing from a higher Tier increases the likelihood of getting a
-          better card, but does not guarantee it!
-        </p>
-        <h3>You have {this.props.user.gold} gold</h3>
-        <h3>How much do you want to spend?</h3>
-        <p>
-          Tier 1: 1 Gold<br />Tier 2: 2 Gold<br />Tier 3: 3 Gold
-        </p>
-        <FormDropDown
-          purchaseCard={this.purchaseCard}
-          handleChange={this.handleChange}
-        />
-        {this.state.enoughCurrency ? null : <h1>Not enough gold!</h1>}
+      <div>
+        <img className="store-img" alt="home background" src="cardstore.gif" />
+        <div className="store-container">
+          <h1>Welcome to the Card Store</h1>
+          <h4>
+            Purchasing from a higher Tier increases the likelihood of getting a
+            better card, but does not guarantee it!
+          </h4>
+          <h3>You have {this.props.user.gold} gold</h3>
+          <h3>How much do you want to spend?</h3>
+          <p>
+            Tier 1: 1 Gold<br />Tier 2: 2 Gold<br />Tier 3: 3 Gold
+          </p>
+          <FormDropDown
+            purchaseCard={this.purchaseCard}
+            handleChange={this.handleChange}
+          />
+          {this.state.enoughCurrency ? null : <h1>Not enough gold!</h1>}
+        </div>
       </div>
     ) : (
-      <div className="store-container">
-        <h1>You bought: {this.state.purchasedCard.name}!</h1>
-        <h2>Tier {this.state.purchasedCard.tier}</h2>
-        <SingleCard card={this.state.purchasedCard} />
-        <h3>You have {this.props.user.gold} gold left</h3>
-        <Button
-          onClick={this.backToStore}
-          className="back-to-store"
-          waves="red"
-        >
-          Try Again?
-        </Button>
+      <div>
+        <img className="store-img" alt="home background" src="cardstore.gif" />
+        <div className="store-bought">
+          <h1>You bought: {this.state.purchasedCard.name}!</h1>
+          <h2>Tier {this.state.purchasedCard.tier}</h2>
+          <SingleCard card={this.state.purchasedCard} />
+          <h3>You have {this.props.user.gold} gold left</h3>
+          <Button
+            onClick={this.backToStore}
+            className="back-to-store"
+            waves="red"
+          >
+            Try Again?
+          </Button>
+        </div>
       </div>
     )
   }

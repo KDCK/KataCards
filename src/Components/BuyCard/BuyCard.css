@@ -1,13 +1,8 @@
 .store-container {
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  width: 50vw;
-  align-items: center;
-  align-content: center;
-  text-align: center;
-}
-.store-container {
+  color: white;
+  position: absolute;
+  top: 20vh;
+  left: 50vw;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -17,5 +12,51 @@
   text-align: center;
 }
 
-.update {
+.store-container > * {
+  text-shadow: 2px 2px black;
+  font-weight: bold;
+}
+
+.store-container > form {
+  text-shadow: 0 0 black;
+}
+
+.store-bought {
+  color: white;
+  position: absolute;
+  top: 10vh;
+  left: 50vw;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 50vw;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.store-bought > h1,
+h2,
+h3 {
+  text-shadow: 2px 2px black;
+}
+
+.store-bought > button {
+  text-shadow: 1px 1px black;
+  background-color: red;
+}
+
+.store-bought > button:hover {
+  text-shadow: 1px 1px black;
+  background-color: rgb(45, 76, 216);
+}
+
+.store-bought > card {
+  text-shadow: 0px 0px black;
+}
+
+.store-img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: 'cover';
 }
