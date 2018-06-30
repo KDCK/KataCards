@@ -7,19 +7,29 @@ import './Home.css'
 class Home extends Component {
   constructor(props) {
     super(props)
-    this.state = {waiting: false}
+    this.state = {waiting: false, matchReady: false}
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps !== this.props) {
+      this.props.queue && Object.keys(this.props.queue).length >= 2
+        ? this.setState({matchReady: true})
+        : null
+    }
+  }
+
   joinQueue(user) {
     this.setState({waiting: true})
     this.props.queueUser(user)
   }
 
   async startBattle(user, queue, battles) {
-    this.props.user.in_battle !== false &&
-    this.props.user.in_battle !== 'waiting'
-      ? this.props.history.push('/stagingarea')
-      : await this.props.joinBattle(user, queue, battles)
-    this.props.history.push('/stagingarea')
+    if (this.props.queue && Object.keys(this.props.queue).length >= 2) {
+      await this.props.joinBattle(user, queue, battles)
+      this.props.history.push('/stagingarea')
+    } else {
+      this.props.history.push('/stagingarea')
+    }
   }
 
   render() {
@@ -39,7 +49,7 @@ class Home extends Component {
                 : 'Join Battle Queue'}
             </Button>
           </div>
-          {this.props.queue && Object.keys(this.props.queue).length >= 2 ? (
+          {this.state.matchReady ? (
             <div className="home-buttons-top">
               <Button
                 large
@@ -125,6 +135,7 @@ const addDispatcher = (connector, ref) => ({
       updates[`/users/${queuedPlayers[1]}/in_battle`] = newBattleKey
 
       ref().update(updates)
+      return newBattleKey
     }
   }
 })
