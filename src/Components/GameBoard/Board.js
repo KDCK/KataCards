@@ -13,7 +13,7 @@ const Board = (props) => {
   return (
     <Row>
       {Object.values(board).map(card => (
-        <Col key={card.id} l={1} style={{ marginBottom: '-15px', width: '200px' }}>
+        <Col key={card.name} l={1} style={{ marginBottom: '-15px', width: '200px' }}>
           <PlayedCard card={card} playedCard={props.playedCard} />
         </Col>
       ))}
