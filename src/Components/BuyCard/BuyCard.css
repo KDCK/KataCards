@@ -1,13 +1,8 @@
 .store-container {
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  width: 50vw;
-  align-items: center;
-  align-content: center;
-  text-align: center;
-}
-.store-container {
+  color: white;
+  position: absolute;
+  top: 20vh;
+  left: 50vw;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -17,5 +12,29 @@
   text-align: center;
 }
 
-.update {
+.store-container > * {
+  text-shadow: 2px 2px black;
+}
+
+.store-container > form {
+  text-shadow: 0 0 black;
+}
+
+.store-bought {
+  text-shadow: 2px 2px 2px 2px black;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  background: lightgray;
+}
+
+.store-img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: 'cover';
 }
