@@ -1,14 +1,44 @@
 import React, {Component} from 'react'
 import {firebaseConnect} from 'fire-connect'
+import {db} from '../../firebase'
 import {Button} from 'react-materialize'
 import {withRouter, Link} from 'react-router-dom'
 
 class StagingArea extends Component {
+  constructor(props){
+    super(props)
+
+    this.state = {}
+  }
+  async componentDidUpdate() {
+    if (!this.state.firstUpdate){
+      let battleId = this.props.history.location.pathname.slice(13)
+      this.props.initialBattleUpdate(battleId, this.props.user, this.props.auth.currentUser.uid)
+      this.setState({firstUpdate: true})
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if(nextProps.battle){
+      if(
+        (nextProps.battle.p1 === this.props.auth.currentUser.uid &&
+          nextProps.battle.p2 !== this.props.auth.currentUser.uid
+        ) ||
+        (nextProps.battle.p2 === this.props.auth.currentUser.uid &&
+          nextProps.battle.p1 !== this.props.auth.currentUser.uid
+       )
+       ) {
+          return true
+        }
+    } else {
+        return false
+    }
+  }
+
   render() {
-    console.log(this.props.battle)
     return (
       <div>
-        <h1>Welcome to the Staging Arrea</h1>
+        <h1>Welcome to the Staging Area</h1>
         <p>Select your deck!</p>
       </div>
     )
@@ -16,13 +46,10 @@ class StagingArea extends Component {
 }
 
 const addListener = (connector, ref, user, setEventType) => ({
-  // listenUser: () =>
-  //   ref(`/users/${connector.props.user.uid}`).on(
-  //     setEventType('value'),
-  //     snapshot => {
-  //       connector.setState({user: snapshot.val()})
-  //     }
-  //   ),
+  listenUser: () =>
+    ref(`/users/${connector.props.auth.currentUser.uid}`).on(setEventType('value'), snapshot => {
+      connector.setState({user: snapshot.val()})
+    }),
   listenBattle: () =>
     ref('/battles').on(setEventType('child_added'), snapshot => {
       connector.setState({battle: snapshot.val()})
@@ -30,18 +57,36 @@ const addListener = (connector, ref, user, setEventType) => ({
 })
 
 const addDispatcher = (connector, ref) => ({
-  queueUser(user) {
-    if (!user.in_battle) {
-      ref(`/queue/${connector.props.user.uid}`)
-        .push()
-        .set(user)
-      ref(`/users/${connector.props.user.uid}`).update({
-        in_battle: 'waiting'
-      })
-    }
+  initialBattleUpdate(battleId, user, uid) {
+    db.ref(`battles`).once('value', snapshot => {
+      let battle = snapshot.child(battleId).val()
+      if(battle.p1 === uid){
+        ref(`/battles/${battleId}`).update({
+          p1: user,
+          p1done: false,
+          p2done: false,
+          p1atk: 0,
+          p2atk: 0,
+          p1def: 0,
+          p2def: 0,
+          ready: false,
+          turn: 'playerOne'
+        })
+      } else {
+          ref(`/battles/${battleId}`).update({
+            p2: user,
+            p1done: false,
+            p2done: false,
+            p1atk: 0,
+            p2atk: 0,
+            p1def: 0,
+            p2def: 0,
+            ready: false,
+            turn: 'playerOne'
+          })
+      }
+    })
   }
 })
 
-export default firebaseConnect(addListener, addDispatcher)(
-  withRouter(StagingArea)
-)
+export default firebaseConnect(addListener, addDispatcher)(withRouter(StagingArea))

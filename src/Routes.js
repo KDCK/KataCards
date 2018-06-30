@@ -43,7 +43,7 @@ class Routes extends Component {
           />
           <Route exact path="/cardstore" component={AuthorizedUser(BuyCard)} />
           <Route exact path="/gameboard" component={GameBoard} />
-          <Route exact path="/stagingarea/:battleId" component={StagingArea} />
+          <Route exact path="/stagingarea/:battleId" component={AuthorizedUser(StagingArea)} />
         </Switch>
       </div>
     )
