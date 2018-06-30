@@ -39,8 +39,7 @@ class Home extends Component {
                 : 'Join Battle Queue'}
             </Button>
           </div>
-          {this.props.user.in_battle !== false &&
-          this.props.user.in_battle !== 'waiting' ? (
+          {this.props.queue && Object.keys(this.props.queue).length >= 2 ? (
             <div className="home-buttons-top">
               <Button
                 large
