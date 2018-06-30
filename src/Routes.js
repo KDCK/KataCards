@@ -13,6 +13,7 @@ import {
   BuyCard,
   GameBoard,
   UserDeck,
+  GameOver,
 } from './Components'
 import LandingPage from './Components/Landing/LandingPage'
 import AuthorizedUser from './Components/HOC/AuthorizedUser'
@@ -41,6 +42,7 @@ class Routes extends Component {
           />
           <Route exact path="/cardstore" component={AuthorizedUser(BuyCard)} />
           <Route exact path="/gameboard" component={AuthorizedUser(GameBoard)} />
+          <Route exact path="/gameover" component={AuthorizedUser(GameOver)} />
         </Switch>
       </div>
     )

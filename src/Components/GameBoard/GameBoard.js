@@ -1,23 +1,19 @@
 import React, { Component } from 'react'
 import { firebaseConnect } from 'fire-connect'
-import { Image } from 'semantic-ui-react'
 
 import Deck from './Deck'
 import Board from './Board'
 import Spinner from '../Loader/Spinner'
+import GameOver from './GameOver'
 import './GameBoard.css'
 
 class GameBoard extends Component {
-  componentDidUpdate() {
-    this.props.checkDeck()    
-  }
-
   render() {
     if (!this.props.game) {
       return <Spinner />
     }
     if(this.props.game.p1done && this.props.game.p2done) {
-      return <Image src='/gameover.gif' />
+      return <GameOver gameStats={'GAME_STATS_OBJ'}/>
     }
     return (
       <div className="game-container">
@@ -52,18 +48,6 @@ const addListener = (connector, ref, user, setEventType) => ({
 })
 
 const addDispatcher = (connector, ref, user) => ({
-  checkDeck() {
-    ref(`/game/specialid/p1/${user.uid}/`).once('value', snapshot => {
-      if (snapshot.exists() && !snapshot.child('/deck').exists()) {
-        ref(`/game/specialid/p1done`).set('true')
-      }
-    })
-    ref(`/game/specialid/p2/${user.uid}/`).once('value', snapshot => {
-      if (snapshot.exists() && !snapshot.child('/deck').exists()) {
-        ref(`/game/specialid/p2done`).set('true')
-      }
-    })
-  },
   playedCard(cardId) {
     ref(`/game/specialid/p1/${user.uid}/`).once('value', snapshot => {
       if (!snapshot.exists()) {
@@ -78,6 +62,19 @@ const addDispatcher = (connector, ref, user) => ({
           ref(`/game/specialid/p1/${user.uid}/board/${card.id}`).set(card)
         })
         ref(`/game/specialid/p1/${user.uid}/deck/${cardId}`).remove()
+      }
+    })
+
+  },
+  checkDeck() {
+    ref(`/game/specialid/p1/${user.uid}/`).once('value', snapshot => {
+      if (snapshot.exists() && !snapshot.child('/deck').exists()) {
+        ref(`/game/specialid/p1done`).set('true')
+      }
+    })
+    ref(`/game/specialid/p2/${user.uid}/`).once('value', snapshot => {
+      if (snapshot.exists() && !snapshot.child('/deck').exists()) {
+        ref(`/game/specialid/p2done`).set('true')
       }
     })
   }

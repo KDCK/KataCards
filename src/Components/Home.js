@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Garbage from './garbage/Garbage.js'
 import { firebaseConnect } from 'fire-connect'
 import { Button } from 'react-materialize'
 import { Link } from 'react-router-dom'
@@ -13,6 +14,7 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <Garbage />
         <img className="home-img" alt="home background"
           src="home.png" />
         <div className="home-buttons">

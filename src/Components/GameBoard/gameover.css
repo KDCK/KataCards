@@ -1,0 +1,10 @@
+.gameover-card{
+  position: absolute;
+  text-align: center;
+  width: 165vw;
+  margin-top: 150px;
+}
+
+.gameover-buttons{
+  margin-top: 10px;
+}
