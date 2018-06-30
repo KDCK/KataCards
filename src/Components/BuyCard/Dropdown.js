@@ -1,14 +1,5 @@
 import React, {Component} from 'react'
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  Radio,
-  Select,
-  TextArea,
-  Dropdown
-} from 'semantic-ui-react'
+import {Button, Form, Select} from 'semantic-ui-react'
 
 const options = [
   {key: '1', text: 'Tier 1', value: '1'},
@@ -34,7 +25,7 @@ class FormDropDown extends Component {
             placeholder="Tier"
           />
         </Form.Group>
-        <Button>Buy!</Button>
+        <Button color="red">Buy!</Button>
       </Form>
     )
   }
