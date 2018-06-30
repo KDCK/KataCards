@@ -6,9 +6,8 @@ import PlayedCard from './PlayedCard'
 const Board = (props) => {
   
   const { board } = props
-  console.log(board);
   
-  if(board === 'empty') {
+  if (board === undefined || board === null) {
     return null
   }
   return (
