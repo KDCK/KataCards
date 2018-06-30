@@ -35,21 +35,20 @@ class StagingArea extends Component {
       ) {
         return true
       }
-    } else {
-      return false
     }
+    return false
   }
 
   render() {
+    console.log('PROPSSSSS', this.props)
     return (
       <div>
         <h1>Welcome to the Staging Area</h1>
         <p>Select your deck!</p>
         <Row>
-          {!this.props.cards ? (
+          {!this.props.player ? (
             <Spinner />
           ) : (
-            this.props.player &&
             this.props.player.cards.map(card => (
               <Col key={card.id} s={2} m={2} style={{paddingBottom: '15px'}}>
                 <SingleCard card={card} />
