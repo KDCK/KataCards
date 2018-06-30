@@ -9,15 +9,21 @@ import './GameBoard.css'
 
 class GameBoard extends Component {
   componentDidUpdate() {
-    this.props.checkDeck()    
+    this.props.checkDeck()
   }
-
   render() {
     if (!this.props.game) {
       return <Spinner />
     }
-    if(this.props.game.p1done && this.props.game.p2done) {
+    const { playedCard, game, setTurn, setReady, user } = this.props
+
+    if (game.p1done && game.p2done) {
       return <Image src='/gameover.gif' />
+    }
+    if (!game.ready) {
+      const turn = Math.random() >= 0.5
+      turn ? setTurn('playerOne') : setTurn('playerTwo')
+      setReady()
     }
     return (
       <div className="game-container">
@@ -25,20 +31,20 @@ class GameBoard extends Component {
           {/* TODO: GET CARDBACK PLACEHOLDERS */}
         </div>
         <div className="gameboard-player1">
-          {this.props.user.uid === Object.keys(this.props.game.p2)[0]
-            ? <Board {...this.props.game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} />
-            : <Board {...this.props.game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} />}
+          {user.uid === Object.keys(game.p2)[0]
+            ? <Board {...game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} />
+            : <Board {...game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} />}
         </div>
         <hr />
         <div className="gameboard-player2">
-          {this.props.user.uid === Object.keys(this.props.game.p1)[0]
-            ? <Board {...this.props.game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} />
-            : <Board {...this.props.game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} />}
+          {user.uid === Object.keys(game.p1)[0]
+            ? <Board {...game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} />
+            : <Board {...game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} />}
         </div>
         <div className="player2-board-deck">
-          {this.props.user.uid === Object.keys(this.props.game.p1)[0]
-            ? <Deck {...this.props.game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} playedCard={this.props.playedCard} />
-            : <Deck {...this.props.game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} playedCard={this.props.playedCard} />}
+          {user.uid === Object.keys(game.p1)[0]
+            ? <Deck {...game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} turn={game.turn} playedCard={playedCard} />
+            : <Deck {...game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} turn={game.turn} playedCard={playedCard} />}
         </div>
       </div>
     )
@@ -64,22 +70,30 @@ const addDispatcher = (connector, ref, user) => ({
       }
     })
   },
-  playedCard(cardId) {
+  playedCard(cardId, turn) {
     ref(`/game/specialid/p1/${user.uid}/`).once('value', snapshot => {
-      if (!snapshot.exists()) {
+      if (!snapshot.exists() && turn === 'playerTwo') {
         ref(`/game/specialid/p2/${user.uid}/deck/${cardId}`).once('value', snapshot => {
           const card = snapshot.val()
           ref(`/game/specialid/p2/${user.uid}/board/${card.id}`).set(card)
         })
         ref(`/game/specialid/p2/${user.uid}/deck/${cardId}`).remove()
-      } else if (snapshot.exists()) {
+        ref(`/game/specialid/turn`).set('playerOne')
+      } else if (snapshot.exists() && turn === 'playerOne') {
         ref(`/game/specialid/p1/${user.uid}/deck/${cardId}`).once('value', snapshot => {
           const card = snapshot.val()
           ref(`/game/specialid/p1/${user.uid}/board/${card.id}`).set(card)
         })
         ref(`/game/specialid/p1/${user.uid}/deck/${cardId}`).remove()
+        ref(`/game/specialid/turn`).set('playerTwo')
       }
     })
+  },
+  setTurn(whosTurn) {
+    ref(`/game/specialid/turn`).set(whosTurn)
+  },
+  setReady() {
+    ref(`/game/specialid/ready`).set(true)
   }
 })
 

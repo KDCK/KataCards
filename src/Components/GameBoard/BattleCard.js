@@ -2,9 +2,9 @@ import React from 'react'
 import { Card, Image, Icon } from 'semantic-ui-react'
 
 const BattleCard = props => { 
-  const { card, playedCard } = props
+  const { card, playedCard, turn } = props
   return (
-    <Card onClick={() => playedCard(card.id)}>
+    <Card onClick={() => playedCard(card.id, turn)}>
       <Card.Content>
         <Image src="/skeleton_warrior.png" style={{marginBottom: '10px'}}/>
         <Card.Header>{card.name}</Card.Header>
