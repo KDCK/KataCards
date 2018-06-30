@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {db} from '../firebase'
 import {firebaseConnect} from 'fire-connect'
 import {Button} from 'react-materialize'
 import {withRouter, Link} from 'react-router-dom'
@@ -10,7 +11,7 @@ class Home extends Component {
     this.state = {waiting: false, matchReady: false}
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
       this.props.queue && Object.keys(this.props.queue).length >= 2
         ? this.setState({matchReady: true})
@@ -24,11 +25,26 @@ class Home extends Component {
   }
 
   async startBattle(user, queue, battles) {
+    console.log(battles)
+    let newBattle = null
     if (this.props.queue && Object.keys(this.props.queue).length >= 2) {
-      await this.props.joinBattle(user, queue, battles)
-      this.props.history.push('/stagingarea')
+      newBattle = await this.props.joinBattle(user, queue, battles)
+      this.props.history.push(`/stagingarea/${newBattle}`)
     } else {
-      this.props.history.push('/stagingarea')
+      db.ref('/battles').on('child_added', snapshot => {
+        console.log(snapshot.key)
+        newBattle = snapshot.key
+      })
+      // for (let key in battles) {
+      //   if (
+      //     battles[key].p1 === this.props.auth.currentUser.uid ||
+      //     battles[key].p2 === this.props.auth.currentUser.uid
+      //   ) {
+      //     newBattle = battles[key]
+      //     console.log(newBattle)
+      //   }
+      // }
+      this.props.history.push(`/stagingarea/${newBattle}`)
     }
   }
 
