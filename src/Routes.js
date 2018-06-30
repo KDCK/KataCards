@@ -30,16 +30,9 @@ class Routes extends Component {
           <Route exact path="/update" component={Update} />
           <Route exact path="/logout" component={LandingPage} />
           <Route exact path="/home" component={AuthorizedUser(Home)} />{' '}
-          {/* maybe we replace w/ a splash screen */}
           <Route exact path="/trade" component={AuthorizedUser(Trade)} />
           <Route exact path="/profile" component={AuthorizedUser(Profile)} />
           <Route exact path="/userdeck" component={AuthorizedUser(UserDeck)} />
-          {/* maybe we replace w/ a splash screen */}
-          <Route
-            exact
-            path="/profile"
-            render={() => <Profile authUser={this.props.authUser} />}
-          />
           <Route exact path="/cardstore" component={AuthorizedUser(BuyCard)} />
           <Route exact path="/gameboard" component={AuthorizedUser(GameBoard)} />
           <Route exact path="/gameover" component={AuthorizedUser(GameOver)} />

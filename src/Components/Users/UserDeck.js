@@ -109,13 +109,8 @@ const dummyCards =[
 ]
 
 class UserDeck extends Component {
-  componentDidMount() {
-    console.log('mounted');
-  }
-
   render() {
     const cards = this.props.user.cards
-    console.log("userdeck: ", this.props.user)
     return (
         <Row className="user-deck">
           {!cards ? null: dummyCards.map(card => (
