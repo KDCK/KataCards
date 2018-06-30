@@ -11,7 +11,9 @@ class UpdateGold extends Component {
   }
 
   async handleClick() {
-    let codeWarsObject = await axios.get(`/api/code/${this.props.user.codeName}`)
+    let codeWarsObject = await axios.get(
+      `/api/code/${this.props.user.codeName}`
+    )
     let newChallengesNumber = codeWarsObject.data.codeChallenges.totalCompleted
     let prevGold = this.props.user.gold
     prevGold += newChallengesNumber - this.props.user.challenges
@@ -25,7 +27,7 @@ class UpdateGold extends Component {
     return (
       <div onClick={this.handleClick}>
         <Button as="div" labelPosition="right">
-          <Button icon>Update Gold</Button>
+          <Button color="violet">Collect your CodeWars Gold!</Button>
           <Label as="a" basic pointing="left">
             {this.props.user.gold}
           </Label>
