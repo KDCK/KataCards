@@ -12,7 +12,7 @@ class Profile extends Component {
     const { cards } = this.props.user
     return (
       <div className="profile">
-        <UserCard {...this.props.user} />
+        <UserCard />
         <Row>
         {!cards ? <Spinner /> :
           cards.map(card => (

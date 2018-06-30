@@ -1,13 +1,14 @@
-import React, {Component} from 'react'
-import {firebaseConnect} from 'fire-connect'
+import React, { Component } from 'react'
+import { firebaseConnect } from 'fire-connect'
 
-import {withRouter} from 'react-router-dom'
-import FormDropDown from './Dropdown'
-import {randomCardGenerator} from './RandomCardGenerator'
+import { withRouter } from 'react-router-dom'
+import DropDown from './Dropdown'
+import { randomCardGenerator } from './RandomCardGenerator'
 import SingleCard from '../Cards/SingleCard'
-import {Button} from 'react-materialize'
+import { Button } from 'react-materialize'
 
 import './BuyCard.css'
+import { ENGINE_METHOD_DIGESTS } from 'constants';
 
 class BuyCard extends Component {
   constructor(props) {
@@ -17,7 +18,8 @@ class BuyCard extends Component {
       gold: 0,
       enoughCurrency: true,
       purchased: false,
-      purchasedCard: undefined
+      purchasedCard: undefined,
+      selected: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.purchaseCard = this.purchaseCard.bind(this)
@@ -27,10 +29,10 @@ class BuyCard extends Component {
   async purchaseCard() {
     const goldSpent = this.state.goldSpent
     if (this.props.user.gold < goldSpent) {
-      this.setState({enoughCurrency: false})
+      this.setState({ enoughCurrency: false })
       return
     } else {
-      this.setState({enoughCurrency: true})
+      this.setState({ enoughCurrency: true })
     }
 
     const allCards = await this.props.getCards()
@@ -48,48 +50,55 @@ class BuyCard extends Component {
   }
 
   // Must destructure value because of the way Semantic UI Component (Dropdown.js) handles options
-  handleChange(evt, {value}) {
-    this.setState({goldSpent: Number(value)})
+  handleChange(evt, { value }) {
+    this.setState({ goldSpent: Number(value), selected: true })
   }
 
   backToStore(evt) {
-    this.setState({purchased: false})
+    this.setState({ purchased: false })
   }
 
   render() {
     return !this.state.purchased ? (
-      <div className="store-container">
-        <h1>Welcome to the Card Store</h1>
-        <p>
-          Purchasing from a higher Tier increases the likelihood of getting a
-          better card, but does not guarantee it!
-        </p>
-        <h3>You have {this.props.user.gold} gold</h3>
-        <h3>How much do you want to spend?</h3>
-        <p>
-          Tier 1: 1 Gold<br />Tier 2: 2 Gold<br />Tier 3: 3 Gold
-        </p>
-        <FormDropDown
-          purchaseCard={this.purchaseCard}
-          handleChange={this.handleChange}
-        />
-        {this.state.enoughCurrency ? null : <h1>Not enough gold!</h1>}
+      <div>
+        <img className="store-img" alt="home background" src="cardstore.gif" />
+        <div className="store-container">
+          <h1>Welcome to the Card Store</h1>
+          <h4>
+            Purchasing from a higher Tier increases the likelihood of getting a
+            better card, but does not guarantee it!
+          </h4>
+          <h3>You have {this.props.user.gold} gold</h3>
+          <h3>How much do you want to spend?</h3>
+          <p>
+            Tier 1: 1 Gold<br />Tier 2: 2 Gold<br />Tier 3: 3 Gold
+          </p>
+          <DropDown
+            selected={this.state.selected}
+            purchaseCard={this.purchaseCard}
+            handleChange={this.handleChange}
+          />
+          {this.state.enoughCurrency ? null : <h1>Not enough gold!</h1>}
+        </div>
       </div>
     ) : (
-      <div className="store-container">
-        <h1>You bought: {this.state.purchasedCard.name}!</h1>
-        <h2>Tier {this.state.purchasedCard.tier}</h2>
-        <SingleCard card={this.state.purchasedCard} />
-        <h3>You have {this.props.user.gold} gold left</h3>
-        <Button
-          onClick={this.backToStore}
-          className="back-to-store"
-          waves="red"
-        >
-          Try Again?
-        </Button>
-      </div>
-    )
+        <div>
+          <img className="store-img" alt="home background" src="cardstore.gif" />
+          <div className="store-bought">
+            <h1>You bought: {this.state.purchasedCard.name}!</h1>
+            <h2>Tier {this.state.purchasedCard.tier}</h2>
+            <SingleCard card={this.state.purchasedCard} />
+            <h3>You have {this.props.user.gold} gold left</h3>
+            <Button
+              onClick={this.backToStore}
+              className="back-to-store"
+              waves="red"
+            >
+              Try Again?
+          </Button>
+          </div>
+        </div>
+      )
   }
 }
 
@@ -98,7 +107,7 @@ const addListener = (connector, ref, user, setEventType) => ({
     ref(`/users/${connector.props.user.uid}`).on(
       setEventType('value'),
       snapshot => {
-        connector.setState({user: snapshot.val()})
+        connector.setState({ user: snapshot.val() })
       }
     )
 })

@@ -20,7 +20,6 @@ const SingleCard = props => {
       <Card.Content extra>
         <Icon name="legal" />
         {card.atk}
-        {'                            '}
         <Icon name="target" />
         {card.def}
       </Card.Content>
