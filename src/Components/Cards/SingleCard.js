@@ -1,11 +1,11 @@
 import React from 'react'
-import {Card, Image, Icon, Popup} from 'semantic-ui-react'
+import { Card, Image, Icon, Popup } from 'semantic-ui-react'
 import './SingleCard.css'
 
 const SingleCard = props => {
-  const {card} = props
+  const { card } = props
   return (
-    <Card>
+    <Card onClick={() => props.selectCard(card)}>
       <Card.Content>
         <Image src="/skeleton_warrior.png" />
         <Card.Header>{card.name}</Card.Header>

@@ -11,18 +11,22 @@ import './StagingArea.css'
 class StagingArea extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      deck: []
+    this.selectCard = this.selectCard.bind(this)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.player && !prevProps.player) {
+      const { player, user } = this.props
+      console.log('asdfjha')
+
+      this.props.initializeBattle(player.in_battle, player, user.uid)
     }
   }
 
-  componentDidUpdate(prevProps) {    
-    if (this.props.player && !prevProps.player) {
-      const { player, user } = this.props      
-      console.log('asdfjha');
-      
-      this.props.initializeBattle(player.in_battle, player, user.uid)
-    }
+  selectCard(card) {
+    console.log(card)
+    // const { player, user } = this.props
+    // this.props.updateDeck(player.in_battle, card, user.uid)
   }
 
   render() {
@@ -34,12 +38,19 @@ class StagingArea extends Component {
           {!this.props.player ? (
             <Spinner />
           ) : (
-              this.props.player.cards.map(card => (
-                <Col key={card.id} s={2} m={2} style={{ paddingBottom: '15px' }}>
-                  <SingleCard card={card} />
-                </Col>
-              ))
-            )}
+            this.props.player.cards.map(card => (
+              <Col
+                // onClick={this.selectCard}
+                // value={card}
+                key={card.id}
+                s={2}
+                m={2}
+                style={{ paddingBottom: '15px' }}
+              >
+                <SingleCard selectCard={this.selectCard} card={card} />
+              </Col>
+            ))
+          )}
         </Row>
       </div>
     )
@@ -63,7 +74,7 @@ const addListener = (connector, ref, user, setEventType) => ({
 const addDispatcher = (connector, ref) => ({
   initializeBattle(battleId, user, uid) {
     ref(`/battles/${battleId}`).once('value', snapshot => {
-      const battle = snapshot.val()    
+      const battle = snapshot.val()
       if (battle.p1 === uid) {
         const p1 = {}
         p1[uid] = user
@@ -97,8 +108,10 @@ const addDispatcher = (connector, ref) => ({
       }
     })
   },
-  updateBattleDeck(battleId, user, uid) {
-    // TO-DO
+  updateDeck(battleId, card, uid) {
+    ref(`battles/${battleId}/p1/${uid}`).update({
+      deck: card
+    })
   }
 })
 

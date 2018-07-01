@@ -4,6 +4,6 @@ tabWidth: 2 # 2
 semi: false # true
 singleQuote: true # false
 # trailingComma: none # none | es5 | all
-bracketSpacing: false # true
+bracketSpacing: true
 # jsxBracketSameLine: false # false
 # arrowParens: avoid # avoid | always
