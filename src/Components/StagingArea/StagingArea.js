@@ -37,6 +37,8 @@ class StagingArea extends Component {
         <Row>
           {!this.props.player ? (
             <Spinner />
+          ) : !this.props.player.deck ? (
+            <h1>You have no cards!</h1>
           ) : (
             this.props.player.deck.map(card => (
               <Col
@@ -53,6 +55,8 @@ class StagingArea extends Component {
           <hr />
           {!this.props.player ? (
             <Spinner />
+          ) : !this.props.player.cards ? (
+            <h1>You have no cards!</h1>
           ) : (
             this.props.player.cards.map(card => (
               <Col
@@ -134,6 +138,9 @@ const addDispatcher = (connector, ref) => ({
         ref(`battles/${battleId}/p1/${uid}/deck/${deckKey}`).update({
           id: deckKey
         })
+        const cardsKey = ref(
+          `battles/${battleId}/p1/${uid}/cards/deckKey`
+        ).remove()
       } else if (battle.p2uid === uid) {
         const cardKey = ref(`battles/${battleId}/p2/${uid}/deck`).push(card).key
         console.log('CARDKEY', cardKey)

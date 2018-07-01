@@ -8,7 +8,7 @@ import SingleCard from '../Cards/SingleCard'
 import { Button } from 'react-materialize'
 
 import './BuyCard.css'
-import { ENGINE_METHOD_DIGESTS } from 'constants';
+import { ENGINE_METHOD_DIGESTS } from 'constants'
 
 class BuyCard extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class BuyCard extends Component {
       enoughCurrency: true,
       purchased: false,
       purchasedCard: undefined,
-      selected: false,
+      selected: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.purchaseCard = this.purchaseCard.bind(this)
@@ -82,23 +82,23 @@ class BuyCard extends Component {
         </div>
       </div>
     ) : (
-        <div>
-          <img className="store-img" alt="home background" src="cardstore.gif" />
-          <div className="store-bought">
-            <h1>You bought: {this.state.purchasedCard.name}!</h1>
-            <h2>Tier {this.state.purchasedCard.tier}</h2>
-            <SingleCard card={this.state.purchasedCard} />
-            <h3>You have {this.props.user.gold} gold left</h3>
-            <Button
-              onClick={this.backToStore}
-              className="back-to-store"
-              waves="red"
-            >
-              Try Again?
+      <div>
+        <img className="store-img" alt="home background" src="cardstore.gif" />
+        <div className="store-bought">
+          <h1>You bought: {this.state.purchasedCard.name}!</h1>
+          <h2>Tier {this.state.purchasedCard.tier}</h2>
+          <SingleCard card={this.state.purchasedCard} />
+          <h3>You have {this.props.user.gold} gold left</h3>
+          <Button
+            onClick={this.backToStore}
+            className="back-to-store"
+            waves="red"
+          >
+            Try Again?
           </Button>
-          </div>
         </div>
-      )
+      </div>
+    )
   }
 }
 
@@ -127,7 +127,9 @@ const addDispatcher = (connector, ref, user) => ({
     await ref(`users/${user.uid}`).once('value', snapshot => {
       let thisUser = snapshot.val()
       let prevGold = thisUser.gold
-      let prevCards = thisUser.cards
+      let prevCards = null
+
+      if (!thisUser.cards) prevCards = []
 
       prevGold -= goldSpent
       prevCards = [...prevCards, chosenCard]
