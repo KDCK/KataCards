@@ -7,6 +7,8 @@ import {withRouter, Link} from 'react-router-dom'
 import SingleCard from '../Cards/SingleCard.js'
 import Spinner from '../Loader/Spinner.js'
 
+import './StagingArea.css'
+
 class StagingArea extends Component {
   constructor(props) {
     super(props)
@@ -44,9 +46,9 @@ class StagingArea extends Component {
   render() {
     console.log('PROPSSSSS', this.props)
     return (
-      <div>
+      <div className="staging-area-main">
         <h1>Welcome to the Staging Area</h1>
-        <p>Select your deck!</p>
+        <h3>Select your deck!</h3>
         <Row>
           {!this.props.player ? (
             <Spinner />

@@ -86,7 +86,7 @@ class Home extends Component {
               <Button
                 large
                 style={
-                  this.state.waiting
+                  this.state.matchReady
                     ? {animation: 'glowing 1500ms infinite'}
                     : {animation: 'none'}
                 }
