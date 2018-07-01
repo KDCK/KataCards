@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import { firebaseConnect } from 'fire-connect'
-import { Button } from 'react-materialize'
+import {firebaseConnect} from 'fire-connect'
+import {Button} from 'react-materialize'
 import {withRouter, Link} from 'react-router-dom'
 
 import {db} from '../firebase'
@@ -36,15 +36,7 @@ class Home extends Component {
         console.log(snapshot.key)
         newBattle = snapshot.key
       })
-      // for (let key in battles) {
-      //   if (
-      //     battles[key].p1 === this.props.auth.currentUser.uid ||
-      //     battles[key].p2 === this.props.auth.currentUser.uid
-      //   ) {
-      //     newBattle = battles[key]
-      //     console.log(newBattle)
-      //   }
-      // }
+
       this.props.history.push(`/stagingarea/${newBattle}`)
     }
   }
@@ -61,9 +53,11 @@ class Home extends Component {
               waves="purple"
               onClick={() => this.joinQueue(this.props.user)}
             >
-              {this.state.waiting
-                ? 'Waiting For Match...'
-                : 'Join Battle Queue'}
+              {this.state.matchReady
+                ? 'Match Found!'
+                : this.state.waiting
+                  ? 'Waiting for Match...'
+                  : 'Join Battle Queue'}
             </Button>
           </div>
           {this.state.matchReady ? (
