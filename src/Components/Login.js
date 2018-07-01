@@ -4,7 +4,7 @@ import {Row, Input, Button} from 'react-materialize'
 import {firebaseConnect} from 'fire-connect'
 
 import Spinner from '../Components/Loader/Spinner'
-import firebase, {auth, db} from '../firebase'
+import firebase, {auth} from '../firebase'
 import './Login.css'
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
@@ -38,6 +38,7 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    this.props.history.push('/update')
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(authUser => {
@@ -45,8 +46,6 @@ class Login extends Component {
           email: '',
           password: ''
         }))
-
-        this.props.history.push('/update')
       })
       .catch(error => {
         alert(
@@ -56,19 +55,16 @@ class Login extends Component {
   }
 
   handleGoogle() {
+    this.props.history.push('/update')
     firebase
       .auth()
       .signInWithRedirect(googleProvider)
       .then(result => {
-        const token = result.credential.accessToken
-        const user = result.user
       })
       .catch(error => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        const email = error.email
-        const credential = error.credential
+        alert('code:', error.code, 'message:', error.message, 'credential: ', error.credential)
       })
+
   }
 
   render() {

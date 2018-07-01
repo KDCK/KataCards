@@ -13,12 +13,13 @@ import {
   GameBoard,
   UserDeck,
   GameOver,
-  StagingArea
+  StagingArea,
 } from './Components'
 
 import LandingPage from './Components/Landing/LandingPage'
 import AuthorizedUser from './Components/HOC/AuthorizedUser'
 import InitializeBattle from './Components/HOC/InitializeBattle';
+import HandleLogins from './Components/HOC/HandleLogins';
 
 class Routes extends Component {
   render() {
@@ -29,8 +30,8 @@ class Routes extends Component {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/update" component={Update} />
           <Route exact path="/logout" component={LandingPage} />
+          <Route exact path="/update" component={HandleLogins(Update)} />
           <Route exact path="/home" component={AuthorizedUser(Home)} />{' '}
           <Route exact path="/trade" component={AuthorizedUser(Trade)} />
           <Route exact path="/profile" component={AuthorizedUser(Profile)} />
