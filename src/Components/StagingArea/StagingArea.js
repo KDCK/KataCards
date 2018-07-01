@@ -78,6 +78,7 @@ const addDispatcher = (connector, ref) => ({
         p1[uid] = user
         ref(`/battles/${battleId}`).update({
           p1: p1,
+          p1uid: uid,
           p1done: false,
           p2done: false,
           p1atk: 0,
@@ -93,6 +94,7 @@ const addDispatcher = (connector, ref) => ({
         p2[uid] = user
         ref(`/battles/${battleId}`).update({
           p2: p2,
+          p2uid: uid,
           p1done: false,
           p2done: false,
           p1atk: 0,
@@ -106,10 +108,42 @@ const addDispatcher = (connector, ref) => ({
       }
     })
   },
-  updateDeck(battleId, card, uid) {
-    const parentKey = ref(`battles/${battleId}/p1/${uid}/deck`).push(card).key
-    ref(`battles/${battleId}/p1/${uid}/deck/${parentKey}`).update({
-      id: parentKey
+  async updateDeck(battleId, card, uid) {
+    // let player1Ref = null
+    // ref(`battles/${battleId}/p1/${uid}`).once('value', snapshot => {
+    //   player1Ref = snapshot.key
+    // })
+
+    // console.log('PLAYER1KEY', player1Ref)
+
+    // if (player1Ref == uid) {
+    //   const cardKey = ref(`battles/${battleId}/p1/${uid}/deck`).push(card).key
+    //   console.log('CARDKEY', cardKey)
+    //   ref(`battles/${battleId}/p1/${uid}/deck/${cardKey}`).update({
+    //     id: cardKey
+    //   })
+    // } else {
+    //   const cardKey = ref(`battles/${battleId}/p2/${uid}/deck`).push(card).key
+    //   console.log('CARDKEY', cardKey)
+    //   ref(`battles/${battleId}/p2/${uid}/deck/${cardKey}`).update({
+    //     id: cardKey
+    //   })
+    // }
+    ref(`/battles/${battleId}`).once('value', snapshot => {
+      const battle = snapshot.val()
+      if (battle.p1uid === uid) {
+        const cardKey = ref(`battles/${battleId}/p1/${uid}/deck`).push(card).key
+        console.log('CARDKEY', cardKey)
+        ref(`battles/${battleId}/p1/${uid}/deck/${cardKey}`).update({
+          id: cardKey
+        })
+      } else if (battle.p2uid === uid) {
+        const cardKey = ref(`battles/${battleId}/p2/${uid}/deck`).push(card).key
+        console.log('CARDKEY', cardKey)
+        ref(`battles/${battleId}/p2/${uid}/deck/${cardKey}`).update({
+          id: cardKey
+        })
+      }
     })
   }
 })
