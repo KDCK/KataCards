@@ -13,7 +13,7 @@ import {
   GameBoard,
   UserDeck,
   GameOver,
-  StagingArea
+  StagingArea,
 } from './Components'
 
 import LandingPage from './Components/Landing/LandingPage'
