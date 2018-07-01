@@ -22,6 +22,9 @@ class Nav extends Component {
       return (
         <Navbar brand="Kata Cards" right>
           <div className="nav-bar">
+            <li>
+              <NavLink to="/profile">{this.props.user.email}</NavLink>
+            </li>
             <li className="update-gold">
               <UpdateGold authUser={this.props.authUser} />
             </li>
