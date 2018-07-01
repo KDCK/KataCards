@@ -16,19 +16,26 @@ const SingleCard = props => {
           trigger={
             <Card.Description>
               {card.description.length > 30
-                ? card.description.substr(0, 20) + '...'
+                ? card.description.substr(0, 30) + '...'
                 : card.description}
             </Card.Description>
           }
           content={card.description}
         />
       </Card.Content>
-      <Card.Content extra>
-        <Icon name="quidditch" />
-        {card.atk}
-        <Icon name="shield" />
-        {card.def}
-      </Card.Content>
+      <Popup
+        trigger={
+          <Card.Content extra>
+            <Icon name="quidditch" />
+            {card.atk}
+            <Icon name="shield" />
+            {card.def}
+            <Icon name="target" />
+            {card.tier}
+          </Card.Content>
+        }
+        content="Attack, Defense, and Tier"
+      />
     </Card>
   )
 }

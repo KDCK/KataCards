@@ -17,3 +17,12 @@
   font-style: italic;
   font-size: 10px;
 }
+
+.ui.card > .content > .header {
+  text-align: center;
+}
+
+.ui.card > .extra > i {
+  font-size: 1.5em;
+  margin-left: 10px;
+}

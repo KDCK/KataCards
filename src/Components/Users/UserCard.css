@@ -1,0 +1,18 @@
+.card-panel {
+  border-radius: 2% 2%;
+  width: 33vw;
+  text-align: start;
+  background-color: rgba(136, 100, 24, 0.7);
+}
+
+.card-panel > * {
+  font-size: 20px;
+  margin-left: 10%;
+  color: white;
+  text-shadow: 2px 2px teal;
+}
+
+.card-panel > h1 {
+  font-size: 36px;
+  font-weight: bold;
+}
