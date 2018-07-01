@@ -11,7 +11,9 @@ class StagingArea extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      deck: []
+    }
   }
   async componentDidUpdate() {
     if (this.props.player && !this.state.firstUpdate) {
@@ -107,6 +109,9 @@ const addDispatcher = (connector, ref) => ({
         })
       }
     })
+  },
+  updateBattleDeck(battleId, user, uid) {
+    // TO-DO
   }
 })
 
