@@ -24,9 +24,9 @@ class StagingArea extends Component {
   }
 
   selectCard(card) {
-    console.log(card)
-    // const { player, user } = this.props
-    // this.props.updateDeck(player.in_battle, card, user.uid)
+    // console.log(card)
+    const { player, user } = this.props
+    this.props.updateDeck(player.in_battle, card, user.uid)
   }
 
   render() {
@@ -109,8 +109,9 @@ const addDispatcher = (connector, ref) => ({
     })
   },
   updateDeck(battleId, card, uid) {
-    ref(`battles/${battleId}/p1/${uid}`).update({
-      deck: card
+    const parentKey = ref(`battles/${battleId}/p1/${uid}/deck`).push(card).key
+    ref(`battles/${battleId}/p1/${uid}/deck/${parentKey}`).update({
+      id: parentKey
     })
   }
 })
