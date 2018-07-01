@@ -84,8 +84,10 @@ const addDispatcher = (connector, ref) => ({
     ref(`battles`).once('value', snapshot => {
       let battle = snapshot.child(battleId).val()
       if (battle.p1 === uid) {
+        const p1 = {}
+        p1[uid] = user
         ref(`/battles/${battleId}`).update({
-          p1: user,
+          p1: p1,
           p1done: false,
           p2done: false,
           p1atk: 0,
@@ -97,8 +99,10 @@ const addDispatcher = (connector, ref) => ({
           battleId: battleId
         })
       } else if (battle.p2 === uid) {
+        const p2 = {}
+        p2[uid] = user
         ref(`/battles/${battleId}`).update({
-          p2: user,
+          p2: p2,
           p1done: false,
           p2done: false,
           p1atk: 0,
