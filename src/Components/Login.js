@@ -38,6 +38,7 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    this.props.history.push('/update')
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(authUser => {
@@ -45,8 +46,6 @@ class Login extends Component {
           email: '',
           password: ''
         }))
-
-        this.props.history.push('/update')
       })
       .catch(error => {
         alert(
@@ -55,7 +54,7 @@ class Login extends Component {
       })
   }
 
-  handleGoogle(event) {
+  handleGoogle() {
     this.props.history.push('/update')
     firebase
       .auth()
@@ -65,6 +64,7 @@ class Login extends Component {
       .catch(error => {
         alert('code:', error.code, 'message:', error.message, 'credential: ', error.credential)
       })
+
   }
 
   render() {

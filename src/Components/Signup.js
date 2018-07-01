@@ -38,6 +38,7 @@ class Signup extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    this.props.history.push('/update')
     auth
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(authUser => {
@@ -46,7 +47,6 @@ class Signup extends Component {
           password: ''
         }))
 
-        this.props.history.push('/update')
       })
       .catch(error => {
         alert(
