@@ -109,26 +109,6 @@ const addDispatcher = (connector, ref) => ({
     })
   },
   async updateDeck(battleId, card, uid) {
-    // let player1Ref = null
-    // ref(`battles/${battleId}/p1/${uid}`).once('value', snapshot => {
-    //   player1Ref = snapshot.key
-    // })
-
-    // console.log('PLAYER1KEY', player1Ref)
-
-    // if (player1Ref == uid) {
-    //   const cardKey = ref(`battles/${battleId}/p1/${uid}/deck`).push(card).key
-    //   console.log('CARDKEY', cardKey)
-    //   ref(`battles/${battleId}/p1/${uid}/deck/${cardKey}`).update({
-    //     id: cardKey
-    //   })
-    // } else {
-    //   const cardKey = ref(`battles/${battleId}/p2/${uid}/deck`).push(card).key
-    //   console.log('CARDKEY', cardKey)
-    //   ref(`battles/${battleId}/p2/${uid}/deck/${cardKey}`).update({
-    //     id: cardKey
-    //   })
-    // }
     ref(`/battles/${battleId}`).once('value', snapshot => {
       const battle = snapshot.val()
       if (battle.p1uid === uid) {
