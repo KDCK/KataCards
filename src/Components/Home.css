@@ -4,24 +4,60 @@
   align-items: center;
 }
 
-.home-img{
+.home-img {
   width: 100%;
   height: 100vh;
-  object-fit: "cover";
+  object-fit: 'cover';
 }
 
-.home-button{
-  margin:  0 20px;
+.home-button-deck {
+  margin: 0 20px;
 }
 
-.home-buttons-top{
+.home-button-profile {
+  margin: 0 20px;
+}
+
+.home-button {
+  margin: 0 20px;
+}
+
+@keyframes glowing {
+  0% {
+    background-color: #1200b2;
+    box-shadow: 0 0 3px #1200b2;
+  }
+  50% {
+    background-color: #4f3fe6;
+    box-shadow: 0 0 40px #4f3fe6;
+  }
+  100% {
+    background-color: #1200b2;
+    box-shadow: 0 0 3px #1200b2;
+  }
+}
+
+.home-buttons-top {
   margin: 50px 0;
 }
 
-.home-buttons{
+.home-buttons {
   position: absolute;
   text-align: center;
-  top: 45vh;
+  top: 25vh;
   width: 100vw;
   margin-top: -50px;
+}
+
+.code-wars-home {
+  color: white;
+  margin-bottom: 10vh;
+}
+
+.code-wars-home > h1 {
+  text-shadow: 4px 4px teal;
+}
+
+.code-wars-home a {
+  width: 20vw;
 }

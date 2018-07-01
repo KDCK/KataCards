@@ -15,7 +15,7 @@ class Home extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
       this.props.queue && Object.keys(this.props.queue).length >= 2
-        ? this.setState({matchReady: true})
+        ? this.setState({waiting: false, matchReady: true})
         : null
     }
   }
@@ -46,9 +46,30 @@ class Home extends Component {
       <div>
         <img className="home-img" alt="home background" src="home.png" />
         <div className="home-buttons">
+          <div className="code-wars-home">
+            <h1>
+              Train your skills at CodeWars.com to earn Gold and Buy Better
+              Cards for your Deck!
+            </h1>
+            <div>
+              <Button
+                large
+                waves="light"
+                node="a"
+                href="http://www.codewars.com"
+              >
+                CodeWars.com
+              </Button>
+            </div>
+          </div>
           <div className="home-buttons-top">
             <Button
               large
+              style={
+                this.state.waiting
+                  ? {animation: 'glowing 1500ms infinite'}
+                  : {animation: 'none'}
+              }
               className="home-button"
               waves="purple"
               onClick={() => this.joinQueue(this.props.user)}
@@ -64,6 +85,11 @@ class Home extends Component {
             <div className="home-buttons-top">
               <Button
                 large
+                style={
+                  this.state.matchReady
+                    ? {animation: 'glowing 1500ms infinite'}
+                    : {animation: 'none'}
+                }
                 className="home-button"
                 waves="purple"
                 onClick={() =>
@@ -80,12 +106,12 @@ class Home extends Component {
           ) : null}
           <div className="home-buttons-bottom">
             <Link to="/userdeck">
-              <Button className="home-button" waves="purple">
+              <Button className="home-button-deck" waves="purple">
                 My Deck
               </Button>
             </Link>
             <Link to="/profile">
-              <Button className="home-button" waves="purple">
+              <Button className="home-button-profile" waves="purple">
                 My Profile
               </Button>
             </Link>

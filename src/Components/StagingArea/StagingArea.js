@@ -7,11 +7,15 @@ import {withRouter, Link} from 'react-router-dom'
 import SingleCard from '../Cards/SingleCard.js'
 import Spinner from '../Loader/Spinner.js'
 
+import './StagingArea.css'
+
 class StagingArea extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      deck: []
+    }
   }
   async componentDidUpdate() {
     if (this.props.player && !this.state.firstUpdate) {
@@ -42,9 +46,9 @@ class StagingArea extends Component {
   render() {
     console.log('PROPSSSSS', this.props)
     return (
-      <div>
+      <div className="staging-area-main">
         <h1>Welcome to the Staging Area</h1>
-        <p>Select your deck!</p>
+        <h3>Select your deck!</h3>
         <Row>
           {!this.props.player ? (
             <Spinner />
@@ -80,8 +84,10 @@ const addDispatcher = (connector, ref) => ({
     ref(`battles`).once('value', snapshot => {
       let battle = snapshot.child(battleId).val()
       if (battle.p1 === uid) {
+        const p1 = {}
+        p1[uid] = user
         ref(`/battles/${battleId}`).update({
-          p1: user,
+          p1: p1,
           p1done: false,
           p2done: false,
           p1atk: 0,
@@ -93,8 +99,10 @@ const addDispatcher = (connector, ref) => ({
           battleId: battleId
         })
       } else if (battle.p2 === uid) {
+        const p2 = {}
+        p2[uid] = user
         ref(`/battles/${battleId}`).update({
-          p2: user,
+          p2: p2,
           p1done: false,
           p2done: false,
           p1atk: 0,
@@ -107,6 +115,9 @@ const addDispatcher = (connector, ref) => ({
         })
       }
     })
+  },
+  updateBattleDeck(battleId, user, uid) {
+    // TO-DO
   }
 })
 
