@@ -19,7 +19,7 @@ export default function (ComposedComponent) {
       if (!this.props.user) {
         return (<Spinner />)
       }
-      if (this.props.location.pathname === '/gameboard' || this.props.location.pathname === '/') {
+      if (this.props.match.path === '/battle/:battleId' || this.props.location.pathname === '/') {
         return (<ComposedComponent />)
       } else {
         return (

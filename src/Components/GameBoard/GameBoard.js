@@ -13,17 +13,19 @@ class GameBoard extends Component {
     this.props.checkDeck()
   }
   render() {
-    if (!this.props.game) {
+    if (!this.props.battle) {
       return <Spinner />
     }
 
-    const { playedCard, game, setTurn, setReady, user } = this.props
+    const { playedCard, battle, setTurn, setReady, user } = this.props
+    const p1uid = Object.keys(battle.p1)[0]
+    const p2uid = Object.keys(battle.p2)[0]
+    
 
-    if (game.p1done && game.p2done) {
-        return <GameOver game={game} />
+    if (battle.p1done && battle.p2done) {
+        return <GameOver battle={battle} />
     }
-
-    if (!game.ready) {
+    if (!battle.ready) {
       const turn = Math.random() >= 0.5
       turn ? setTurn('playerOne') : setTurn('playerTwo')
       setReady()
@@ -35,26 +37,26 @@ class GameBoard extends Component {
           {/* TODO: GET CARDBACK PLACEHOLDERS */}
         </div>
         <div className="gameboard-player1">
-          {user.uid === Object.keys(game.p2)[0]
-            ? <Board {...game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} />
-            : <Board {...game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} />}
+          {user.uid === p2uid
+            ? <Board {...battle.p1[p1uid]} />
+            : <Board {...battle.p2[p2uid]} />}
         </div>
-        {user.uid === Object.keys(game.p2)[0]
-          ? <DisplayStatus atk={game.p1atk} def={game.p1def} />
-          : <DisplayStatus atk={game.p2atk} def={game.p2def} />}
+        {user.uid === p2uid
+          ? <DisplayStatus atk={battle.p1atk} def={battle.p1def} />
+          : <DisplayStatus atk={battle.p2atk} def={battle.p2def} />}
         <hr />
-        {user.uid === Object.keys(game.p1)[0]
-          ? <DisplayStatus atk={game.p1atk} def={game.p1def} />
-          : <DisplayStatus atk={game.p2atk} def={game.p2def} />}
+        {user.uid === p1uid
+          ? <DisplayStatus atk={battle.p1atk} def={battle.p1def} />
+          : <DisplayStatus atk={battle.p2atk} def={battle.p2def} />}
         <div className="gameboard-player2">
-          {user.uid === Object.keys(game.p1)[0]
-            ? <Board {...game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} />
-            : <Board {...game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} />}
+          {user.uid === p1uid
+            ? <Board {...battle.p1[p1uid]} />
+            : <Board {...battle.p2[p2uid]} />}
         </div>
         <div className="player2-board-deck">
-          {user.uid === Object.keys(game.p1)[0]
-            ? <Deck {...game.p1.TlgEFiyrHcYPFJKjVPaqYBzWWrs1} turn={game.turn} playedCard={playedCard} />
-            : <Deck {...game.p2.caCrOjoGxEamloCVeLGfcDtJDS92} turn={game.turn} playedCard={playedCard} />}
+          {user.uid === p1uid
+            ? <Deck {...battle.p1[p1uid]} turn={battle.turn} playedCard={playedCard} />
+            : <Deck {...battle.p2[p2uid]} turn={battle.turn} playedCard={playedCard} />}
         </div>
       </div>
     )
@@ -62,72 +64,75 @@ class GameBoard extends Component {
 }
 
 const addListener = (connector, ref, user, setEventType) => ({
-  listenToGame: () => ref('/game/specialid').on(setEventType('value'), snapshot => {
-    connector.setState({ game: snapshot.val() })
+  listenToBattle: () => ref(`/battles/${connector.props.battleId}`).on(setEventType('value'), snapshot => {
+    connector.setState({ battle: snapshot.val() })
+
   })
 })
 
 const addDispatcher = (connector, ref, user) => ({
   checkDeck() {
-    ref(`/game/specialid/p1/${user.uid}/`).once('value', snapshot => {
+    ref(`/battles/${connector.props.battleId}/p1/${user.uid}/`).once('value', snapshot => {
       if (snapshot.exists() && snapshot.child('/board').exists()) {
-        ref(`/game/specialid/p1/${user.uid}/board`).once('value', snapshot => {
+        ref(`/battles/${connector.props.battleId}/p1/${user.uid}/board`).once('value', snapshot => {
           if (snapshot.numChildren() >= 3) {
-            ref(`/game/specialid/p1done`).set(true)
+            ref(`/battles/${connector.props.battleId}/p1done`).set(true)
           }
         })
       }
     })
-    ref(`/game/specialid/p2/${user.uid}/`).once('value', snapshot => {
+    ref(`/battles/${connector.props.battleId}/p2/${user.uid}/`).once('value', snapshot => {
       if (snapshot.exists() && snapshot.child('/board').exists()) {
-        ref(`/game/specialid/p2/${user.uid}/board`).once('value', snapshot => {
+        ref(`/battles/${connector.props.battleId}/p2/${user.uid}/board`).once('value', snapshot => {
           if (snapshot.numChildren() >= 3) {
-            ref(`/game/specialid/p2done`).set(true)
+            ref(`/battles/${connector.props.battleId}/p2done`).set(true)
           }
         })
       }
     })
   },
   playedCard(cardId, turn, atk, def) {
-    ref(`/game/specialid/p1/${user.uid}/`).once('value', snapshot => {
+    ref(`/battles/${connector.props.battleId}/p1/${user.uid}/`).once('value', snapshot => {
       if (!snapshot.exists() && turn === 'playerTwo') {
-        ref(`/game/specialid/p2/${user.uid}/deck/${cardId}`).once('value', snapshot => {
+        ref(`/battles/${connector.props.battleId}/p2/${user.uid}/deck/${cardId}`).once('value', snapshot => {
           const card = snapshot.val()
-          ref(`/game/specialid/p2/${user.uid}/board/${card.id}`).set(card)
+          ref(`/battles/${connector.props.battleId}/p2/${user.uid}/board/${card.id}`).set(card)
         })
-        ref(`/game/specialid/p2atk`).once('value', snapshot => {
+        ref(`/battles/${connector.props.battleId}/p2atk`).once('value', snapshot => {
           const prevAtk = snapshot.val()
-          ref(`/game/specialid/p2atk`).set(prevAtk + atk)
+          ref(`/battles/${connector.props.battleId}/p2atk`).set(prevAtk + atk)
         })
-        ref(`/game/specialid/p2def`).once('value', snapshot => {
+        ref(`/battles/${connector.props.battleId}/p2def`).once('value', snapshot => {
           const prevDef = snapshot.val()
-          ref(`/game/specialid/p2def`).set(prevDef + def)
+          ref(`/battles/${connector.props.battleId}/p2def`).set(prevDef + def)
         })
-        ref(`/game/specialid/p2/${user.uid}/deck/${cardId}`).remove()
-        ref(`/game/specialid/turn`).set('playerOne')
+        ref(`/battles/${connector.props.battleId}/p2/${user.uid}/deck/${cardId}`).remove()
+        ref(`/battles/${connector.props.battleId}/turn`).set('playerOne')
       } else if (snapshot.exists() && turn === 'playerOne') {
-        ref(`/game/specialid/p1/${user.uid}/deck/${cardId}`).once('value', snapshot => {
+        ref(`/battles/${connector.props.battleId}/p1/${user.uid}/deck/${cardId}`).once('value', snapshot => {
           const card = snapshot.val()
-          ref(`/game/specialid/p1/${user.uid}/board/${card.id}`).set(card)
+          console.log(card.id);
+          
+          ref(`/battles/${connector.props.battleId}/p1/${user.uid}/board/${card.id}`).set(card)
         })
-        ref(`/game/specialid/p1atk`).once('value', snapshot => {
+        ref(`/battles/${connector.props.battleId}/p1atk`).once('value', snapshot => {
           const prevAtk = snapshot.val()
-          ref(`/game/specialid/p1atk`).set(prevAtk + atk)
+          ref(`/battles/${connector.props.battleId}/p1atk`).set(prevAtk + atk)
         })
-        ref(`/game/specialid/p1def`).once('value', snapshot => {
+        ref(`/battles/${connector.props.battleId}/p1def`).once('value', snapshot => {
           const prevDef = snapshot.val()
-          ref(`/game/specialid/p1def`).set(prevDef + def)
+          ref(`/battles/${connector.props.battleId}/p1def`).set(prevDef + def)
         })
-        ref(`/game/specialid/p1/${user.uid}/deck/${cardId}`).remove()
-        ref(`/game/specialid/turn`).set('playerTwo')
+        ref(`/battles/${connector.props.battleId}/p1/${user.uid}/deck/${cardId}`).remove()
+        ref(`/battles/${connector.props.battleId}/turn`).set('playerTwo')
       }
     })
   },
   setTurn(whosTurn) {
-    ref(`/game/specialid/turn`).set(whosTurn)
+    ref(`/battles/${connector.props.battleId}/turn`).set(whosTurn)
   },
   setReady() {
-    ref(`/game/specialid/ready`).set(true)
+    ref(`/battles/${connector.props.battleId}/ready`).set(true)
   }
 })
 

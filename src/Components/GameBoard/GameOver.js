@@ -8,11 +8,11 @@ import { firebaseConnect } from 'fire-connect'
 import './gameover.css'
 
 const GameOver = (props) => {
-  const { p1atk, p1def, p2atk, p2def } = props.game
+  const { p1atk, p1def, p2atk, p2def } = props.battle
   const p1Total = p1atk - p2def
   const p2Total = p2atk - p1def
 
-  const winner = p1Total > p2Total ? Object.keys(props.game.p1)[0] : Object.keys(props.game.p2)[0]
+  const winner = p1Total > p2Total ? Object.keys(props.battle.p1)[0] : Object.keys(props.battle.p2)[0]
 
   const result = winner === props.user.uid ? 'You Win' : 'You Lose'
 
