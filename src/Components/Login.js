@@ -56,19 +56,14 @@ class Login extends Component {
   }
 
   handleGoogle() {
+    this.props.history.push('/update')
     firebase
       .auth()
       .signInWithRedirect(googleProvider)
-      .then(result => {
-        const token = result.credential.accessToken
-        const user = result.user
-      })
       .catch(error => {
         const errorCode = error.code
-        const errorMessage = error.message
-        const email = error.email
-        const credential = error.credential
       })
+
   }
 
   render() {
