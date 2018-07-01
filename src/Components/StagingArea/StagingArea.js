@@ -25,20 +25,32 @@ class StagingArea extends Component {
 
   selectCard(card) {
     const { player, user } = this.props
-    this.props.updateDeck(player.in_battle, card, user.uid)
-  }
-
-  toggleCard() {
-    const element = document.getElementsByTagName('SingleCard')
-    element.classList.toggle('selected')
+    this.props.addToDeck(player.in_battle, card, user.uid)
   }
 
   render() {
+    console.log('playercards', this.props.player)
     return (
       <div className="staging-area-main">
         <h1>Welcome to the Staging Area</h1>
         <h3>Select 5 cards for your battle deck!</h3>
         <Row>
+          {!this.props.player ? (
+            <Spinner />
+          ) : (
+            this.props.player.deck.map(card => (
+              <Col
+                onClick={() => this.selectCard(card)}
+                key={card.id}
+                s={2}
+                m={2}
+                style={{ paddingBottom: '15px' }}
+              >
+                <SingleCard card={card} />
+              </Col>
+            ))
+          )}
+          <hr />
           {!this.props.player ? (
             <Spinner />
           ) : (
@@ -50,7 +62,7 @@ class StagingArea extends Component {
                 m={2}
                 style={{ paddingBottom: '15px' }}
               >
-                <SingleCard onClick={() => this.toggleCard()} card={card} />
+                <SingleCard card={card} />
               </Col>
             ))
           )}
@@ -113,14 +125,14 @@ const addDispatcher = (connector, ref) => ({
       }
     })
   },
-  updateDeck(battleId, card, uid) {
+  addToDeck(battleId, card, uid) {
     ref(`/battles/${battleId}`).once('value', snapshot => {
       const battle = snapshot.val()
       if (battle.p1uid === uid) {
-        const cardKey = ref(`battles/${battleId}/p1/${uid}/deck`).push(card).key
-        console.log('CARDKEY', cardKey)
-        ref(`battles/${battleId}/p1/${uid}/deck/${cardKey}`).update({
-          id: cardKey
+        const deckKey = ref(`battles/${battleId}/p1/${uid}/deck`).push(card).key
+        console.log('CARDKEY', deckKey)
+        ref(`battles/${battleId}/p1/${uid}/deck/${deckKey}`).update({
+          id: deckKey
         })
       } else if (battle.p2uid === uid) {
         const cardKey = ref(`battles/${battleId}/p2/${uid}/deck`).push(card).key

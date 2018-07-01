@@ -19,3 +19,15 @@ h3 {
 .ui.card:hover {
   background-color: rgb(240, 222, 174);
 }
+
+hr {
+  display: inline-block;
+  height: 1px;
+  border: 0;
+  border-bottom: 5px solid rgba(105, 68, 0, 0.973);
+  margin-top: 5px;
+  margin-bottom: 15px;
+  padding: 0;
+  width: 100vw;
+  box-shadow: 3px 3px 3px 3px rgb(61, 47, 0);
+}
