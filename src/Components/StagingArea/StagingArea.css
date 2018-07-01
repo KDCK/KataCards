@@ -2,12 +2,17 @@
   background-image: url('../../Img/4.jpg');
   height: 100vh;
   margin: auto;
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-size: cover;
+  background-repeat: repeat;
   color: white;
 }
 
 .staging-area-main > h1,
 h3 {
   text-shadow: 2px 2px black;
+}
+
+.ui.card:hover {
+  background-color: white;
 }

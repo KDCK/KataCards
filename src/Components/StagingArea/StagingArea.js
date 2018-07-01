@@ -24,7 +24,6 @@ class StagingArea extends Component {
   }
 
   selectCard(card) {
-    // console.log(card)
     const { player, user } = this.props
     this.props.updateDeck(player.in_battle, card, user.uid)
   }
@@ -40,14 +39,13 @@ class StagingArea extends Component {
           ) : (
             this.props.player.cards.map(card => (
               <Col
-                // onClick={this.selectCard}
-                // value={card}
+                onClick={() => this.selectCard(card)}
                 key={card.id}
                 s={2}
                 m={2}
                 style={{ paddingBottom: '15px' }}
               >
-                <SingleCard selectCard={this.selectCard} card={card} />
+                <SingleCard card={card} />
               </Col>
             ))
           )}

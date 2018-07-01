@@ -5,7 +5,7 @@ import './SingleCard.css'
 const SingleCard = props => {
   const { card } = props
   return (
-    <Card onClick={() => props.selectCard(card)}>
+    <Card>
       <Card.Content>
         <Image src="/skeleton_warrior.png" />
         <Card.Header>{card.name}</Card.Header>
