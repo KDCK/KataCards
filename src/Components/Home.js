@@ -26,7 +26,6 @@ class Home extends Component {
   }
 
   async startBattle(user, queue, battles) {
-    console.log(battles)
     let newBattle = null
     if (this.props.queue && Object.keys(this.props.queue).length >= 2) {
       newBattle = await this.props.joinBattle(user, queue, battles)

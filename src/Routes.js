@@ -18,6 +18,7 @@ import {
 
 import LandingPage from './Components/Landing/LandingPage'
 import AuthorizedUser from './Components/HOC/AuthorizedUser'
+import InitializeBattle from './Components/HOC/InitializeBattle';
 
 class Routes extends Component {
   render() {
@@ -35,7 +36,7 @@ class Routes extends Component {
           <Route exact path="/profile" component={AuthorizedUser(Profile)} />
           <Route exact path="/userdeck" component={AuthorizedUser(UserDeck)} />
           <Route exact path="/cardstore" component={AuthorizedUser(BuyCard)} />
-          <Route exact path="/gameboard" component={AuthorizedUser(GameBoard)} />
+          <Route exact path="/battle/:battleId" component={AuthorizedUser(InitializeBattle(GameBoard))} />
           <Route exact path="/stagingarea/:battleId" component={AuthorizedUser(StagingArea)} />
         </Switch>
       </div>
