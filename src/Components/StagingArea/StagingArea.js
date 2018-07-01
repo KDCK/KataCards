@@ -135,12 +135,10 @@ const addDispatcher = (connector, ref) => ({
       if (battle.p1uid === uid) {
         const deckKey = ref(`battles/${battleId}/p1/${uid}/deck`).push(card).key
         console.log('CARDKEY', deckKey)
-        ref(`battles/${battleId}/p1/${uid}/deck/${deckKey}`).update({
+        ref(`battles/${battleId}/p1/${uid}/cards/${deckKey}`).update({
           id: deckKey
         })
-        const cardsKey = ref(
-          `battles/${battleId}/p1/${uid}/cards/deckKey`
-        ).remove()
+        ref(`battles/${battleId}/p1/${uid}/cards/`).remove()
       } else if (battle.p2uid === uid) {
         const cardKey = ref(`battles/${battleId}/p2/${uid}/deck`).push(card).key
         console.log('CARDKEY', cardKey)

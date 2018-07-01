@@ -127,9 +127,7 @@ const addDispatcher = (connector, ref, user) => ({
     await ref(`users/${user.uid}`).once('value', snapshot => {
       let thisUser = snapshot.val()
       let prevGold = thisUser.gold
-      let prevCards = null
-
-      if (!thisUser.cards) prevCards = []
+      let prevCards = thisUser.cards
 
       prevGold -= goldSpent
       prevCards = [...prevCards, chosenCard]
