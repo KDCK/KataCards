@@ -28,11 +28,16 @@ class StagingArea extends Component {
     this.props.updateDeck(player.in_battle, card, user.uid)
   }
 
+  toggleCard() {
+    const element = document.getElementsByTagName('SingleCard')
+    element.classList.toggle('selected')
+  }
+
   render() {
     return (
       <div className="staging-area-main">
         <h1>Welcome to the Staging Area</h1>
-        <h3>Select your deck!</h3>
+        <h3>Select 5 cards for your battle deck!</h3>
         <Row>
           {!this.props.player ? (
             <Spinner />
@@ -45,7 +50,7 @@ class StagingArea extends Component {
                 m={2}
                 style={{ paddingBottom: '15px' }}
               >
-                <SingleCard card={card} />
+                <SingleCard onClick={() => this.toggleCard()} card={card} />
               </Col>
             ))
           )}
@@ -108,7 +113,7 @@ const addDispatcher = (connector, ref) => ({
       }
     })
   },
-  async updateDeck(battleId, card, uid) {
+  updateDeck(battleId, card, uid) {
     ref(`/battles/${battleId}`).once('value', snapshot => {
       const battle = snapshot.val()
       if (battle.p1uid === uid) {

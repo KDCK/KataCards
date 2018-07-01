@@ -13,6 +13,7 @@ body {
 .staging-area-main > h1,
 h3 {
   text-shadow: 2px 2px black;
+  margin-left: 2vw;
 }
 
 .ui.card:hover {
