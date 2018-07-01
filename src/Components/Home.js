@@ -6,6 +6,8 @@ import {withRouter, Link} from 'react-router-dom'
 import {db} from '../firebase'
 import './Home.css'
 
+import Data from './Data/Data.js'
+
 class Home extends Component {
   constructor(props) {
     super(props)
@@ -41,8 +43,10 @@ class Home extends Component {
   }
 
   render() {
+    //Remove Data Component before deployment
     return (
       <div>
+        <Data />
         <img className="home-img" alt="home background" src="home.png" />
         <div className="home-buttons">
           <div className="code-wars-home">

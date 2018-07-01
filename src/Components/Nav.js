@@ -1,24 +1,18 @@
 import React, {Component} from 'react'
-import {firebaseConnect, authConnect} from 'fire-connect'
+import {firebaseConnect} from 'fire-connect'
 
-import firebase, {auth} from '../firebase'
-import {Navbar, Button, Icon} from 'react-materialize'
+import {auth} from '../firebase'
+import {Navbar} from 'react-materialize'
 import {NavLink, withRouter} from 'react-router-dom'
-import './Nav.css'
 import UpdateGold from './Users/UpdateGold'
 
+import './Nav.css'
+
+
 class Nav extends Component {
-  constructor(props) {
-    super(props)
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick() {
-    auth.signOut()
-  }
-
   render() {
     if (this.props.user) {
+      const uid = this.props.user.uid
       return (
         <Navbar brand="Kata Cards" right>
           <div className="nav-bar">
@@ -35,9 +29,7 @@ class Nav extends Component {
               <NavLink to="/home">Home</NavLink>
             </li>
             <li>
-              <NavLink to="/logout" onClick={this.handleClick}>
-                Logout
-              </NavLink>
+              <NavLink to="/logout" onClick={() => this.props.setOffline(uid)}>Logout</NavLink>
             </li>
             <li>
               <NavLink to="/profile">Profile</NavLink>
@@ -63,4 +55,20 @@ class Nav extends Component {
   }
 }
 
-export default authConnect()(withRouter(Nav))
+const addListener = (connector, ref, user, setEventType) => ({
+  listenUser: () =>
+    ref(`users/${user.uid}`).on(setEventType('value'), snapshot => {
+      connector.setState({currentPlayer: snapshot.val()})
+    })
+})
+
+const addDispatcher = (connector, ref, user) => ({
+  setOffline(uid) {
+    const offline = false
+    ref(`users/${uid}`).update({online:offline})
+    auth.signOut()
+    this.props.history.push('/home')
+  }
+})
+
+export default firebaseConnect(addListener, addDispatcher)(withRouter(Nav))
