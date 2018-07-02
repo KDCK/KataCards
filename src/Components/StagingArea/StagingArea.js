@@ -43,7 +43,7 @@ class StagingArea extends Component {
         cardIndex = i
       }
     }
-    let deckLength = this.props.battleInfo[playerNumber][user.uid].deck.length - 1
+    let deckLength = this.props.battleInfo[playerNumber][user.uid].deck.length
     console.log("What is the deck?", this.props.battleInfo[playerNumber][user.uid].deck)
     console.log("deck length", deckLength + 1)
     if (deckLength + 1 >= 5) {
@@ -74,6 +74,11 @@ class StagingArea extends Component {
     }
     let cardLength = this.props.battleInfo[playerNumber][user.uid].cards.length - 1
     /// Takes the battle id, card to move, index of card to remove from cards, deck length to assign new id in deck, and user's uid
+    let deckLength = this.props.battleInfo[playerNumber][user.uid].deck.length
+
+    if (deckLength === 1) return
+
+
     this
       .props.removeFromDeck(
         player.in_battle,
@@ -204,7 +209,7 @@ const addDispatcher = (connector, ref) => ({
       deckRef.child(deckLength + 1).set({ ...card, id: deckLength + 1 })
 
       const cardRef = ref(`battles/${battleId}/${player}/${uid}/cards/${cardIndex}`)
-      cardRef.remove()
+      cardRef.remove().set('')
 
     })
   },
@@ -219,11 +224,11 @@ const addDispatcher = (connector, ref) => ({
       cardRef.child(cardLength + 1).set({ ...card, id: cardLength + 1 })
 
       const deckRef = ref(`battles/${battleId}/${player}/${uid}/deck/${deckIndex}`)
-      deckRef.remove()
+      deckRef.remove().set('')
 
       ref(`battles/${battleId}/${player}/${uid}/deck`).once('value', snapshot => {
-        let arr = [...snapshot.val()]
-        let filtered = arr.filter(item => item !== undefined)
+        // let arr = [...snapshot.val()]
+        // let filtered = arr.filter(item => item !== undefined)
         ref(`battles/${battleId}/${player}/${uid}/deck`).child(deckIndex).set({})
       })
     })
