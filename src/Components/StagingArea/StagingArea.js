@@ -33,14 +33,22 @@ class StagingArea extends Component {
     const playerNumber = this.props.user.uid === Object.keys(this.props.battleInfo.p1)[0] ? 'p1' : 'p2'
 
     let cardsArray = this.props.battleInfo[playerNumber][user.uid].cards
+    console.log('cards keys', Object.values(cardsArray))
+    console.log("CARDS ARRAY", cardsArray)
     let cardIndex = null
 
     for (let i = 0; i < cardsArray.length; i++) {
+      if (cardsArray[i] === undefined) continue
       if (cardsArray[i].name === card.name) {
         cardIndex = i
       }
     }
     let deckLength = this.props.battleInfo[playerNumber][user.uid].deck.length - 1
+    console.log("What is the deck?", this.props.battleInfo[playerNumber][user.uid].deck)
+    console.log("deck length", deckLength + 1)
+    if (deckLength + 1 >= 5) {
+      return
+    }
     /// Takes the battle id, card to move, index of card to remove from cards, deck length to assign new id in deck, and user's uid
     this.props.addToDeck(
       player.in_battle,
@@ -59,6 +67,7 @@ class StagingArea extends Component {
     let deckIndex = null
 
     for (let i = 0; i < deckArray.length; i++) {
+      if (deckArray[i] === undefined) continue
       if (deckArray[i].name === card.name) {
         deckIndex = i
       }
@@ -77,50 +86,46 @@ class StagingArea extends Component {
 
   render() {
     if (!(this.props.battleInfo && this.props.player && this.props.user)) return <Spinner />
-    console.log("RENDERPROPS", this.props)
-    const playerNumber = this.props.user.uid === Object.keys(this.props.battleInfo.p1)[0] ? 'p1' : 'p2'
+    const { battleInfo, user } = this.props
+    if (typeof battleInfo.p1 !== 'object' || typeof battleInfo.p2 !== 'object') return <Spinner />
+    console.log(battleInfo, user, battleInfo.p1)
 
-    console.log("TERNARIES", this.props.battleInfo, this.props.player.cards, this.props.battleInfo[playerNumber][this.props.user.uid].deck)
+    const playerInfo = (battleInfo.p1).hasOwnProperty(user.uid) ? battleInfo.p1[user.uid] : battleInfo.p2[user.uid]
+
+    console.log("PLAYER INFO", playerInfo)
+    console.log("PLAYER BATTLE INFO", battleInfo.p1[user.uid], battleInfo.p2[user.uid])
+    console.log("The Deck is An Array?", Array.isArray(playerInfo.deck))
+    // console.log("PLAYER INFO", battleInfo.p1[`${user.uid}`], battleInfo.p2[`${user.uid}`], Object.keys(this.props.battleInfo.p1))
     return (
       <div className="staging-area-main">
         <h1>Welcome to the Staging Area</h1>
         <h3>Select 5 cards for your battle deck!</h3>
         <Row>
-          {!this.props.battleInfo ? (
-            <Spinner />
-          ) : !this.props.player.cards ? (
-            <h1>You have no cards!</h1>
-          ) : (
-                this.props.battleInfo[playerNumber][this.props.user.uid].deck.map(card => (
-                  <Col
-                    onClick={() => this.deselectCard(card)}
-                    key={card.id}
-                    s={2}
-                    m={2}
-                    style={{ paddingBottom: '15px' }}
-                  >
-                    <SingleCard card={card} />
-                  </Col>
-                ))
-              )}
+          {playerInfo.deck ? playerInfo.deck.map(card => (
+            <Col
+              onClick={() => this.deselectCard(card)}
+              key={card.id}
+              s={2}
+              m={2}
+              style={{ paddingBottom: '15px' }}
+            >
+              <SingleCard card={card} />
+            </Col>
+          ))
+            : null}
           <hr />
-          {!this.props.battleInfo ? (
-            <Spinner />
-          ) : !this.props.player.cards ? (
-            <h1>You have no cards!</h1>
-          ) : (
-                this.props.battleInfo[playerNumber][this.props.user.uid].cards.map(card => (
-                  <Col
-                    onClick={() => this.selectCard(card)}
-                    key={card.id}
-                    s={2}
-                    m={2}
-                    style={{ paddingBottom: '15px' }}
-                  >
-                    <SingleCard card={card} />
-                  </Col>
-                ))
-              )}
+          {playerInfo.cards ? playerInfo.cards.map(card => (
+            <Col
+              onClick={() => this.selectCard(card)}
+              key={card.id}
+              s={2}
+              m={2}
+              style={{ paddingBottom: '15px' }}
+            >
+              <SingleCard card={card} />
+            </Col>
+          ))
+            : null}
         </Row>
       </div>
     )
@@ -216,6 +221,11 @@ const addDispatcher = (connector, ref) => ({
       const deckRef = ref(`battles/${battleId}/${player}/${uid}/deck/${deckIndex}`)
       deckRef.remove()
 
+      ref(`battles/${battleId}/${player}/${uid}/deck`).once('value', snapshot => {
+        let arr = [...snapshot.val()]
+        let filtered = arr.filter(item => item !== undefined)
+        ref(`battles/${battleId}/${player}/${uid}/deck`).child(deckIndex).set({})
+      })
     })
   }
 })
