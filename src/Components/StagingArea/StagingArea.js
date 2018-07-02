@@ -29,22 +29,18 @@ class StagingArea extends Component {
   }
 
   selectCard(card) {
-    console.log("SELECTCARD PROPS", this.props)
     const { player, user } = this.props
     const playerNumber = this.props.user.uid === Object.keys(this.props.battleInfo.p1)[0] ? 'p1' : 'p2'
 
     let cardsArray = this.props.battleInfo[playerNumber][user.uid].cards
-    let cardsLength = this.props.battleInfo[playerNumber][user.uid].cards.length - 1
-    console.log('Cards Length', cardsLength)
     let cardIndex = null
+
     for (let i = 0; i < cardsArray.length; i++) {
       if (cardsArray[i].name === card.name) {
         cardIndex = i
       }
     }
-    console.log('Card Index', cardIndex)
     let deckLength = this.props.battleInfo[playerNumber][user.uid].deck.length - 1
-    console.log('Deck Length', deckLength)
     /// Takes the battle id, card to move, index of card to remove from cards, deck length to assign new id in deck, and user's uid
     this.props.addToDeck(
       player.in_battle,
@@ -60,46 +56,42 @@ class StagingArea extends Component {
     const playerNumber = this.props.user.uid === Object.keys(this.props.battleInfo.p1)[0] ? 'p1' : 'p2'
 
     let deckArray = this.props.battleInfo[playerNumber][user.uid].deck
-    let deckLength = this.props.battleInfo[playerNumber][user.uid].deck.length - 1
-    console.log('Deck Length', deckLength)
     let deckIndex = null
+
     for (let i = 0; i < deckArray.length; i++) {
       if (deckArray[i].name === card.name) {
         deckIndex = i
       }
     }
-    console.log('Deck Index', deckIndex)
     let cardLength = this.props.battleInfo[playerNumber][user.uid].cards.length - 1
-    console.log('Card Length', cardLength)
     /// Takes the battle id, card to move, index of card to remove from cards, deck length to assign new id in deck, and user's uid
-    this.props.removeFromDeck(
-      player.in_battle,
-      card,
-      deckIndex,
-      cardLength,
-      user.uid
-    )
+    this
+      .props.removeFromDeck(
+        player.in_battle,
+        card,
+        deckIndex,
+        cardLength,
+        user.uid
+      )
   }
 
   render() {
-    console.log('User UID', this.props.user.uid)
-    console.log('Props', this.props)
-    console.log('Battle Info', this.props.battleInfo)
-    // this.props.battleInfo
-    //   ? console.log(this.props.battleInfo.p1[this.props.user.uid].cards)
-    //   : ''
-    // console.log('Card Uids', this.props.battleInfo.p1)
+    if (!(this.props.battleInfo && this.props.player && this.props.user)) return <Spinner />
+    console.log("RENDERPROPS", this.props)
+    const playerNumber = this.props.user.uid === Object.keys(this.props.battleInfo.p1)[0] ? 'p1' : 'p2'
+
+    console.log("TERNARIES", this.props.battleInfo, this.props.player.cards, this.props.battleInfo[playerNumber][this.props.user.uid].deck)
     return (
       <div className="staging-area-main">
         <h1>Welcome to the Staging Area</h1>
         <h3>Select 5 cards for your battle deck!</h3>
         <Row>
-          {!this.props.player ? (
+          {!this.props.battleInfo ? (
             <Spinner />
           ) : !this.props.player.cards ? (
             <h1>You have no cards!</h1>
           ) : (
-                this.props.player.deck.map(card => (
+                this.props.battleInfo[playerNumber][this.props.user.uid].deck.map(card => (
                   <Col
                     onClick={() => this.deselectCard(card)}
                     key={card.id}
@@ -112,12 +104,12 @@ class StagingArea extends Component {
                 ))
               )}
           <hr />
-          {!this.props.player ? (
+          {!this.props.battleInfo ? (
             <Spinner />
           ) : !this.props.player.cards ? (
             <h1>You have no cards!</h1>
           ) : (
-                this.props.player.cards.map(card => (
+                this.props.battleInfo[playerNumber][this.props.user.uid].cards.map(card => (
                   <Col
                     onClick={() => this.selectCard(card)}
                     key={card.id}
