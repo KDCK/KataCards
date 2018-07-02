@@ -4,12 +4,10 @@ import './SingleCard.css'
 
 const SingleCard = props => {
   const {card} = props
-  console.log(card.name);
-  
   return (
     <Card>
       <Card.Content>
-        <Image src={`/${card.name}.png`} />
+        <Image src="/skeleton_warrior.png" />
         <Card.Header>{card.name}</Card.Header>
         {/* <Card.Meta>
           <span>Summon Count: {card.global_count}</span>
