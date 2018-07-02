@@ -19,7 +19,7 @@ class BuyCard extends Component {
       enoughCurrency: true,
       purchased: false,
       purchasedCard: undefined,
-      selected: false
+      selected: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.purchaseCard = this.purchaseCard.bind(this)
@@ -45,8 +45,9 @@ class BuyCard extends Component {
         gold: Number(this.props.user.gold) - Number(goldSpent)
       }
     })
+    const cardsLength = this.props.user.cards ? Object.keys(this.props.user.cards).length : 0
 
-    this.props.updateUserCardAndGold(goldSpent, chosenCard)
+    this.props.updateUserCardAndGold(goldSpent, chosenCard, cardsLength)
   }
 
   // Must destructure value because of the way Semantic UI Component (Dropdown.js) handles options
@@ -82,23 +83,23 @@ class BuyCard extends Component {
         </div>
       </div>
     ) : (
-      <div>
-        <img className="store-img" alt="home background" src="cardstore.gif" />
-        <div className="store-bought">
-          <h1>You bought: {this.state.purchasedCard.name}!</h1>
-          <h2>Tier {this.state.purchasedCard.tier}</h2>
-          <SingleCard card={this.state.purchasedCard} />
-          <h3>You have {this.props.user.gold} gold left</h3>
-          <Button
-            onClick={this.backToStore}
-            className="back-to-store"
-            waves="red"
-          >
-            Try Again?
+        <div>
+          <img className="store-img" alt="home background" src="cardstore.gif" />
+          <div className="store-bought">
+            <h1>You bought: {this.state.purchasedCard.name}!</h1>
+            <h2>Tier {this.state.purchasedCard.tier}</h2>
+            <SingleCard card={this.state.purchasedCard} />
+            <h3>You have {this.props.user.gold} gold left</h3>
+            <Button
+              onClick={this.backToStore}
+              className="back-to-store"
+              waves="red"
+            >
+              Try Again?
           </Button>
+          </div>
         </div>
-      </div>
-    )
+      )
   }
 }
 
@@ -123,19 +124,21 @@ const addDispatcher = (connector, ref, user) => ({
     })
     return cardsArr
   },
-  async updateUserCardAndGold(goldSpent, chosenCard) {
+  async updateUserCardAndGold(goldSpent, chosenCard, cardsLength) {
     await ref(`users/${user.uid}`).once('value', snapshot => {
-      let thisUser = snapshot.val()
+      const thisUser = snapshot.val()
+
       let prevGold = thisUser.gold
-      let prevCards = thisUser.cards
-
       prevGold -= goldSpent
-      prevCards = [...prevCards, chosenCard]
-
       ref(`users/${user.uid}`).update({
         gold: prevGold,
-        cards: prevCards
       })
+
+      // const cardsLength = ref(`users/${user.uid}/cards`).length
+      console.log(cardsLength)
+      const cardsRef = ref(`users/${user.uid}/cards`)
+      cardsRef.child(cardsLength).set({ ...chosenCard, id: cardsLength })
+
     })
   }
 })

@@ -3,15 +3,12 @@ import { Card, Image, Icon, Popup } from 'semantic-ui-react'
 import './SingleCard.css'
 
 const SingleCard = props => {
-  const { card } = props
+  const { card } = props  
   return (
     <Card>
       <Card.Content>
         <Image src="/skeleton_warrior.png" />
         <Card.Header>{card.name}</Card.Header>
-        {/* <Card.Meta>
-          <span>Summon Count: {card.global_count}</span>
-        </Card.Meta> */}
         <Popup
           trigger={
             <Card.Description>

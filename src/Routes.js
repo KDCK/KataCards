@@ -12,8 +12,8 @@ import {
   BuyCard,
   GameBoard,
   UserDeck,
-  GameOver,
-  StagingArea
+  StagingArea,
+  Credits,
 } from './Components'
 
 import LandingPage from './Components/Landing/LandingPage'
@@ -25,12 +25,12 @@ class Routes extends Component {
   render() {
     return (
       <div>
-        {/* <Nav authUser={this.props.authUser} /> */}
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/logout" component={LandingPage} />
+          <Route exact path="/credits" component={Credits} />
           <Route exact path="/update" component={HandleLogins(Update)} />
           <Route exact path="/home" component={AuthorizedUser(Home)} />{' '}
           <Route exact path="/trade" component={AuthorizedUser(Trade)} />
