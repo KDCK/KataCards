@@ -236,3 +236,5 @@ const addDispatcher = (connector, ref) => ({
 export default firebaseConnect(addListener, addDispatcher)(
   withRouter(StagingArea)
 )
+
+// WOOOO
