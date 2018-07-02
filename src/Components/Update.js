@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
 import { firebaseConnect } from 'fire-connect'
-import { Button, Modal } from 'semantic-ui-react'
+import { Button, Modal, Image, Header, Input, Icon, Message } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
+import axios from 'axios';
 
 import Spinner from './Loader/Spinner'
+import './update.css'
 
 class Update extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
-      codeName: ''
+      codeName: '',
+      approved: false,
+      warning: false
     }
 
+    this.validate = this.validate.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
@@ -43,23 +47,61 @@ class Update extends Component {
     this.props.history.push('/home')
   }
 
+  async validate(codeName) {
+    console.log(codeName);
+
+    const { data } = await axios.get(
+      `/api/code/validate/${codeName}`
+    )
+    console.log(data);
+
+    if (data) {
+      this.setState({approved: true, warning: false})
+    } else {
+      this.setState({ approved: false, warning: true })
+    }
+  }
+
   render() {
     if (!this.props.current) {
-      console.log(this.props);
-
       return <Spinner />
     }
+
     if (this.props.user && !this.props.current.codeName) {
+      console.log(this.props, this.state);
       return (
         <div>
           <Spinner />
-          <Modal open={!this.props.user.codeName}>
-            <h4>Give us your CodeWars user name to get gold for your completed code challenges</h4>
-            <form onSubmit={this.handleSubmit}>
-              <input placeholder='CodeWars User Name' type="text" name="codeName"
-                onChange={this.handleChange}
+          <Modal open={true}>
+            <Modal.Header>Enter Your Codewars Handle</Modal.Header>
+            <Modal.Content image>
+              <Image wrapped size='big' src='https://orig00.deviantart.net/83ee/f/2016/175/6/3/marketplace_by_kirokaze-da7gj37.gif' />
+              <Modal.Description className="modal-desc">
+                <Header as="h4">Completing Katas on Codewars will grant you gold</Header>
+                <Icon loading size='big' name='sun' />
+                <Input
+                  error={this.state.warning}
+                  name="codeName"
+                  placeholder='Codewars Handle'
+                  onChange={this.handleChange}
+                />
+                <Message negative hidden={!this.state.warning}>
+                  <Message.Header>Try again</Message.Header>
+                  <p>This is not a valid Codewars handle.</p>
+                </Message>
+              </Modal.Description>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button onClick={() => this.validate(this.state.codeName)} color="facebook">
+                Validate
+              </Button>
+              <Button
+                onClick={this.handleSubmit}
+                positive
+                content='Proceed'
+                disabled={!this.state.approved}
               />
-            </form>
+            </Modal.Actions>
           </Modal>
         </div>
       )
@@ -101,13 +143,13 @@ const addDispatcher = (connector, ref, user) => ({
   },
   checkCodeWars() {
     ref(`/users/${connector.props.uid}/codeName`).once('value', snapshot => {
-      if(snapshot.exists()) {
+      if (snapshot.exists()) {
         connector.props.history.push('/home')
       }
     })
   },
   changeStatus() {
-    ref(`/users/${connector.props.uid}/`).update({online: true})
+    ref(`/users/${connector.props.uid}/`).update({ online: true })
   },
   checkUser() {
     return connector.props.auth

@@ -1,0 +1,10 @@
+.ui.active.modal {
+  width: 65vw; 
+  left: 50%; 
+  -webkit-transform: translate(-50%, 0); 
+  position: absolute;
+}
+
+.modal-desc {
+  /* padding-top: ; */
+}

@@ -111,8 +111,6 @@ const addDispatcher = (connector, ref, user) => ({
       } else if (snapshot.exists() && turn === 'playerOne') {
         ref(`/battles/${connector.props.battleId}/p1/${user.uid}/deck/${cardId}`).once('value', snapshot => {
           const card = snapshot.val()
-          console.log(card.id);
-
           ref(`/battles/${connector.props.battleId}/p1/${user.uid}/board/${card.id}`).set(card)
         })
         ref(`/battles/${connector.props.battleId}/p1atk`).once('value', snapshot => {
