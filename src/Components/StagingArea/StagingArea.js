@@ -11,13 +11,18 @@ import './StagingArea.css'
 class StagingArea extends Component {
   constructor(props) {
     super(props)
+    this.state = { deckIndex: 5, cardIndex: 5 }
     this.selectCard = this.selectCard.bind(this)
+  }
+
+  componentDidMount() {
+    console.log('COMPONENTPROPS', this.props)
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.player && !prevProps.player) {
       const { player, user } = this.props
-      console.log('asdfjha')
+      console.log('Battle initialized')
 
       this.props.initializeBattle(player.in_battle, player, user.uid)
     }
@@ -25,11 +30,62 @@ class StagingArea extends Component {
 
   selectCard(card) {
     const { player, user } = this.props
-    this.props.addToDeck(player.in_battle, card, user.uid)
+    let cardsArray = this.props.battleInfo.p1[user.uid].cards
+    let cardsLength = this.props.battleInfo.p1[user.uid].cards.length - 1
+    console.log('Cards Length', cardsLength)
+    let cardIndex = null
+    for (let i = 0; i < cardsArray.length; i++) {
+      if (!cardsArray[i]) continue
+      if (cardsArray[i].name === card.name) {
+        cardIndex = i
+      }
+    }
+    console.log('Card Index', cardIndex)
+    let deckLength = this.props.battleInfo.p1[user.uid].deck.length - 1
+    console.log('Deck Length', deckLength)
+    /// Takes the battle id, card to move, index of card to remove from cards, deck length to assign new id in deck, and user's uid
+    this.props.addToDeck(
+      player.in_battle,
+      card,
+      cardIndex,
+      deckLength,
+      user.uid
+    )
+  }
+
+  deselectCard(card) {
+    const { player, user } = this.props
+    let cardsArray = this.props.battleInfo.p1[user.uid].cards
+    let cardsLength = this.props.battleInfo.p1[user.uid].cards.length - 1
+    console.log('Cards Length', cardsLength)
+    let cardIndex = null
+    for (let i = 0; i < cardsArray.length; i++) {
+      if (!cardsArray[i]) continue
+      if (cardsArray[i].name === card.name) {
+        cardIndex = i
+      }
+    }
+    console.log('Card Index', cardIndex)
+    let deckLength = this.props.battleInfo.p1[user.uid].deck.length - 1
+    console.log('Deck Length', deckLength)
+    /// Takes the battle id, card to move, index of card to remove from cards, deck length to assign new id in deck, and user's uid
+    this.props.removeFromDeck(
+      player.in_battle,
+      card,
+      cardIndex,
+      deckLength,
+      user.uid
+    )
   }
 
   render() {
-    console.log('playercards', this.props.player)
+    console.log('User UID', this.props.user.uid)
+    console.log('Props', this.props)
+    console.log('Battle Info', this.props.battleInfo)
+    // this.props.battleInfo
+    //   ? console.log(this.props.battleInfo.p1[this.props.user.uid].cards)
+    //   : ''
+    // console.log('Card Uids', this.props.battleInfo.p1)
     return (
       <div className="staging-area-main">
         <h1>Welcome to the Staging Area</h1>
@@ -37,12 +93,12 @@ class StagingArea extends Component {
         <Row>
           {!this.props.player ? (
             <Spinner />
-          ) : !this.props.player.deck ? (
+          ) : !this.props.player.cards ? (
             <h1>You have no cards!</h1>
           ) : (
             this.props.player.deck.map(card => (
               <Col
-                onClick={() => this.selectCard(card)}
+                onClick={() => this.deselectCard(card)}
                 key={card.id}
                 s={2}
                 m={2}
@@ -84,10 +140,18 @@ const addListener = (connector, ref, user, setEventType) => ({
         connector.setState({ player: snapshot.val() })
       }
     ),
-  listenBattle: () =>
-    ref('/battles').on(setEventType('child_added'), snapshot => {
-      connector.setState({ battle: snapshot.val() })
-    })
+  // listenBattle: () =>
+  //   ref('/battles').on(setEventType('child_added'), snapshot => {
+  //     connector.setState({ battle: snapshot.val() })
+  //   }),
+  listenBattleInfo: () =>
+    ref(`/battles/${connector.props.battleId}/`).on(
+      setEventType('value'),
+      snapshot => {
+        console.log('VALUE', snapshot.val())
+        connector.setState({ battleInfo: snapshot.val() })
+      }
+    )
 })
 
 const addDispatcher = (connector, ref) => ({
@@ -129,22 +193,41 @@ const addDispatcher = (connector, ref) => ({
       }
     })
   },
-  addToDeck(battleId, card, uid) {
-    ref(`/battles/${battleId}`).once('value', snapshot => {
+  addToDeck(battleId, card, cardIndex, deckLength, uid) {
+    ref(`/battles/${battleId}`).on('value', snapshot => {
       const battle = snapshot.val()
       if (battle.p1uid === uid) {
-        const deckKey = ref(`battles/${battleId}/p1/${uid}/deck`).push(card).key
-        console.log('CARDKEY', deckKey)
-        ref(`battles/${battleId}/p1/${uid}/cards/${deckKey}`).update({
-          id: deckKey
-        })
-        ref(`battles/${battleId}/p1/${uid}/cards/`).remove()
+        const deckRef = ref(`battles/${battleId}/p1/${uid}/deck`)
+        deckRef.child(deckLength + 1).set(card)
+        const cardRef = ref(`battles/${battleId}/p1/${uid}/cards/${cardIndex}`)
+        cardRef.remove()
+        // ref(`battles/${battleId}/p1/${uid}/cards/${deckKey}`).remove()
       } else if (battle.p2uid === uid) {
-        const cardKey = ref(`battles/${battleId}/p2/${uid}/deck`).push(card).key
-        console.log('CARDKEY', cardKey)
-        ref(`battles/${battleId}/p2/${uid}/deck/${cardKey}`).update({
-          id: cardKey
-        })
+        const deckRef = ref(`battles/${battleId}/p2/${uid}/deck`)
+        deckRef.child(deckLength + 1).set(card)
+        const cardRef = ref(`battles/${battleId}/p2/${uid}/cards/${cardIndex}`)
+        cardRef.remove()
+        // ref(`battles/${battleId}/p2/${uid}/deck/${cardKey}`).update({
+        //   id: cardKey
+      }
+    })
+  },
+  removeFromDeck(battleId, card, deckIndex, cardLength, uid) {
+    ref(`/battles/${battleId}`).on('value', snapshot => {
+      const battle = snapshot.val()
+      if (battle.p1uid === uid) {
+        const deckRef = ref(`battles/${battleId}/p1/${uid}/deck`)
+        deckRef.remove()
+        const cardRef = ref(`battles/${battleId}/p1/${uid}/cards/${deckIndex}`)
+        cardRef.child(cardLength + 1).set(card)
+        // ref(`battles/${battleId}/p1/${uid}/cards/${deckKey}`).remove()
+      } else if (battle.p2uid === uid) {
+        const deckRef = ref(`battles/${battleId}/p2/${uid}/deck`)
+        deckRef.remove()
+        const cardRef = ref(`battles/${battleId}/p2/${uid}/cards/${deckIndex}`)
+        cardRef.child(cardLength + 1).set(card)
+        // ref(`battles/${battleId}/p2/${uid}/deck/${cardKey}`).update({
+        //   id: cardKey
       }
     })
   }

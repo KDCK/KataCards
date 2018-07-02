@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import {Route, Switch} from 'react-router-dom'
-import {firebaseConnect} from 'fire-connect'
+import React, { Component } from 'react'
+import { Route, Switch } from 'react-router-dom'
+import { firebaseConnect } from 'fire-connect'
 
 import {
   Home,
@@ -13,13 +13,13 @@ import {
   GameBoard,
   UserDeck,
   GameOver,
-  StagingArea,
+  StagingArea
 } from './Components'
 
 import LandingPage from './Components/Landing/LandingPage'
 import AuthorizedUser from './Components/HOC/AuthorizedUser'
-import InitializeBattle from './Components/HOC/InitializeBattle';
-import HandleLogins from './Components/HOC/HandleLogins';
+import InitializeBattle from './Components/HOC/InitializeBattle'
+import HandleLogins from './Components/HOC/HandleLogins'
 
 class Routes extends Component {
   render() {
@@ -37,8 +37,16 @@ class Routes extends Component {
           <Route exact path="/profile" component={AuthorizedUser(Profile)} />
           <Route exact path="/userdeck" component={AuthorizedUser(UserDeck)} />
           <Route exact path="/cardstore" component={AuthorizedUser(BuyCard)} />
-          <Route exact path="/battle/:battleId" component={AuthorizedUser(InitializeBattle(GameBoard))} />
-          <Route exact path="/stagingarea/:battleId" component={AuthorizedUser(StagingArea)} />
+          <Route
+            exact
+            path="/battle/:battleId"
+            component={AuthorizedUser(InitializeBattle(GameBoard))}
+          />
+          <Route
+            exact
+            path="/stagingarea/:battleId"
+            component={AuthorizedUser(InitializeBattle(StagingArea))}
+          />
         </Switch>
       </div>
     )
