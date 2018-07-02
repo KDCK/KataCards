@@ -1,4 +1,4 @@
-body {
+.container {
   background: #000;
   color: #fff;
   font-family: 'arial',sans-serif;
@@ -6,12 +6,9 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-}
-
-.container {
   margin: 0 auto;
-  height: auto;
-  width: 660px;
+  height: 100vh;
+  width: 100vw;
   text-align: center;
 }
 
