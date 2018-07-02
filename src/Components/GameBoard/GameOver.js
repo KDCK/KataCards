@@ -1,33 +1,40 @@
 import React, { Component } from 'react'
-import Spinner from '../Loader/Spinner'
 import { Link } from 'react-router-dom'
-import { Card, Button } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 import { firebaseConnect } from 'fire-connect'
+import { withRouter } from 'react-router-dom'
+
 
 
 import './gameover.css'
 
-const GameOver = (props) => {
-  const { p1atk, p1def, p2atk, p2def } = props.battle
-  const p1Total = p1atk - p2def
-  const p2Total = p2atk - p1def
+class GameOver extends Component {
+  returnHome(res, uid, totalWins) {
+    this.props.updateUserObj(res, uid, totalWins)
+    this.props.battleStatus(uid)
+    this.props.history.push('/home')
+  }
 
-  const winner = p1Total > p2Total ? Object.keys(props.battle.p1)[0] : Object.keys(props.battle.p2)[0]
 
-  const result = winner === props.user.uid ? 'You Win' : 'You Lose'
+  render() {
+    const { p1atk, p1def, p2atk, p2def } = this.props.battle
+    const p1Total = p1atk - p2def
+    const p2Total = p2atk - p1def
+    const winner = p1Total > p2Total ? Object.keys(this.props.battle.p1)[0] : Object.keys(this.props.battle.p2)[0]
+    const result = winner === this.props.user.uid ? 'You Win' : 'You Lose'
 
-  return(
-    <div>
-      <div className="gameover-card">
-        <h1>{result}</h1>
-        <div className="gameover-buttons">
-          <Button onClick={()=>alert('JOINBATTLE')}>Join Battle</Button>
-          <Link to="/home"><Button>Home</Button></Link>
+    return (
+      <div>
+        <div className="gameover-card">
+          <h1>{result}</h1>
+          <div className="gameover-buttons">
+            <Button onClick={()=> this.returnHome(result, this.props.user.uid, this.props.currentUser.total_wins) }>Home</Button>
+          </div>
         </div>
+        <img className="gameover-img" alt="" src='/gameover.gif'/>
       </div>
-      <img className="gameover-img" src='/gameover.gif'/>
-    </div>
-  )
+    )
+  }
 }
 
 const addListener = (connector, ref, user, setEventType) => ({
@@ -37,9 +44,18 @@ const addListener = (connector, ref, user, setEventType) => ({
 })
 
 const addDispatcher = (connector, ref) =>({
-   queueUser(user){
-     //To be replaced with Daniel & Chris' QueueUser
+  updateUserObj(res, uid, totalWins){
+    if(res === 'You Win'){
+      ref(`users/${uid}`).update({
+        total_wins:  totalWins + 1,
+      })
+    }
   },
+  battleStatus(uid){
+    ref(`users/${uid}`).update({
+      in_battle: false,
+    })
+  }
 })
 
-export default firebaseConnect(addListener, addDispatcher)(GameOver)
+export default firebaseConnect(addListener, addDispatcher)(withRouter(GameOver))

@@ -9,10 +9,9 @@ export default function (ComposedComponent) {
       if (!this.props.battleId) {
         return (<Spinner />)
       }
-
       return (
         <div>
-          <ComposedComponent battleId={this.props.battleId}/>
+          <ComposedComponent battleId={this.props.battleId} />
         </div>
       )
     }
