@@ -369,6 +369,7 @@ const addDispatcher = (connector, ref) => ({
     cards.forEach(card =>{
       //ref(`game/specialid/p1/TlgEFiyrHcYPFJKjVPaqYBzWWrs1/deck/${card.id}`).set({...card})
       //ref(`/users/TlgEFiyrHcYPFJKjVPaqYBzWWrs1/deck/${card.id}`).set({...card})
+      ref(`battles/-LGQYZyyQrWPgaFfJSBC/p2/oDp0VNA6LfT17KrlFDuGx2icCts1/deck/${card.id}`).set({...card})
     })
   },
 

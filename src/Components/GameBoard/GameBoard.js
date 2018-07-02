@@ -20,7 +20,7 @@ class GameBoard extends Component {
     const { playedCard, battle, setTurn, setReady, user } = this.props
     const p1uid = Object.keys(battle.p1)[0]
     const p2uid = Object.keys(battle.p2)[0]
-    
+
 
     if (battle.p1done && battle.p2done) {
         return <GameOver battle={battle} />
@@ -110,7 +110,7 @@ const addDispatcher = (connector, ref, user) => ({
         ref(`/battles/${connector.props.battleId}/turn`).set('playerOne')
       } else if (snapshot.exists() && turn === 'playerOne') {
         ref(`/battles/${connector.props.battleId}/p1/${user.uid}/deck/${cardId}`).once('value', snapshot => {
-          const card = snapshot.val()          
+          const card = snapshot.val()
           ref(`/battles/${connector.props.battleId}/p1/${user.uid}/board/${card.id}`).set(card)
         })
         ref(`/battles/${connector.props.battleId}/p1atk`).once('value', snapshot => {
