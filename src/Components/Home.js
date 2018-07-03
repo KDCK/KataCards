@@ -56,7 +56,7 @@ class Home extends Component {
             </h1>
             <div>
               <Button
-                large
+                // large
                 waves="light"
                 node="a"
                 href="http://www.codewars.com"

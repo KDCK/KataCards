@@ -1,21 +1,82 @@
 import React from 'react'
+import { List } from 'semantic-ui-react'
 import './credits.css'
 
-const Credits = () =>{
+const Credits = () => {
   return (
     <div class="container">
       <div class="credits">
-        <p>All art sourced from the following artists</p>
-        <p>Artist_Name</p>
-        <p>Artist_Name</p>
-        <p>Artist_Name</p>
-        <p>Artist_Name</p>
+        <h1>Credit for artwork to the following artists:</h1>
+        <List>
+          <List.Item>
+            <List.Icon name='users' />
+            <List.Content>Denecastre</List.Content>
+          </List.Item>
+          <List.Item>
+            <List.Icon name='linkify' />
+            <List.Content>
+              <a href='https://www.reddit.com/user/Denecastre'>https://www.reddit.com/user/Denecastre</a>
+            </List.Content>
+          </List.Item>
+        </List>
+        <List>
+          <List.Item>
+            <List.Icon name='users' />
+            <List.Content>Nate Kling</List.Content>
+          </List.Item>
+          <List.Item>
+            <List.Icon name='linkify' />
+            <List.Content>
+              <a href='https://imgur.com/r/PixelArt/ijWjGah'>https://imgur.com/r/PixelArt/ijWjGah</a>
+            </List.Content>
+          </List.Item>
+          <List.Item>
+            <List.Icon name='linkify' />
+            <List.Content>
+              <a href='https://imgur.com/k7ksNbK'>https://imgur.com/k7ksNbK</a>
+            </List.Content>
+          </List.Item>
+        </List>
+        <List>
+          <List.Item>
+            <List.Icon name='users' />
+            <List.Content>Michael Meyers</List.Content>
+          </List.Item>
+          <List.Item>
+            <List.Icon name='linkify' />
+            <List.Content>
+              <a href='https://www.behance.net/gallery/17281817/Transistor-fanart'>https://www.behance.net/gallery/17281817/Transistor-fanart</a>
+            </List.Content>
+          </List.Item>
+        </List>
+        <List>
+          <List.Item>
+            <List.Icon name='users' />
+            <List.Content>Pixel Art Sprites</List.Content>
+          </List.Item>
+          <List.Item>
+            <List.Icon name='linkify' />
+            <List.Content>
+              <a href='https://twitter.com/PixelArtSprites/media'>https://twitter.com/PixelArtSprites/media</a>
+            </List.Content>
+          </List.Item>
+        </List>
+        <List>
+          <List.Item>
+            <List.Icon name='users' />
+            <List.Content>Unknown Artist(s)</List.Content>
+          </List.Item>
+          <List.Item>
+            <List.Icon name='linkify' />
+            <List.Content>
+              <a href='http://www.canbum.net/cdn/27/1993/384/'>http://www.canbum.net/cdn/27/1993/384/</a>
+            </List.Content>
+          </List.Item>
+        </List>
       </div>
     </div>
-
   )
 }
 
 export default Credits
 
-//.wrapper
