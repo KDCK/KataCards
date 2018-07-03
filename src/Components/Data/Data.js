@@ -319,33 +319,31 @@ export const cardsArray = [
   }
 ]
 
-export const starterDeck = () => {
+export const starterDeck = (cards) => {
+    console.log(cards)
     const result = []
-    const tier1 = []
-    const tier2 = []
+    const tier1 = cards.filter(card => card.tier === 1)
+    const tier2 = cards.filter(card => card.tier === 2)
 
-    cardsArray.forEach(card=>{
-      if(card.tier === 'Tier 1') return tier1.push(card)
-    })
+    console.log("tier1", tier1);
 
-    cardsArray.forEach(card=>{
-      if(card.tier === 'Tier 2') return tier2.push(card)
-    })
+    console.log("tier2", tier2);
 
-    for(let i = 0; result.legnth < 5; i++){
+    for(let i = 0; result.length < 5; i++){
       const randNum = Math.floor(Math.random() * tier1.length);
       if(!result.includes(tier1[randNum])){
         result.push(tier1[randNum])
       }
     }
 
-    for(let i = 0; result.legnth < 6; i++){
+    for(let i = 0; result.length < 6; i++){
       const randNum = Math.floor(Math.random() * tier2.length);
       if(!result.includes(tier2[randNum])){
         result.push(tier2[randNum])
       }
     }
-
+    console.log("result", result);
+    result.forEach(card => card.id = result.indexOf(card))
     return result
 
   }
@@ -353,8 +351,8 @@ export const starterDeck = () => {
 class Data extends Component {
 
   componentWillMount() {
-    this.props.seedP1Deck(specialDeck)
-    this.props.seedP2Deck(specialDeck)
+    //this.props.seedP1Deck(specialDeck)
+    //this.props.seedP2Deck(specialDeck)
     //this.props.seedCardCollection(cardsArray)
   }
 

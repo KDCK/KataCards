@@ -13,3 +13,7 @@
 .update-gold {
   align-self: center;
 }
+
+.ui.item.top.right.pointing.dropdown{
+  margin-left: 0px !important
+}

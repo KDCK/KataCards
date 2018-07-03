@@ -3,7 +3,7 @@ import { firebaseConnect } from 'fire-connect'
 import { Button, Modal, Image, Header, Input, Icon, Message } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
-
+import {starterDeck} from './Data/Data'
 import Spinner from './Loader/Spinner'
 import './update.css'
 
@@ -30,6 +30,7 @@ class Update extends Component {
   }
 
   componentDidUpdate() {
+    console.log(this.props);
     if (this.props.user) {
       this.props.newUserDefault()
     }
@@ -43,17 +44,18 @@ class Update extends Component {
   }
 
   handleSubmit() {
+    const cardsArray = starterDeck(Object.values(this.props.cards))
+    console.log(cardsArray);
     this.props.updateCodeWarsName(this.state.codeName)
+    cardsArray.forEach(card => this.props.userCards(card))
+
     this.props.history.push('/home')
   }
 
   async validate(codeName) {
-    console.log(codeName);
-
     const { data } = await axios.get(
       `/api/code/validate/${codeName}`
     )
-    console.log(data);
 
     if (data) {
       this.setState({approved: true, warning: false})
@@ -115,6 +117,10 @@ const addListener = (connector, ref, user, setEventType) => ({
     ref(`/users/${connector.props.uid}`).on(setEventType('value'), snapshot => {
       connector.setState({ current: snapshot.val() })
     }),
+  listenCards: () =>
+    ref(`cards`).on('value', snapshot =>{
+      connector.setState({ cards: snapshot.val() })
+    })
 })
 
 const addDispatcher = (connector, ref, user) => ({
@@ -154,6 +160,9 @@ const addDispatcher = (connector, ref, user) => ({
   checkUser() {
     return connector.props.auth
   },
+  userCards(card){
+    ref(`/users/${connector.props.uid}/cards/${card.id}`).set({...card})
+  }
 })
 
 export default firebaseConnect(addListener, addDispatcher)(withRouter(Update))
