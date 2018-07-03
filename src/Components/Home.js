@@ -27,6 +27,11 @@ class Home extends Component {
     this.props.queueUser(user)
   }
 
+  leaveQueue(user) {
+    this.setState({ waiting: false })
+    this.props.dequeueUser(user)
+  }
+
   async startBattle(user, queue, battles) {
     let newBattle = null
     if (this.props.queue && Object.keys(this.props.queue).length >= 2) {
@@ -43,7 +48,6 @@ class Home extends Component {
   }
 
   render() {
-    //Remove Data Component before deployment
     return (
       <div>
         <Data />
@@ -56,7 +60,6 @@ class Home extends Component {
             </h1>
             <div>
               <Button
-                // large
                 waves="light"
                 node="a"
                 href="http://www.codewars.com"
@@ -83,6 +86,7 @@ class Home extends Component {
                   ? 'Waiting for Match...'
                   : 'Join Battle Queue'}
             </Button>
+            {this.state.waiting ? <Button className="home-button" onClick={() => this.leaveQueue(this.props.user)}>Leave Queue</Button> : null}
           </div>
           {this.state.matchReady ? (
             <div className="home-buttons-top">
@@ -152,6 +156,12 @@ const addDispatcher = (connector, ref) => ({
       ref(`/users/${connector.props.user.uid}`).update({
         in_battle: 'waiting'
       })
+    }
+  },
+  dequeueUser(user) {
+    if (user.in_battle) {
+      ref(`queue/${connector.props.user.uid}`).remove()
+      ref(`users/${connector.props.user.uid}`).update({ in_battle: false })
     }
   },
   joinBattle(user, queue, battles) {
