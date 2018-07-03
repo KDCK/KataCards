@@ -6,10 +6,13 @@ const Credits = () => {
   return (
     <div class="container">
       <div class="credits">
-        <h1>Credit for artwork to the following artists:</h1>
+        <h1>Created by KDCK</h1>
+        <p>Katie Lopez, Daniel Howard, Chris Ardeljan, Kenneth Zhu</p>
+
+        <h1>Credit for Artwork to the Following Artists:</h1>
         <List>
           <List.Item>
-            <List.Icon name='users' />
+            <List.Icon name='male' />
             <List.Content>Denecastre</List.Content>
           </List.Item>
           <List.Item>
@@ -21,7 +24,7 @@ const Credits = () => {
         </List>
         <List>
           <List.Item>
-            <List.Icon name='users' />
+            <List.Icon name='male' />
             <List.Content>Nate Kling</List.Content>
           </List.Item>
           <List.Item>
@@ -39,7 +42,7 @@ const Credits = () => {
         </List>
         <List>
           <List.Item>
-            <List.Icon name='users' />
+            <List.Icon name='male' />
             <List.Content>Michael Meyers</List.Content>
           </List.Item>
           <List.Item>
@@ -73,6 +76,9 @@ const Credits = () => {
             </List.Content>
           </List.Item>
         </List>
+
+        <h1>Thanks to Everyone at Fullstack Academy and all the Help From:</h1>
+        <p>Gabriel Lebec, Dakota Blair, Robert Rinaldo, Michaela Adams</p>
       </div>
     </div>
   )
