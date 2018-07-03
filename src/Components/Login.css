@@ -1,11 +1,28 @@
 .login-outer-container {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
-.button {
-  margin: 10px;
+.login-img{
+  width: 100%;
+  height: 100vh;
+  object-fit: 'cover';
+}
+.login-input-wrapper{
+  position: absolute;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.login-input-button{
+    margin-top: 15px;
+}
+
+.login-buttons{
+  position: absolute;
+  text-align: center;
+  top: 30vh;
+  margin-top: -50px;
+  margin-left: -40px;
 }

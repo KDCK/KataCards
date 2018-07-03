@@ -51,7 +51,7 @@ class Home extends Component {
         <div className="home-buttons">
           <div className="code-wars-home">
             <h1>
-              Train your skills at CodeWars.com to earn Gold and Buy Better
+              Train your skills at CodeWars.com <br/> to earn Gold and Buy Better
               Cards for your Deck!
             </h1>
             <div>

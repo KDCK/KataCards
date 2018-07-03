@@ -5,8 +5,6 @@ import {firebaseConnect} from 'fire-connect'
 const Logout = props => {
   console.log(props.user);
   !props.user.uid ? null : props.setOffline(props.user.uid)
-
-  //auth.signOut()
   return (
     <div>Logged Out</div>
   )
