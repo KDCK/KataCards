@@ -17,3 +17,7 @@
 .ui.item.top.right.pointing.dropdown{
   margin-left: 0px !important
 }
+
+a.left.item {
+  font-size: 20px;
+}

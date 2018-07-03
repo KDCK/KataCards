@@ -1,24 +1,39 @@
 .container {
-  background: #000;
+  background: rgba(107, 91, 0, 0.568);
+  background-size: cover;
+  background-attachment: scroll;
   color: #fff;
   font-family: 'arial',sans-serif;
   line-height: 1;
-  margin: 0;
-  padding: 0;
+  margin-top: 3vh;
+  padding-top: 3vh;
+  margin-bottom: 2vh;
+  padding-bottom: 2vh;
   overflow: hidden;
-  margin: 0 auto;
   height: 100vh;
   width: 100vw;
   text-align: center;
+  border-radius: 1em;
 }
 
 .credits {
   text-shadow: 0 -4px 8px blue, 0 3px 8px #ff00ff;
-  margin: 0 40%;
-  -webkit-animation: movenames 10s linear infinite;
-  -moz-animation: movenames 10s linear infinite;
-  animation: movenames 10s linear infinite;
+  margin: 0 10%;
+  display: flex;
+  flex-direction: column;
+  -webkit-animation: movenames 10s linear 1;
+  -moz-animation: movenames 10s linear 1;
+  animation: movenames 10s linear 1;
 }
+
+.credits p {
+  font-size: 20px;
+}
+
+.credits .list {
+  margin-left: 30%;
+}
+
 .credits span {
   display: block;
   margin: 5px 0;
@@ -37,7 +52,7 @@
 	0% {margin-top: 400px;}
 	100% {margin-bottom: 150px;}
 }
-keyframes movenames {
+@keyframes movenames {
 	0% {margin-top: 400px;}
 	100% {margin-bottom: 150px;}
 }

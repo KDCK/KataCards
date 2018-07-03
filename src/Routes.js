@@ -11,7 +11,6 @@ import {
   Trade,
   BuyCard,
   GameBoard,
-  UserDeck,
   StagingArea,
   Credits,
 } from './Components'
@@ -35,7 +34,6 @@ class Routes extends Component {
           <Route exact path="/home" component={AuthorizedUser(Home)} />{' '}
           <Route exact path="/trade" component={AuthorizedUser(Trade)} />
           <Route exact path="/profile" component={AuthorizedUser(Profile)} />
-          <Route exact path="/userdeck" component={AuthorizedUser(UserDeck)} />
           <Route exact path="/cardstore" component={AuthorizedUser(BuyCard)} />
           <Route
             exact
@@ -47,6 +45,7 @@ class Routes extends Component {
             path="/stagingarea/:battleId"
             component={AuthorizedUser(InitializeBattle(StagingArea))}
           />
+          <Route exact path="/credits" component={Credits} />
         </Switch>
       </div>
     )
