@@ -15,10 +15,7 @@ class StagingArea extends Component {
       this.props.initializeBattle(player.in_battle, player, user.uid)
     }
 
-    //dispatch function will check if both players are set to ready
-    //if true push to battle
     if(this.props.allReady(this.props.battleId)){
-      console.log()
       this.props.history.push(`/battle/${this.props.battleId}`)
     }
   }
@@ -33,8 +30,6 @@ class StagingArea extends Component {
     let readyButton = this.props.checkDeckLength(this.props.battleId, uid)//less than 3 returns undefined...bug
     console.log("readyButton",readyButton)
 
-    //add waiting for opponent div
-    //add ready button will be disabled/enabled by dispatch function checking deck length
     return (
       <div className="staging-area-main">
         <div>
@@ -203,10 +198,8 @@ const addDispatcher = (connector, ref) => ({
       const battle = snapshot.val()
       console.log("Battle", battle);
       if(battle.p1uid === uid){
-        console.log('i set p1')
         ref(`battles/${battleId}/`).update({p1ready:true})
       }else if(battle.p2uid === uid){
-        console.log('i set p2')
         ref(`battles/${battleId}/`).update({p2ready:true})
       }
     })
@@ -215,8 +208,6 @@ const addDispatcher = (connector, ref) => ({
     let result = false
     ref(`battles/${battleId}`).once('value', snapshot =>{
       const battle = snapshot.val()
-      console.log("p1",battle.p1ready)
-      console.log("p2",battle.p2ready)
 
       if(battle.p1ready && battle.p2ready){
         result =true
