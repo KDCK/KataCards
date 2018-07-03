@@ -13,6 +13,11 @@
   margin: 5% 5%;
 }
 
+.ui.image {
+  width: 100%;
+  max-height: 64%;
+}
+
 .ui.card > .content > .description {
   font-style: italic;
   font-size: 10px;
@@ -20,6 +25,7 @@
 
 .ui.card > .content > .header {
   text-align: center;
+  padding-top: 10px;
 }
 
 .ui.card > .extra > i {
