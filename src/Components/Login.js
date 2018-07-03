@@ -73,8 +73,10 @@ class Login extends Component {
     }
     return (
       <div className="login-outer-container">
-        <Row handleSubmit={this.handleSubmit}>
+        <img className="login-img" src="battle.gif" />
+        <Row className="login-input-wrapper" handleSubmit={this.handleSubmit}>
           <Input
+            className="login-inputs"
             name="email"
             type="email"
             label="Email"
@@ -82,17 +84,18 @@ class Login extends Component {
             onChange={this.handleChange}
           />
           <Input
+            className="login-inputs"
             name="password"
             type="password"
             label="Password"
             s={4}
             onChange={this.handleChange}
           />
-          <Button waves="light" className="button" onClick={this.handleSubmit}>
+          <Button waves="light" className="login-input-button" onClick={this.handleSubmit}>
             Login
           </Button>
         </Row>
-        <Button waves="light" className="button" onClick={this.handleGoogle}>
+        <Button waves="light" className="login-buttons" onClick={this.handleGoogle}>
           Login With Google
         </Button>
       </div>
