@@ -1,5 +1,6 @@
 import React from 'react'
-import { List } from 'semantic-ui-react'
+import { Button, List } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 import './credits.css'
 
 const Credits = () => {
@@ -79,6 +80,11 @@ const Credits = () => {
 
         <h1>Thanks to Everyone at Fullstack Academy and all the Help From:</h1>
         <p>Gabriel Lebec, Dakota Blair, Robert Rinaldo, Michaela Adams</p>
+        <Link to="/home">
+          <Button color="red" className="home-button-deck" waves="purple">
+            Back to Kata Cards
+          </Button>
+        </Link>
       </div>
     </div>
   )
