@@ -86,7 +86,7 @@ class Home extends Component {
                   ? 'Waiting for Match...'
                   : 'Join Battle Queue'}
             </Button>
-            {this.state.waiting ? <Button onClick={() => this.leaveQueue(this.props.user)}>Leave Queue</Button> : null}
+            {this.state.waiting ? <Button className="home-button" onClick={() => this.leaveQueue(this.props.user)}>Leave Queue</Button> : null}
           </div>
           {this.state.matchReady ? (
             <div className="home-buttons-top">
