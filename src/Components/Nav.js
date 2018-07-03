@@ -23,6 +23,7 @@ class Nav extends Component {
             <Dropdown.Menu>
               <Dropdown.Item onClick={() => this.props.redirectToBuyCards(this.props.history)}>Buy Cards</Dropdown.Item>
               <Dropdown.Item onClick={() => this.props.redirectToProfile(this.props.history)}>Profile</Dropdown.Item>
+              <Dropdown.Item onClick={() => this.props.redirectToCredits(this.props.history)}>Credits</Dropdown.Item>
               <Dropdown.Item onClick={() => this.props.setOffline(this.props.user.uid, this.props.history)}>Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -53,6 +54,9 @@ const addDispatcher = (connector, ref, user) => ({
   },
   redirectToBuyCards(history) {
     history.push('/cardstore')
+  },
+  redirectToCredits(history) {
+    history.push('/credits')
   }
 })
 
