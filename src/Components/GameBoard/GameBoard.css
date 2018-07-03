@@ -21,3 +21,39 @@ hr {
   width: 100vw;
   box-shadow: 3px 3px 3px 3px rgb(61, 47, 0);
 }
+
+.display-status-outer-left {
+  position: fixed;
+  top: 25%;
+  left: 0;
+}
+
+.display-status-outer-right {
+  position: fixed;
+  top: 25%;
+  right: 0;
+}
+
+.player-indicator {
+  position: fixed;
+  bottom: 5px;
+  left: 5px;
+}
+
+.display-status-inner {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 5px;
+  max-width: 110px;
+}
+
+.label-wrapper {
+  padding: 10px;
+}
+
+.turn {
+  text-align: left;
+  margin: 0;
+}
