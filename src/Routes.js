@@ -35,7 +35,6 @@ class Routes extends Component {
           <Route exact path="/home" component={AuthorizedUser(Home)} />{' '}
           <Route exact path="/trade" component={AuthorizedUser(Trade)} />
           <Route exact path="/profile" component={AuthorizedUser(Profile)} />
-          <Route exact path="/userdeck" component={AuthorizedUser(UserDeck)} />
           <Route exact path="/cardstore" component={AuthorizedUser(BuyCard)} />
           <Route
             exact

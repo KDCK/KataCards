@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
-import {firebaseConnect} from 'fire-connect'
-import {Button} from 'react-materialize'
-import {withRouter, Link} from 'react-router-dom'
+import React, { Component } from 'react'
+import { firebaseConnect } from 'fire-connect'
+import { Button } from 'react-materialize'
+import { withRouter, Link } from 'react-router-dom'
 
-import {db} from '../firebase'
+import { db } from '../firebase'
 import './Home.css'
 
 import Data from './Data/Data.js'
@@ -11,19 +11,19 @@ import Data from './Data/Data.js'
 class Home extends Component {
   constructor(props) {
     super(props)
-    this.state = {waiting: false, matchReady: false}
+    this.state = { waiting: false, matchReady: false }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
       this.props.queue && Object.keys(this.props.queue).length >= 2
-        ? this.setState({waiting: false, matchReady: true})
+        ? this.setState({ waiting: false, matchReady: true })
         : null
     }
   }
 
   joinQueue(user) {
-    this.setState({waiting: true})
+    this.setState({ waiting: true })
     this.props.queueUser(user)
   }
 
@@ -51,7 +51,7 @@ class Home extends Component {
         <div className="home-buttons">
           <div className="code-wars-home">
             <h1>
-              Train your skills at CodeWars.com <br/> to earn Gold and Buy Better
+              Train your skills at CodeWars.com <br /> to earn Gold and Buy Better
               Cards for your Deck!
             </h1>
             <div>
@@ -70,8 +70,8 @@ class Home extends Component {
               large
               style={
                 this.state.waiting
-                  ? {animation: 'glowing 1500ms infinite'}
-                  : {animation: 'none'}
+                  ? { animation: 'glowing 1500ms infinite' }
+                  : { animation: 'none' }
               }
               className="home-button"
               waves="purple"
@@ -90,8 +90,8 @@ class Home extends Component {
                 large
                 style={
                   this.state.matchReady
-                    ? {animation: 'glowing 1500ms infinite'}
-                    : {animation: 'none'}
+                    ? { animation: 'glowing 1500ms infinite' }
+                    : { animation: 'none' }
                 }
                 className="home-button"
                 waves="purple"
@@ -108,9 +108,9 @@ class Home extends Component {
             </div>
           ) : null}
           <div className="home-buttons-bottom">
-            <Link to="/userdeck">
+            <Link to="/cardstore">
               <Button className="home-button-deck" waves="purple">
-                My Deck
+                Buy New Cards
               </Button>
             </Link>
             <Link to="/profile">
@@ -130,16 +130,16 @@ const addListener = (connector, ref, user, setEventType) => ({
     ref(`/users/${connector.props.user.uid}`).on(
       setEventType('value'),
       snapshot => {
-        connector.setState({user: snapshot.val()})
+        connector.setState({ user: snapshot.val() })
       }
     ),
   listenQueue: () =>
     ref('/queue').on(setEventType('value'), snapshot => {
-      connector.setState({queue: snapshot.val()})
+      connector.setState({ queue: snapshot.val() })
     }),
   listenBattle: () =>
     ref('/battles').on(setEventType('value'), snapshot => {
-      connector.setState({battles: snapshot.val()})
+      connector.setState({ battles: snapshot.val() })
     })
 })
 
