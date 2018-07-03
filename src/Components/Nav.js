@@ -1,73 +1,58 @@
-import React, {Component} from 'react'
-import {firebaseConnect} from 'fire-connect'
-
-import {auth} from '../firebase'
-import {Navbar} from 'react-materialize'
-import {NavLink, withRouter} from 'react-router-dom'
+import React, { Component } from 'react'
+import { firebaseConnect } from 'fire-connect'
+import { auth } from '../firebase'
+import { Menu, Dropdown } from "semantic-ui-react"
+import { withRouter } from 'react-router-dom'
 import UpdateGold from './Users/UpdateGold'
 
 import './Nav.css'
 
-
 class Nav extends Component {
   render() {
+    console.log("props", this.props)
+    if (!this.props.user && !this.props.currentPlayer) return (<Menu fixed="top" inverted color="teal" />)
     if (this.props.user) {
-      const uid = this.props.user.uid
       return (
-        <Navbar brand="Kata Cards" right>
-          <div className="nav-bar">
-            <li>
-              <NavLink to="/profile">{this.props.user.email}</NavLink>
-            </li>
-            <li className="update-gold">
-              <UpdateGold authUser={this.props.authUser} />
-            </li>
-            <li>
-              <NavLink to="/cardstore">Buy Cards</NavLink>
-            </li>
-            <li>
-              <NavLink to="/home">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/logout" onClick={() => this.props.setOffline(uid)}>Logout</NavLink>
-            </li>
-            <li>
-              <NavLink to="/profile">Profile</NavLink>
-            </li>
-          </div>
-          {/* <Icon>search</Icon> */}
-        </Navbar>
-      )
+      <Menu fixed="top" inverted color="teal" size="tiny">
+        <Menu.Item icon="code" position="left" onClick={() => this.props.redirectToHome(this.props.history)}>
+        </Menu.Item>
+        <Menu.Item position="right">
+          <UpdateGold authUser={this.props.authUser} />
+        </Menu.Item>
+        <Dropdown item icon="bars" position="right" pointing="top right">
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={() => this.props.redirectToBuyCards(this.props.history)}>Buy Cards</Dropdown.Item>
+            <Dropdown.Item onClick={() => this.props.redirectToProfile(this.props.history)}>Profile</Dropdown.Item>
+            <Dropdown.Item onClick={() => this.props.setOffline(this.props.user.uid, this.props.history)}>Logout</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Menu>)
     }
-    return (
-      <Navbar brand="Kata Cards" right>
-        <div className="nav-bar">
-          <li>
-            <NavLink to="/signup">Signup</NavLink>
-          </li>
-          <li>
-            <NavLink to="/login">Login</NavLink>
-          </li>
-        </div>
-        {/* <Icon>search</Icon> */}
-      </Navbar>
-    )
   }
 }
 
 const addListener = (connector, ref, user, setEventType) => ({
   listenUser: () =>
     ref(`users/${user.uid}`).on(setEventType('value'), snapshot => {
-      connector.setState({currentPlayer: snapshot.val()})
+      connector.setState({ currentPlayer: snapshot.val() })
     })
 })
 
 const addDispatcher = (connector, ref, user) => ({
-  setOffline(uid) {
+  setOffline(uid, history) {
     const offline = false
-    ref(`users/${uid}`).update({online:offline})
+    ref(`users/${uid}`).update({ online: offline })
     auth.signOut()
-    this.props.history.push('/home')
+    history.push('/home')
+  },
+  redirectToHome(history){
+    history.push('/home')
+  },
+  redirectToProfile(history){
+    history.push('/profile')
+  },
+  redirectToBuyCards(history){
+    history.push('/cardstore')
   }
 })
 
