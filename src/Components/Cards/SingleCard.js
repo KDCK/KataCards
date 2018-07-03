@@ -1,18 +1,14 @@
 import React from 'react'
-import {Card, Image, Icon, Popup} from 'semantic-ui-react'
+import { Card, Image, Icon, Popup } from 'semantic-ui-react'
 import './SingleCard.css'
 
 const SingleCard = props => {
   const {card} = props
-  console.log(card.name)
   return (
     <Card>
       <Card.Content>
         <Image src={`/${card.name}.${card.file}`} />
         <Card.Header>{card.name}</Card.Header>
-        {/* <Card.Meta>
-          <span>Summon Count: {card.global_count}</span>
-        </Card.Meta> */}
         <Popup
           trigger={
             <Card.Description>
