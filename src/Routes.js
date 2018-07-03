@@ -11,7 +11,6 @@ import {
   Trade,
   BuyCard,
   GameBoard,
-  UserDeck,
   StagingArea,
   Credits,
 } from './Components'
@@ -46,6 +45,7 @@ class Routes extends Component {
             path="/stagingarea/:battleId"
             component={AuthorizedUser(InitializeBattle(StagingArea))}
           />
+          <Route exact path="/credits" component={Credits} />
         </Switch>
       </div>
     )
