@@ -18,6 +18,7 @@ class StagingArea extends Component {
     //dispatch function will check if both players are set to ready
     //if true push to battle
     if(this.props.allReady(this.props.battleId)){
+      console.log()
       this.props.history.push(`/battle/${this.props.battleId}`)
     }
   }
@@ -214,6 +215,9 @@ const addDispatcher = (connector, ref) => ({
     let result = false
     ref(`battles/${battleId}`).once('value', snapshot =>{
       const battle = snapshot.val()
+      console.log("p1",battle.p1ready)
+      console.log("p2",battle.p2ready)
+
       if(battle.p1ready && battle.p2ready){
         result =true
       }
