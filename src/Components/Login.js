@@ -1,10 +1,11 @@
-import React, {Component} from 'react'
-import {withRouter} from 'react-router-dom'
-import {Row, Input, Button} from 'react-materialize'
-import {firebaseConnect} from 'fire-connect'
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import { Button } from 'react-materialize'
+import { Input } from 'semantic-ui-react'
+import { firebaseConnect } from 'fire-connect'
 
 import Spinner from '../Components/Loader/Spinner'
-import firebase, {auth} from '../firebase'
+import firebase, { auth } from '../firebase'
 import './Login.css'
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
@@ -73,29 +74,25 @@ class Login extends Component {
     }
     return (
       <div className="login-outer-container">
-        <img className="login-img" src="battle.gif" />
-        <Row className="login-input-wrapper" handleSubmit={this.handleSubmit}>
-          <Input
-            className="login-inputs"
-            name="email"
-            type="email"
-            label="Email"
-            s={4}
-            onChange={this.handleChange}
-          />
-          <Input
-            className="login-inputs"
-            name="password"
-            type="password"
-            label="Password"
-            s={4}
-            onChange={this.handleChange}
-          />
-          <Button waves="light" className="login-input-button" onClick={this.handleSubmit}>
-            Login
-          </Button>
-        </Row>
-        <Button waves="light" className="login-buttons" onClick={this.handleGoogle}>
+        <Input
+          className="login-input-wrapper"
+          name="email"
+          type="email"
+          placeholder="Email"
+          onChange={this.handleChange}
+        />
+        <Input
+          className="login-input-wrapper"
+          name="password"
+          type="password"
+          placeholder="Password"
+          s={4}
+          onChange={this.handleChange}
+        />
+        <Button waves="light" className="login-input-button" onClick={this.handleSubmit}>
+          Login
+        </Button>
+        <Button waves="light" className="login-input-button" onClick={this.handleGoogle}>
           Login With Google
         </Button>
       </div>

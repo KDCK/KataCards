@@ -1,7 +1,8 @@
-import React, {Component} from 'react'
-import {withRouter, Link} from 'react-router-dom'
-import {Row, Input, Button} from 'react-materialize'
-import {firebaseConnect} from 'fire-connect'
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import { Button } from 'react-materialize'
+import { Input } from 'semantic-ui-react'
+import { firebaseConnect } from 'fire-connect'
 
 import Spinner from '../Components/Loader/Spinner'
 import firebase, {auth, db} from '../firebase'
@@ -77,30 +78,27 @@ class Signup extends Component {
     }
     return (
       <div className="login-outer-container">
-        <Row handleSubmit={this.handleSubmit}>
-          <Input
-            name="email"
-            type="email"
-            label="Email"
-            s={4}
-            onChange={this.handleChange}
-          />
-          <Input
-            name="password"
-            type="password"
-            label="Password"
-            s={4}
-            onChange={this.handleChange}
-          />
-          <Button waves="light" className="button" onClick={this.handleSubmit}>
-            Signup
-          </Button>
-        </Row>
-        <Link to="login">
-          <Button waves="light" className="button">
-            Or Login with Google
-          </Button>
-        </Link>
+        <Input
+          className="login-input-wrapper"
+          name="email"
+          type="email"
+          placeholder="Email"
+          onChange={this.handleChange}
+        />
+        <Input
+          className="login-input-wrapper"
+          name="password"
+          type="password"
+          placeholder="Password"
+          s={4}
+          onChange={this.handleChange}
+        />
+        <Button waves="light" className="login-input-button" onClick={this.handleSubmit}>
+          Signup
+        </Button>
+        <Button waves="light" className="login-input-button" onClick={this.handleGoogle}>
+          Signup With Google
+        </Button>
       </div>
     )
   }

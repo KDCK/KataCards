@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
 import { Button } from 'react-materialize'
-import { Link } from 'react-router-dom'
+import { Icon } from 'semantic-ui-react';
 
+import Login from '../Login'
+import Signup from '../Signup'
 import './landing.css'
+import '../Login.css'
 
 class LandingPage extends Component {
+  state = {
+    status: null
+  }
   render() {
     return (
       <div>
@@ -14,8 +20,46 @@ class LandingPage extends Component {
           <img alt="titlepage" src="/title.png" />
         </div>
         <div className="title-buttons">
-          <Link to="/login"><Button className="title-button" waves="purple">Login</Button></Link>
-          <Link to="signup"><Button className="title-button" waves="purple">Sign up</Button></Link>
+          {this.state.status === null &&
+            <div>
+              <Button
+                className="title-button login-input-button"
+                onClick={() => this.setState({ status: 'login' })}
+              >
+                Login
+              </Button>
+              <Button
+                className="title-button login-input-button"
+                onClick={() => this.setState({ status: 'signup' })}
+              >
+                Sign up
+              </Button>
+            </div>
+          }
+          {this.state.status === 'login' &&
+            <div>
+              <Login />
+              <Button
+                className="login-input-button"
+                onClick={() => this.setState({ status: null })}
+              >
+                <Icon name="caret left" />
+                Back
+                </Button>
+            </div>
+          }
+          {this.state.status === 'signup' &&
+            <div>
+              <Signup />
+              <Button
+                className="login-input-button"
+                onClick={() => this.setState({ status: null })}
+              >
+                <Icon name="caret left" />
+                Back
+                </Button>
+            </div>
+          }
         </div>
       </div>
     )

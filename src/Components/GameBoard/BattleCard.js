@@ -12,8 +12,7 @@ const BattleCard = props => {
       <Card.Content extra>
         <Icon name="legal" />
         {card.atk}
-        {'                            '}
-        <Icon name="target" />
+        <Icon name="shield" />
         {card.def}
       </Card.Content>
     </Card>

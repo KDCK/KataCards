@@ -26,8 +26,6 @@ class Routes extends Component {
       <div>
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
           <Route exact path="/logout" component={LandingPage} />
           <Route exact path="/credits" component={Credits} />
           <Route exact path="/update" component={HandleLogins(Update)} />

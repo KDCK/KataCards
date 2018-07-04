@@ -10,19 +10,12 @@
   object-fit: 'cover';
 }
 .login-input-wrapper{
-  position: absolute;
-  text-align: center;
-  margin-top: 30px;
+  padding: 5px;
+  margin-left: -15px;
+  width: 20vw;
 }
 
 .login-input-button{
-    margin-top: 15px;
-}
-
-.login-buttons{
-  position: absolute;
-  text-align: center;
-  top: 30vh;
-  margin-top: -50px;
-  margin-left: -40px;
+  margin: 5px;
+  background-color: purple;
 }
