@@ -8,12 +8,12 @@ const Board = (props) => {
   const { board } = props
   
   if (board === undefined || board === null) {
-    return null
+    return <div className="board-placeholder"/>
   }
   return (
     <Row>
       {Object.values(board).map(card => (
-        <Col key={card.name} l={1} style={{ marginBottom: '-15px', width: '200px' }}>
+        <Col key={card.name} l={1} style={{ marginBottom: '-15px', marginTop: '5px', width: '180px', transform: 'scale(0.9)' }}>
           <PlayedCard card={card} playedCard={props.playedCard} />
         </Col>
       ))}

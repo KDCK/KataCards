@@ -1,21 +1,13 @@
-body {
-  background-image: url('../../Img/3.jpg');
-  height: 100vh;
-  margin: auto;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
 .profile {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 10vh;
-  /* background-image: url('../../Img/3.jpg');
+  background-image: url('../../Img/3.jpg');
   height: 100vh;
   margin: auto;
   background-attachment: fixed;
-  background-size: cover; */
+  background-size: cover;
 }
 
 .profile > h1 {

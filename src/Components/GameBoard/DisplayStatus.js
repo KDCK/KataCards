@@ -2,7 +2,6 @@ import React from 'react'
 import { Label, Icon } from 'semantic-ui-react'
 
 const DisplayStatus = (props) => {
-  console.log(props.turn)
   return (
     <div className='display-status-inner' >
       <div className='label-wrapper'>
@@ -17,13 +16,6 @@ const DisplayStatus = (props) => {
         {props.def}
       </Label>
       </div>
-      {props.self ? (<div className='label-wrapper'>
-        <Label size='big'>
-          <p className='turn'>Turn: </p>
-          <p className='turn'>{props.turn === 'playerOne' ? 'Player One' : 'Player Two'}</p>
-        </Label>
-      </div>)
-      : null}
     </div>
   )
 }

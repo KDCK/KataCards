@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { firebaseConnect } from 'fire-connect'
-import { Label, Icon } from 'semantic-ui-react'
+import { Divider } from 'semantic-ui-react'
 
 import Deck from './Deck'
 import Board from './Board'
@@ -8,6 +8,7 @@ import DisplayStatus from './DisplayStatus';
 import Spinner from '../Loader/Spinner'
 import GameOver from './GameOver'
 import './GameBoard.css'
+
 
 class GameBoard extends Component {
   componentDidUpdate() {
@@ -24,7 +25,7 @@ class GameBoard extends Component {
 
 
     if (battle.p1done && battle.p2done) {
-        return <GameOver battle={battle} />
+      return <GameOver battle={battle} />
     }
     if (!battle.ready) {
       const turn = Math.random() >= 0.5
@@ -43,20 +44,18 @@ class GameBoard extends Component {
             : <Board {...battle.p2[p2uid]} />}
         </div>
         {user.uid === p2uid
-          ? (<div className='display-status-outer-left'>
-              <DisplayStatus atk={battle.p1atk} def={battle.p1def} self={true} turn={battle.turn} />
-            </div>)
-          : (<div className='display-status-outer-right'>
-              <DisplayStatus atk={battle.p2atk} def={battle.p2def} self={true} turn={battle.turn} />
-          </div>)}
-        <hr />
+          ? (<DisplayStatus atk={battle.p1atk} def={battle.p1def} self={true} turn={battle.turn} />)
+          : (<DisplayStatus atk={battle.p2atk} def={battle.p2def} self={true} turn={battle.turn} />)}
+        <Divider inverted fitted>
+          {(user.uid === p1uid && battle.turn === 'playerOne')
+            ? 'Your Turn'
+            : (user.uid === p2uid && battle.turn === 'playerTwo')
+              ? 'Your Turn'
+              : 'Opponent\'s Turn'}
+        </Divider>
         {user.uid === p1uid
-          ? (<div className='display-status-outer-left'>
-              <DisplayStatus atk={battle.p1atk} def={battle.p1def} self={false} turn={battle.turn} />
-            </div>)
-          : (<div className='display-status-outer-right'>
-              <DisplayStatus atk={battle.p2atk} def={battle.p2def} self={false} turn={battle.turn} />
-          </div>)}
+          ? (<DisplayStatus atk={battle.p1atk} def={battle.p1def} self={false} turn={battle.turn} />)
+          : (<DisplayStatus atk={battle.p2atk} def={battle.p2def} self={false} turn={battle.turn} />)}
         <div className="gameboard-player2">
           {user.uid === p1uid
             ? <Board {...battle.p1[p1uid]} />
@@ -66,13 +65,6 @@ class GameBoard extends Component {
           {user.uid === p1uid
             ? <Deck {...battle.p1[p1uid]} turn={battle.turn} playedCard={playedCard} />
             : <Deck {...battle.p2[p2uid]} turn={battle.turn} playedCard={playedCard} />}
-        </div>
-        <div className='player-indicator' >
-          <Label size='big'>
-            <Icon name="user circle outline icon" >
-              <span>: {user.uid === p1uid ? '1' : '2'}</span>
-            </Icon>
-          </Label>
         </div>
       </div>
     )
