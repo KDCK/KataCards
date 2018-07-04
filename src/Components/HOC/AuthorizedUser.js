@@ -16,10 +16,13 @@ export default function (ComposedComponent) {
     }
 
     render() {
+      
       if (!this.props.user) {
         return (<Spinner />)
       }
-      if (this.props.match.path === '/battle/:battleId' || this.props.location.pathname === '/') {
+      if (this.props.match.path === '/battle/:battleId' 
+      || this.props.location.pathname === '/'
+      || this.props.match.path === '/stagingarea/:battleId') {
         return (<ComposedComponent />)
       } else {
         return (

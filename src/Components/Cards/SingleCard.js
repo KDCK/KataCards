@@ -23,7 +23,7 @@ const SingleCard = props => {
       <Popup
         trigger={
           <Card.Content extra>
-            <Icon name="quidditch" />
+            <Icon name="legal" />
             {card.atk}
             <Icon name="shield" />
             {card.def}

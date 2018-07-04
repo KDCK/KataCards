@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import firebase, {db} from '../../firebase'
-import {Button, Label, Icon} from 'semantic-ui-react'
+import {Button, Label} from 'semantic-ui-react'
 import axios from 'axios'
 import {firebaseConnect} from 'fire-connect'
 

@@ -10,7 +10,6 @@ import './profile.css'
 class Profile extends Component {
   render() {
     const { cards } = this.props.user
-    console.log(cards)
     return (
       <div className="profile">
         <UserCard />

@@ -8,7 +8,6 @@ import SingleCard from '../Cards/SingleCard'
 import { Button } from 'react-materialize'
 
 import './BuyCard.css'
-import { ENGINE_METHOD_DIGESTS } from 'constants'
 
 class BuyCard extends Component {
   constructor(props) {
@@ -133,9 +132,6 @@ const addDispatcher = (connector, ref, user) => ({
       ref(`users/${user.uid}`).update({
         gold: prevGold,
       })
-
-      // const cardsLength = ref(`users/${user.uid}/cards`).length
-      console.log(cardsLength)
       const cardsRef = ref(`users/${user.uid}/cards`)
       cardsRef.child(cardsLength).set({ ...chosenCard, id: cardsLength })
 

@@ -16,9 +16,9 @@ class Home extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-      this.props.queue && Object.keys(this.props.queue).length >= 2
-        ? this.setState({ waiting: false, matchReady: true })
-        : null
+      if (this.props.queue && Object.keys(this.props.queue).length >= 2) {
+        this.setState({ waiting: false, matchReady: true })
+      }
     }
   }
 
@@ -39,7 +39,6 @@ class Home extends Component {
       this.props.history.push(`/stagingarea/${newBattle}`)
     } else {
       db.ref('/battles').on('child_added', snapshot => {
-        console.log(snapshot.key)
         newBattle = snapshot.key
       })
 
@@ -83,7 +82,7 @@ class Home extends Component {
               {this.state.matchReady
                 ? 'Match Found!'
                 : this.state.waiting
-                  ? 'Waiting for Match...'
+                  ? 'Finding a match...'
                   : 'Join Battle Queue'}
             </Button>
             {this.state.waiting ? <Button className="home-button" onClick={() => this.leaveQueue(this.props.user)}>Leave Queue</Button> : null}

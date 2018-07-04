@@ -18,8 +18,6 @@ export default function (ComposedComponent) {
       if (!this.props.user) {
         return (<Spinner />)
       }
-      console.log(this.props);
-            
       return (
         <div>
           <ComposedComponent uid={this.props.user.uid} history={this.props.history}/>
