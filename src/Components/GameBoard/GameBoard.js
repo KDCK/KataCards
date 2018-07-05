@@ -124,7 +124,7 @@ const addDispatcher = (connector, ref, user) => ({
     ref(`/battles/${connector.props.battleId}/p1/${user.uid}/`).once('value', snapshot => {
       if (snapshot.exists() && snapshot.child('/board').exists()) {
         ref(`/battles/${connector.props.battleId}/p1/${user.uid}/board`).once('value', snapshot => {
-          if (snapshot.numChildren() >= 5) {
+          if (snapshot.numChildren() >= 4) {
             ref(`/battles/${connector.props.battleId}/p1done`).set(true)
           }
         })
@@ -133,7 +133,7 @@ const addDispatcher = (connector, ref, user) => ({
     ref(`/battles/${connector.props.battleId}/p2/${user.uid}/`).once('value', snapshot => {
       if (snapshot.exists() && snapshot.child('/board').exists()) {
         ref(`/battles/${connector.props.battleId}/p2/${user.uid}/board`).once('value', snapshot => {
-          if (snapshot.numChildren() >= 5) {
+          if (snapshot.numChildren() >= 4) {
             ref(`/battles/${connector.props.battleId}/p2done`).set(true)
           }
         })
