@@ -85,8 +85,18 @@ class GameBoard extends Component {
           : (<DisplayStatus atk={battle.p2atk} def={battle.p2def} self={false} turn={battle.turn} />)}
         {this.props.battle.p1done && this.props.battle.p2done ?
           <div className='game-over'>
-            <h3>Player One Score: {this.props.battle.p1atk - this.props.battle.p2def}</h3>
-            <h3>Player Two Score: {this.props.battle.p2atk - this.props.battle.p1def}</h3>
+            {user.uid === p1uid ? (
+              <div>
+                <h3>Your Score: {this.props.battle.p1atk - this.props.battle.p2def}</h3>
+                <h3>Opponent's Score: {this.props.battle.p2atk - this.props.battle.p1def}</h3>
+              </div>
+            ) : (
+                <div>
+                  <h3>Your Score: {this.props.battle.p2atk - this.props.battle.p1def}</h3>
+                  <h3>Opponent's Score: {this.props.battle.p1atk - this.props.battle.p2def}</h3>
+                </div>
+              )
+            }
           </div> : null}
         <div className="gameboard-player2">
           {user.uid === p1uid

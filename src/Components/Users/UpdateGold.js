@@ -15,7 +15,7 @@ class UpdateGold extends Component {
     )
     let newChallengesNumber = codeWarsObject.data.codeChallenges.totalCompleted
     let prevGold = this.props.user.gold
-    prevGold += newChallengesNumber - this.props.user.challenges
+    prevGold += (newChallengesNumber - this.props.user.challenges) * 3
     this.props.updateGold(prevGold, newChallengesNumber)
   }
 
