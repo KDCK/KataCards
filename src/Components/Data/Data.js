@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {firebaseConnect} from 'fire-connect'
 
+/* eslint-disable no-unused-vars */
 const specialDeck = [
   {
     id: 0,
@@ -860,14 +861,10 @@ const newCards = [
 
 
 export const starterDeck = (cards) => {
-    console.log(cards)
     const result = []
     const tier1 = cards.filter(card => card.tier === 1)
     const tier2 = cards.filter(card => card.tier === 2)
 
-    console.log("tier1", tier1);
-
-    console.log("tier2", tier2);
 
     for(let i = 0; result.length < 5; i++){
       const randNum = Math.floor(Math.random() * tier1.length);
@@ -882,7 +879,6 @@ export const starterDeck = (cards) => {
         result.push(tier2[randNum])
       }
     }
-    console.log("result", result);
     result.forEach(card => card.id = result.indexOf(card))
     return result
 

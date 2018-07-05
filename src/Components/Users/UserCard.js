@@ -8,9 +8,9 @@ const UserCard = props => {
     <Col s={8} m={4}>
       <CardPanel className="black-text">
         <h1>{props.user.codeName}</h1>
-        <div>Email: {props.user.email}</div>
-        <div>Gold: {props.user.gold}</div>
-        <div>Battles Won: {props.user.total_wins}
+        <div className="user-info">Email: {props.user.email}</div>
+        <div className="user-info">Gold: {props.user.gold}</div>
+        <div className="user-info">Battles Won: {props.user.total_wins}
         </div>
       </CardPanel>
     </Col>

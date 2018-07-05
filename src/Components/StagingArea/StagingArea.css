@@ -9,11 +9,11 @@ body {
   color: white;
 }
 
-.staging-area-main > h1,
+/* .staging-area-main > h1,
 h3 {
   text-shadow: 2px 2px black;
   margin-left: 2vw;
-}
+} */
 
 .ui.card:hover {
   background-color: rgb(240, 222, 174);
@@ -29,4 +29,14 @@ hr {
   padding: 0;
   width: 100vw;
   box-shadow: 3px 3px 3px 3px rgb(61, 47, 0);
+}
+
+.staging-area-deck-placeholder {
+  height: 35vh;
+}
+
+.staging-area-subheader {
+  display: flex;
+  text-shadow: 2px 2px black;
+  justify-content: space-between;
 }

@@ -16,9 +16,9 @@ class Home extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-      this.props.queue && Object.keys(this.props.queue).length >= 2
-        ? this.setState({ waiting: false, matchReady: true })
-        : null
+      if (this.props.queue && Object.keys(this.props.queue).length >= 2) {
+        this.setState({ waiting: false, matchReady: true })
+      }
     }
   }
 
@@ -39,7 +39,6 @@ class Home extends Component {
       this.props.history.push(`/stagingarea/${newBattle}`)
     } else {
       db.ref('/battles').on('child_added', snapshot => {
-        console.log(snapshot.key)
         newBattle = snapshot.key
       })
 
@@ -55,8 +54,8 @@ class Home extends Component {
         <div className="home-buttons">
           <div className="code-wars-home">
             <h1>
-              Train your skills at CodeWars.com <br /> to earn Gold and Buy Better
-              Cards for your Deck!
+              Train your skills at Codewars.com <br /> to earn gold and buy better
+              cards for your deck!
             </h1>
             <div>
               <Button
@@ -64,39 +63,35 @@ class Home extends Component {
                 node="a"
                 href="http://www.codewars.com"
               >
-                CodeWars.com
+                Codewars.com
               </Button>
             </div>
           </div>
           <div className="home-buttons-top">
-            <Button
-              large
-              style={
-                this.state.waiting
-                  ? { animation: 'glowing 1500ms infinite' }
-                  : { animation: 'none' }
-              }
-              className="home-button"
-              waves="purple"
-              onClick={() => this.joinQueue(this.props.user)}
-            >
-              {this.state.matchReady
-                ? 'Match Found!'
-                : this.state.waiting
-                  ? 'Waiting for Match...'
-                  : 'Join Battle Queue'}
+            {this.state.matchReady &&
+              <h2 className="queue-status">Match Found</h2>
+            }
+            {this.state.waiting &&
+              <h2 className="queue-status animated">Finding a match...</h2>}
+            {!this.state.waiting && !this.state.matchReady &&
+              <Button
+                large
+                className="home-button"
+                waves="purple"
+                onClick={() => this.joinQueue(this.props.user)}
+              >
+                Join Battle Queue
             </Button>
-            {this.state.waiting ? <Button className="home-button" onClick={() => this.leaveQueue(this.props.user)}>Leave Queue</Button> : null}
+            }
+            {this.state.waiting &&
+              <Button className="home-button" onClick={() => this.leaveQueue(this.props.user)}>Leave Queue</Button>
+            }
           </div>
-          {this.state.matchReady ? (
+          {this.state.matchReady && (
             <div className="home-buttons-top">
               <Button
                 large
-                style={
-                  this.state.matchReady
-                    ? { animation: 'glowing 1500ms infinite' }
-                    : { animation: 'none' }
-                }
+                style={{ animation: 'glowing 1500ms infinite' }}
                 className="home-button"
                 waves="purple"
                 onClick={() =>
@@ -110,7 +105,7 @@ class Home extends Component {
                 Start Battle!
               </Button>
             </div>
-          ) : null}
+          )}
           <div className="home-buttons-bottom">
             <Link to="/cardstore">
               <Button className="home-button-deck" waves="purple">

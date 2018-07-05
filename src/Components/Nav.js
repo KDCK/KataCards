@@ -9,7 +9,6 @@ import './Nav.css'
 
 class Nav extends Component {
   render() {
-    console.log("props", this.props)
     if (!this.props.user && !this.props.currentPlayer) return (<Menu fixed="top" inverted color="teal" />)
     if (this.props.user) {
       return (

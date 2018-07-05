@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import firebase, {db} from '../../firebase'
-import {Button, Label, Icon} from 'semantic-ui-react'
+import {Button, Label} from 'semantic-ui-react'
 import axios from 'axios'
 import {firebaseConnect} from 'fire-connect'
 
@@ -26,8 +25,8 @@ class UpdateGold extends Component {
     }
     return (
         <Button as="div" labelPosition="right" onClick={this.handleClick}>
-          <Button color="violet">Collect your CodeWars Gold!</Button>
-          <Label as="a" basic pointing="left">
+          <Button color="violet">Collect your Codewars Gold!</Button>
+          <Label basic pointing="left">
             {this.props.user.gold}
           </Label>
         </Button>

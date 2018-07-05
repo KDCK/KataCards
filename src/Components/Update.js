@@ -30,7 +30,6 @@ class Update extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.props);
     if (this.props.user) {
       this.props.newUserDefault()
     }
@@ -45,7 +44,6 @@ class Update extends Component {
 
   handleSubmit() {
     const cardsArray = starterDeck(Object.values(this.props.cards))
-    console.log(cardsArray);
     this.props.updateCodeWarsName(this.state.codeName)
     cardsArray.forEach(card => this.props.userCards(card))
 
@@ -70,7 +68,6 @@ class Update extends Component {
     }
 
     if (this.props.user && !this.props.current.codeName) {
-      console.log(this.props, this.state);
       return (
         <div>
           <Spinner />

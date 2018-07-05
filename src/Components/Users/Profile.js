@@ -10,11 +10,10 @@ import './profile.css'
 class Profile extends Component {
   render() {
     const { cards } = this.props.user
-    console.log(cards)
     return (
       <div className="profile">
         <UserCard />
-        <h1>Your Card Collection</h1>
+        <h1 style={{marginBottom: '40px'}}>Your Card Collection</h1>
         <Row>
           {!cards ? (
             <Spinner />

@@ -4,8 +4,6 @@ import { firebaseConnect } from 'fire-connect'
 
 import {
   Home,
-  Login,
-  Signup,
   Update,
   Profile,
   Trade,

@@ -43,6 +43,5 @@ export const randomCardGenerator = (cards, goldSpent) => {
   }
 
   chosenCard = purchaseArr[Math.floor(Math.random() * purchaseArr.length)]
-  // console.log('chosenCard', chosenCard)
   return chosenCard
 }
