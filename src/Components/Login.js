@@ -69,9 +69,6 @@ class Login extends Component {
   }
 
   render() {
-    if (this.props.user) {
-      return <Spinner />
-    }
     return (
       <div className="login-outer-container">
         <Input

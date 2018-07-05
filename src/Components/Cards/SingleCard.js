@@ -7,7 +7,7 @@ const SingleCard = props => {
   return (
     <Card>
       <Card.Content>
-        <Image src={`/${card.name}.${card.file}`} />
+        <Image src={`/${card.name}.${card.file}`} style={{height: '15vh'}}/>
         <Card.Header>{card.name}</Card.Header>
         <Popup
           trigger={

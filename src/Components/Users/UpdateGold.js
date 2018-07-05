@@ -25,8 +25,8 @@ class UpdateGold extends Component {
     }
     return (
         <Button as="div" labelPosition="right" onClick={this.handleClick}>
-          <Button color="violet">Collect your CodeWars Gold!</Button>
-          <Label as="a" basic pointing="left">
+          <Button color="violet">Collect your Codewars Gold!</Button>
+          <Label basic pointing="left">
             {this.props.user.gold}
           </Label>
         </Button>

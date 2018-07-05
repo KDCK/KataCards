@@ -74,7 +74,6 @@ class GameBoard extends Component {
 const addListener = (connector, ref, user, setEventType) => ({
   listenToBattle: () => ref(`/battles/${connector.props.battleId}`).on(setEventType('value'), snapshot => {
     connector.setState({ battle: snapshot.val() })
-
   })
 })
 

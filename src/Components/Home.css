@@ -61,3 +61,11 @@
 .code-wars-home a {
   width: 20vw;
 }
+
+.queue-status {
+  color: white;
+}
+
+.queue-status.animated {
+  animation: pulse 2500ms infinite;
+}
