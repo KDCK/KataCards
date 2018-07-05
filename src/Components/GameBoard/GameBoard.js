@@ -85,8 +85,18 @@ class GameBoard extends Component {
           : (<DisplayStatus atk={battle.p2atk} def={battle.p2def} self={false} turn={battle.turn} />)}
         {this.props.battle.p1done && this.props.battle.p2done ?
           <div className='game-over'>
-            <h3>Player One Score: {this.props.battle.p1atk - this.props.battle.p2def}</h3>
-            <h3>Player Two Score: {this.props.battle.p2atk - this.props.battle.p1def}</h3>
+            {user.uid === p1uid ? (
+              <div>
+                <h3>Your Score: {this.props.battle.p1atk - this.props.battle.p2def}</h3>
+                <h3>Opponent's Score: {this.props.battle.p2atk - this.props.battle.p1def}</h3>
+              </div>
+            ) : (
+                <div>
+                  <h3>Your Score: {this.props.battle.p2atk - this.props.battle.p1def}</h3>
+                  <h3>Opponent's Score: {this.props.battle.p1atk - this.props.battle.p2def}</h3>
+                </div>
+              )
+            }
           </div> : null}
         <div className="gameboard-player2">
           {user.uid === p1uid
@@ -114,7 +124,7 @@ const addDispatcher = (connector, ref, user) => ({
     ref(`/battles/${connector.props.battleId}/p1/${user.uid}/`).once('value', snapshot => {
       if (snapshot.exists() && snapshot.child('/board').exists()) {
         ref(`/battles/${connector.props.battleId}/p1/${user.uid}/board`).once('value', snapshot => {
-          if (snapshot.numChildren() >= 5) {
+          if (snapshot.numChildren() >= 4) {
             ref(`/battles/${connector.props.battleId}/p1done`).set(true)
           }
         })
@@ -123,7 +133,7 @@ const addDispatcher = (connector, ref, user) => ({
     ref(`/battles/${connector.props.battleId}/p2/${user.uid}/`).once('value', snapshot => {
       if (snapshot.exists() && snapshot.child('/board').exists()) {
         ref(`/battles/${connector.props.battleId}/p2/${user.uid}/board`).once('value', snapshot => {
-          if (snapshot.numChildren() >= 5) {
+          if (snapshot.numChildren() >= 4) {
             ref(`/battles/${connector.props.battleId}/p2done`).set(true)
           }
         })

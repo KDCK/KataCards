@@ -20,7 +20,7 @@ class GameOver extends Component {
     const p1Total = p1atk - p2def
     const p2Total = p2atk - p1def
     const winner = p1Total > p2Total ? Object.keys(this.props.battle.p1)[0] : Object.keys(this.props.battle.p2)[0]
-    const result = winner === this.props.user.uid ? 'You Win' : 'You Lose'
+    const result = winner === this.props.user.uid ? 'You Win\n You earned 1 gold' : 'You Lose'
 
     return (
       <div>
