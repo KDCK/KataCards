@@ -1,23 +1,21 @@
+.credits-body{
+  background: url('/credits.png')
+}
 .container {
-  background: rgba(107, 91, 0, 0.568);
   background-size: cover;
   background-attachment: scroll;
-  color: #fff;
+  color: white;
+  text-shadow: 2px 2px 3 black;
   font-family: 'arial',sans-serif;
   line-height: 1;
-  margin-top: 3vh;
-  padding-top: 3vh;
-  margin-bottom: 2vh;
-  padding-bottom: 2vh;
-  overflow: hidden;
   height: 100vh;
   width: 100vw;
   text-align: center;
   border-radius: 1em;
+  transform: scale(0.9);
 }
 
 .credits {
-  text-shadow: 0 -4px 8px blue, 0 3px 8px #ff00ff;
   margin: 0 10%;
   display: flex;
   flex-direction: column;
@@ -38,21 +36,4 @@
   display: block;
   margin: 5px 0;
   width: 100%;
-}
-
-@-webkit-keyframes movenames {
-	0% {margin-top: 400px;}
-	100% {margin-bottom: 150px;}
-}
-@-moz-keyframes movenames {
-	0% {margin-top: 400px;}
-	100% {margin-bottom: 150px;}
-}
-@-o-keyframes movenames {
-	0% {margin-top: 400px;}
-	100% {margin-bottom: 150px;}
-}
-@keyframes movenames {
-	0% {margin-top: 400px;}
-	100% {margin-bottom: 150px;}
 }

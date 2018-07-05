@@ -13,15 +13,15 @@ class Profile extends Component {
     return (
       <div className="profile">
         <UserCard />
-        {/*<h1>Your Card Collection</h1>
-        <div className="card-tray">*/}
         <h1 style={{marginBottom: '40px'}}>Your Card Collection</h1>
         <Row>
           {!cards ? (
             <Spinner />
           ) : (
               cards.map(card => (
+                <Col key={card.id} s={2} m={2} style={{paddingBottom:'15px'}}>
                 <SingleCard card={card} />
+                </Col>
               ))
             )}
         </Row>
