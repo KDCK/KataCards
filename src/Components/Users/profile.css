@@ -3,13 +3,12 @@
   flex-direction: column;
   align-items: center;
   margin-top: 2.85714286em;
-  /* background-image: url('../../Img/1.jpg'); */
-  /* background-image: url('../../Img/3.jpg'); */
+  background-image: url('../../Img/3.jpg');
   height: 100vh;
   overflow: scroll;
 }
 
 .profile > h1 {
-  color: black;
-  /* text-shadow: 2px 2px teal; */
+  color: white;
+  text-shadow: 2px 2px purple;
 }
