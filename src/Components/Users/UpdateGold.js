@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {Button, Label} from 'semantic-ui-react'
+import React, { Component } from 'react'
+import { Button, Label } from 'semantic-ui-react'
 import axios from 'axios'
-import {firebaseConnect} from 'fire-connect'
+import { firebaseConnect } from 'fire-connect'
 
 class UpdateGold extends Component {
   constructor(props) {
@@ -24,12 +24,12 @@ class UpdateGold extends Component {
       return <Button loading>Loading</Button>
     }
     return (
-        <Button as="div" labelPosition="right" onClick={this.handleClick}>
-          <Button color="violet">Collect your Codewars Gold!</Button>
-          <Label basic pointing="left">
-            {this.props.user.gold}
-          </Label>
-        </Button>
+      <Button as="div" labelPosition="right" onClick={this.handleClick}>
+        <Button color="violet">Collect your Codewars Gold!</Button>
+        <Label basic pointing="left">
+          {this.props.user.gold}
+        </Label>
+      </Button>
     )
   }
 }
@@ -37,7 +37,7 @@ class UpdateGold extends Component {
 const addListener = (connector, ref, user, setEventType) => ({
   listenUser: () =>
     ref(`users/${user.uid}`).on(setEventType('value'), snapshot => {
-      connector.setState({user: snapshot.val()})
+      connector.setState({ user: snapshot.val() })
     })
 })
 
