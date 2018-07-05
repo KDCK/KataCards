@@ -8,8 +8,8 @@ import { withRouter } from 'react-router-dom'
 import './gameover.css'
 
 class GameOver extends Component {
-  returnHome(res, uid, totalWins) {
-    this.props.updateUserObj(res, uid, totalWins)
+  returnHome(res, uid, gold, totalWins) {
+    this.props.updateUserObj(res, uid, gold, totalWins)
     this.props.battleStatus(uid)
     this.props.history.push('/home')
   }
@@ -27,10 +27,10 @@ class GameOver extends Component {
         <div className="gameover-card">
           <h1>{result}</h1>
           <div className="gameover-buttons">
-            <Button onClick={()=> this.returnHome(result, this.props.user.uid, this.props.currentUser.total_wins) }>Home</Button>
+            <Button onClick={() => this.returnHome(result, this.props.user.uid, this.props.currentUser.gold, this.props.currentUser.total_wins)}>Home</Button>
           </div>
         </div>
-        <img className="gameover-img" alt="" src='/gameover.gif'/>
+        <img className="gameover-img" alt="" src='/gameover.gif' />
       </div>
     )
   }
@@ -38,19 +38,20 @@ class GameOver extends Component {
 
 const addListener = (connector, ref, user, setEventType) => ({
   listenUser: () => ref(`/users/${connector.props.user.uid}`).on(setEventType('value'), snapshot => {
-      connector.setState({ currentUser: snapshot.val() })
+    connector.setState({ currentUser: snapshot.val() })
   })
 })
 
-const addDispatcher = (connector, ref) =>({
-  updateUserObj(res, uid, totalWins){
-    if(res === 'You Win'){
+const addDispatcher = (connector, ref) => ({
+  updateUserObj(res, uid, gold, totalWins) {
+    if (res === 'You Win') {
       ref(`users/${uid}`).update({
-        total_wins:  totalWins + 1,
+        gold: gold + 1,
+        total_wins: totalWins + 1,
       })
     }
   },
-  battleStatus(uid){
+  battleStatus(uid) {
     ref(`users/${uid}`).update({
       in_battle: false,
     })

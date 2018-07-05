@@ -11,7 +11,7 @@ import './GameBoard.css'
 
 
 class GameBoard extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = { gameOverComponent: 'still playing' }
     this.showOutcome = this.showOutcome.bind(this)
@@ -25,7 +25,7 @@ class GameBoard extends Component {
 
   delayedRender() {
     setTimeout(() => {
-      this.setState({ gameOverComponent: 'ready'})
+      this.setState({ gameOverComponent: 'ready' })
     }, 5000)
   }
 
@@ -44,12 +44,12 @@ class GameBoard extends Component {
 
 
     if (battle.p1done && battle.p2done) {
-      if (this.state.gameOverComponent === 'still playing'){
+      if (this.state.gameOverComponent === 'still playing') {
         this.showOutcome()
       } else if (this.state.gameOverComponent === 'ready') {
-          return <GameOver battle={battle} />
+        return <GameOver battle={battle} />
       } else {
-          this.delayedRender()
+        this.delayedRender()
       }
     }
     if (!battle.ready) {
@@ -73,21 +73,21 @@ class GameBoard extends Component {
           : (<DisplayStatus atk={battle.p2atk} def={battle.p2def} self={true} turn={battle.turn} />)}
         <Divider inverted fitted>
           {(this.props.battle.p1done && this.props.battle.p2done)
-          ? 'Game Over'
-          : (user.uid === p1uid && battle.turn === 'playerOne')
-            ? 'Your Turn'
-            : (user.uid === p2uid && battle.turn === 'playerTwo')
+            ? 'Game Over'
+            : (user.uid === p1uid && battle.turn === 'playerOne')
               ? 'Your Turn'
-              : 'Opponent\'s Turn'}
+              : (user.uid === p2uid && battle.turn === 'playerTwo')
+                ? 'Your Turn'
+                : 'Opponent\'s Turn'}
         </Divider>
-        {this.props.battle.p1done && this.props.battle.p2done ?
-        <div className='game-over'>
-          Player One Score: {this.props.battle.p1atk - this.props.battle.p2def} <br />
-          Player Two Score: {this.props.battle.p2atk - this.props.battle.p1def}
-          </div> : null}
         {user.uid === p1uid
           ? (<DisplayStatus atk={battle.p1atk} def={battle.p1def} self={false} turn={battle.turn} />)
           : (<DisplayStatus atk={battle.p2atk} def={battle.p2def} self={false} turn={battle.turn} />)}
+        {this.props.battle.p1done && this.props.battle.p2done ?
+          <div className='game-over'>
+            <h3>Player One Score: {this.props.battle.p1atk - this.props.battle.p2def}</h3>
+            <h3>Player Two Score: {this.props.battle.p2atk - this.props.battle.p1def}</h3>
+          </div> : null}
         <div className="gameboard-player2">
           {user.uid === p1uid
             ? <Board {...battle.p1[p1uid]} />
