@@ -152,7 +152,7 @@ const addDispatcher = (connector, ref, user) => ({
     })
   },
   changeStatus() {
-    ref(`/users/${connector.props.uid}/`).update({ online: true })
+    ref(`/users/${connector.props.uid}`).update({ online: true })
   },
   checkUser() {
     return connector.props.auth
