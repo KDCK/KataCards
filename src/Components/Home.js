@@ -6,12 +6,14 @@ import { withRouter, Link } from 'react-router-dom'
 import { db } from '../firebase'
 import './Home.css'
 
-import Data from './Data/Data.js'
-
 class Home extends Component {
   constructor(props) {
     super(props)
     this.state = { waiting: false, matchReady: false }
+  }
+
+  componentDidMount() {
+    this.props.setBattleFalse()
   }
 
   componentDidUpdate(prevProps) {
@@ -49,7 +51,6 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Data />
         <img className="home-img" alt="home background" src="home.png" />
         <div className="home-buttons">
           <div className="code-wars-home">
@@ -182,6 +183,9 @@ const addDispatcher = (connector, ref) => ({
       ref().update(updates)
       return newBattleKey
     }
+  },
+  setBattleFalse() {
+    ref(`users/${connector.props.user.uid}`).update({ in_battle: false })
   }
 })
 
