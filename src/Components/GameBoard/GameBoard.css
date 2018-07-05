@@ -56,3 +56,8 @@ hr {
   height: 30vh;
 }
 
+.game-over {
+  color: white;
+  text-shadow: 1px 1px teal;
+  font-size: 14px;
+}
