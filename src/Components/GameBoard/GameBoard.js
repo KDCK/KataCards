@@ -11,9 +11,28 @@ import './GameBoard.css'
 
 
 class GameBoard extends Component {
+  constructor(props){
+    super(props)
+    this.state = { gameOverComponent: 'still playing' }
+    this.showOutcome = this.showOutcome.bind(this)
+    this.delayedRender = this.delayedRender.bind(this)
+  }
+
+
+  showOutcome() {
+    this.setState({ gameOverComponent: 'delay' })
+  }
+
+  delayedRender() {
+    setTimeout(() => {
+      this.setState({ gameOverComponent: 'ready'})
+    }, 5000)
+  }
+
   componentDidUpdate() {
     this.props.checkDeck()
   }
+
   render() {
     if (!this.props.battle) {
       return <Spinner />
@@ -25,7 +44,13 @@ class GameBoard extends Component {
 
 
     if (battle.p1done && battle.p2done) {
-      return <GameOver battle={battle} />
+      if (this.state.gameOverComponent === 'still playing'){
+        this.showOutcome()
+      } else if (this.state.gameOverComponent === 'ready') {
+          return <GameOver battle={battle} />
+      } else {
+          this.delayedRender()
+      }
     }
     if (!battle.ready) {
       const turn = Math.random() >= 0.5
@@ -47,12 +72,19 @@ class GameBoard extends Component {
           ? (<DisplayStatus atk={battle.p1atk} def={battle.p1def} self={true} turn={battle.turn} />)
           : (<DisplayStatus atk={battle.p2atk} def={battle.p2def} self={true} turn={battle.turn} />)}
         <Divider inverted fitted>
-          {(user.uid === p1uid && battle.turn === 'playerOne')
+          {(this.props.battle.p1done && this.props.battle.p2done)
+          ? 'Game Over'
+          : (user.uid === p1uid && battle.turn === 'playerOne')
             ? 'Your Turn'
             : (user.uid === p2uid && battle.turn === 'playerTwo')
               ? 'Your Turn'
               : 'Opponent\'s Turn'}
         </Divider>
+        {this.props.battle.p1done && this.props.battle.p2done ?
+        <div className='game-over'>
+          Player One Score: {this.props.battle.p1atk - this.props.battle.p2def} <br />
+          Player Two Score: {this.props.battle.p2atk - this.props.battle.p1def}
+          </div> : null}
         {user.uid === p1uid
           ? (<DisplayStatus atk={battle.p1atk} def={battle.p1def} self={false} turn={battle.turn} />)
           : (<DisplayStatus atk={battle.p2atk} def={battle.p2def} self={false} turn={battle.turn} />)}
@@ -82,7 +114,7 @@ const addDispatcher = (connector, ref, user) => ({
     ref(`/battles/${connector.props.battleId}/p1/${user.uid}/`).once('value', snapshot => {
       if (snapshot.exists() && snapshot.child('/board').exists()) {
         ref(`/battles/${connector.props.battleId}/p1/${user.uid}/board`).once('value', snapshot => {
-          if (snapshot.numChildren() >= 3) {
+          if (snapshot.numChildren() >= 5) {
             ref(`/battles/${connector.props.battleId}/p1done`).set(true)
           }
         })
@@ -91,7 +123,7 @@ const addDispatcher = (connector, ref, user) => ({
     ref(`/battles/${connector.props.battleId}/p2/${user.uid}/`).once('value', snapshot => {
       if (snapshot.exists() && snapshot.child('/board').exists()) {
         ref(`/battles/${connector.props.battleId}/p2/${user.uid}/board`).once('value', snapshot => {
-          if (snapshot.numChildren() >= 3) {
+          if (snapshot.numChildren() >= 5) {
             ref(`/battles/${connector.props.battleId}/p2done`).set(true)
           }
         })
