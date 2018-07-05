@@ -12,6 +12,10 @@ class Home extends Component {
     this.state = { waiting: false, matchReady: false }
   }
 
+  componentDidMount() {
+    this.props.setBattleFalse()
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
       if (this.props.queue && Object.keys(this.props.queue).length >= 2) {
@@ -179,6 +183,9 @@ const addDispatcher = (connector, ref) => ({
       ref().update(updates)
       return newBattleKey
     }
+  },
+  setBattleFalse() {
+    ref(`users/${connector.props.user.uid}`).update({ in_battle: false })
   }
 })
 

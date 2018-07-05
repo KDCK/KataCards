@@ -3,7 +3,7 @@ import { firebaseConnect } from 'fire-connect'
 import { Button, Modal, Image, Header, Input, Icon, Message } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
-import {starterDeck} from './Data/Data'
+import { starterDeck } from './Data/Data'
 import Spinner from './Loader/Spinner'
 import './update.css'
 
@@ -56,7 +56,7 @@ class Update extends Component {
     )
 
     if (data) {
-      this.setState({approved: true, warning: false})
+      this.setState({ approved: true, warning: false })
     } else {
       this.setState({ approved: false, warning: true })
     }
@@ -115,7 +115,7 @@ const addListener = (connector, ref, user, setEventType) => ({
       connector.setState({ current: snapshot.val() })
     }),
   listenCards: () =>
-    ref(`cards`).on('value', snapshot =>{
+    ref(`cards`).on('value', snapshot => {
       connector.setState({ cards: snapshot.val() })
     })
 })
@@ -152,13 +152,13 @@ const addDispatcher = (connector, ref, user) => ({
     })
   },
   changeStatus() {
-    ref(`/users/${connector.props.uid}/`).update({ online: true })
+    ref(`/users/${connector.props.uid}`).update({ online: true })
   },
   checkUser() {
     return connector.props.auth
   },
-  userCards(card){
-    ref(`/users/${connector.props.uid}/cards/${card.id}`).set({...card})
+  userCards(card) {
+    ref(`/users/${connector.props.uid}/cards/${card.id}`).set({ ...card })
   }
 })
 
