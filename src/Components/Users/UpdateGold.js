@@ -11,7 +11,7 @@ class UpdateGold extends Component {
 
   async handleClick() {
     let codeWarsObject = await axios.get(
-      `/api/code/${this.props.user.codeName}`
+      `https://kcserver.herokuapp.com/api/code/${this.props.user.codeName}`
     )
     let newChallengesNumber = codeWarsObject.data.codeChallenges.totalCompleted
     let prevGold = this.props.user.gold

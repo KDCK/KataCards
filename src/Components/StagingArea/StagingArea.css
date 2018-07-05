@@ -1,13 +1,9 @@
-body {
-  height: 100vh;
-  margin: auto;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
 .staging-area-main {
   color: white;
   background: url('../../Img/2.jpg');
+  height: 100vh;
+  background-attachment: fixed;
+  overflow: scroll;
 }
 
 /* .staging-area-main > h1,

@@ -51,15 +51,17 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <img className="home-img" alt="home background" src="home.png" />
+        <img className="home-img" alt="home background" src="battle.gif" />
         <div className="home-buttons">
           <div className="code-wars-home">
-            <h1>
+            <h6>
               Train your skills at Codewars.com <br /> to earn gold and buy better
               cards for your deck!
-            </h1>
-            <div>
+            </h6>
+          <div>
               <Button
+                style={{width: '200px'}}
+                target="_blank"
                 waves="light"
                 node="a"
                 href="http://www.codewars.com"

@@ -52,7 +52,7 @@ class Update extends Component {
 
   async validate(codeName) {
     const { data } = await axios.get(
-      `/api/code/validate/${codeName}`
+      `https://kcserver.herokuapp.com/api/code/validate/${codeName}`
     )
 
     if (data) {
@@ -86,7 +86,11 @@ class Update extends Component {
                 />
                 <Message negative hidden={!this.state.warning}>
                   <Message.Header>Try again</Message.Header>
-                  <p>This is not a valid Codewars handle.</p>
+                  <p>This is not a valid Codewars handle!</p>
+                </Message>
+                <Message positive hidden={!this.state.approved}>
+                  <Message.Header>Valid</Message.Header>
+                  <p>This is a valid Codewars handle!</p>
                 </Message>
               </Modal.Description>
             </Modal.Content>

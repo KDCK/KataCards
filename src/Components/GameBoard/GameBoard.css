@@ -47,8 +47,10 @@ hr {
 
 .ui.divider {
   width: 100vw;
-  height: 25px;
+  height: 15px;
+  min-height: 15px;
   text-align: center;
+  justify-content: center;
   background-color: black;
 }
 
@@ -56,3 +58,8 @@ hr {
   height: 30vh;
 }
 
+.game-over {
+  color: white;
+  text-shadow: 1px 1px teal;
+  font-size: 14px;
+}
