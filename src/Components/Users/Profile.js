@@ -15,17 +15,15 @@ class Profile extends Component {
       <div className="profile">
         <UserCard />
         <h1>Your Card Collection</h1>
-        <Row>
+        <div className="card-tray">
           {!cards ? (
             <Spinner />
           ) : (
               cards.map(card => (
-                <Col key={card.id} s={2} m={2} style={{ paddingBottom: '15px' }}>
-                  <SingleCard card={card} />
-                </Col>
+                <SingleCard card={card} />
               ))
             )}
-        </Row>
+        </div>
       </div>
     )
   }

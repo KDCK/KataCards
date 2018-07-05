@@ -5,15 +5,13 @@ import './UserCard.css'
 
 const UserCard = props => {
   return (
-    <Col s={8} m={4}>
-      <CardPanel className="black-text">
-        <h1>{props.user.codeName}</h1>
-        <div>Email: {props.user.email}</div>
-        <div>Gold: {props.user.gold}</div>
-        <div>Battles Won: {props.user.total_wins}
-        </div>
-      </CardPanel>
-    </Col>
+    <CardPanel className="black-text">
+      <h1>{props.user.codeName}</h1>
+      <div>Email: {props.user.email}</div>
+      <div>Gold: {props.user.gold}</div>
+      <div>Battles Won: {props.user.total_wins}
+      </div>
+    </CardPanel>
   )
 }
 
