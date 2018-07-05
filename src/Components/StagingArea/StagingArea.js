@@ -37,10 +37,10 @@ class StagingArea extends Component {
           <div className="staging-area-subheader">
             <h3 style={{ marginLeft: '5vw' }}>
               Select 5 cards for your battle deck!
-              <span style={{ fontSize: 12, paddingLeft: 40 }}>
+              <span style={{ fontSize: 20, paddingLeft: 40 }}>
                 {battleInfo.p1.hasOwnProperty(uid) && battleInfo.p2ready ? 'Your opponent is ready.'
                   : battleInfo.p2.hasOwnProperty(uid) && battleInfo.p1ready ? 'Your opponent is ready.'
-                    : 'Waiting for opponent.'}
+                    : 'Waiting for opponent...'}
               </span>
             </h3>
             <Button
