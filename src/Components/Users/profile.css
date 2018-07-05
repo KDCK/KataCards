@@ -4,8 +4,9 @@
   align-items: center;
   margin-top: 2.85714286em;
   /* background-image: url('../../Img/1.jpg'); */
-  background-attachment: fixed;
-  background-size: cover;
+  /* background-image: url('../../Img/3.jpg'); */
+  height: 100vh;
+  overflow: scroll;
 }
 
 .profile > h1 {

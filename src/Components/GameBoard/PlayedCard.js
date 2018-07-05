@@ -6,7 +6,7 @@ const PlayedCard = props => {
   return (
     <Card>
       <Card.Content>
-        <Image src={`/${card.name}.${card.file}`} style={{ marginBottom: '10px' }} />
+        <Image src={`/${card.name}.${card.file}`} style={{ marginBottom: '10px', height: '10vh' }} />
         <Card.Header>{card.name}</Card.Header>
       </Card.Content>
       <Card.Content extra>

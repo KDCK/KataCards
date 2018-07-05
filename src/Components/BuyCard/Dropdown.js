@@ -9,8 +9,6 @@ const options = [
 
 class DropDown extends Component {
   render() {    
-    console.log(this.props);
-    
     return (
       <Form onSubmit={this.props.purchaseCard}>
         <Form.Group widths="equal">
