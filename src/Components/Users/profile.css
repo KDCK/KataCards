@@ -2,13 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 10vh;
-  background-image: url('../../Img/3.jpg');
+  margin-top: 2.85714286em;
+  /* background-image: url('../../Img/1.jpg'); */
+  /* background-image: url('../../Img/3.jpg'); */
   height: 100vh;
   overflow: scroll;
 }
 
 .profile > h1 {
-  color: white;
-  text-shadow: 2px 2px teal;
+  color: black;
+  /* text-shadow: 2px 2px teal; */
 }

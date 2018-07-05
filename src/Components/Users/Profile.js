@@ -19,8 +19,8 @@ class Profile extends Component {
             <Spinner />
           ) : (
               cards.map(card => (
-                <Col key={card.id} s={2} m={2} style={{ paddingBottom: '15px' }}>
-                  <SingleCard card={card} />
+                <Col key={card.id} s={2} m={2} style={{paddingBottom:'15px'}}>
+                <SingleCard card={card} />
                 </Col>
               ))
             )}
