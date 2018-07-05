@@ -41,7 +41,7 @@ const addListener = (connector, ref, user, setEventType) => ({
 const addDispatcher = (connector, ref, user) => ({
   setOffline(uid, history) {
     const offline = false
-    ref(`users/${uid}`).update({ online: offline })
+    ref(`users/${uid}`).update({ in_battle: false, online: offline })
     auth.signOut()
     history.push('/home')
   },
