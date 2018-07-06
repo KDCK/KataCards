@@ -11,6 +11,7 @@ import './profile.css'
 class Profile extends Component {
   render() {
     const { cards } = this.props.user
+
     return (
       <div className="profile">
         {this.props.user.mute ? null : (
@@ -27,11 +28,22 @@ class Profile extends Component {
           {!cards ? (
             <Spinner />
           ) : (
-            cards.map(card => (
-              <Col key={card.id} s={2} m={2} style={{ paddingBottom: '15px' }}>
-                <SingleCard card={card} />
-              </Col>
-            ))
+            cards
+              .sort((cardA, cardB) => {
+                if (cardA.tier < cardB.tier) return 1
+                if (cardB.tier > cardA.tier) return -1
+                else return 0
+              })
+              .map(card => (
+                <Col
+                  key={card.id}
+                  s={2}
+                  m={2}
+                  style={{ paddingBottom: '15px' }}
+                >
+                  <SingleCard card={card} />
+                </Col>
+              ))
           )}
         </Row>
       </div>
