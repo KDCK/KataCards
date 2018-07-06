@@ -11,6 +11,7 @@ import {
   GameBoard,
   StagingArea,
   Credits,
+  MusicCredits
 } from './Components'
 
 import LandingPage from './Components/Landing/LandingPage'
@@ -42,6 +43,7 @@ class Routes extends Component {
             component={AuthorizedUser(InitializeBattle(StagingArea))}
           />
           <Route exact path="/credits" component={Credits} />
+          <Route exact path="/music-credits" component={MusicCredits} />
         </Switch>
       </div>
     )

@@ -23,7 +23,7 @@ const MusicCredits = () => {
           <List>
             <List.Item>
               <List.Icon name="male" />
-              <List.Content>DesperateMeasurez - Darren Curtis</List.Content>
+              <List.Content>Darren Curtis - DesperateMeasurez</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name="linkify" />
@@ -32,12 +32,16 @@ const MusicCredits = () => {
                   https://www.youtube.com/watch?v=CrkS-Z-TACE
                 </a>
               </List.Content>
+            </List.Item>
+            <List.Item>
               <List.Icon name="linkify" />
               <List.Content>
                 <a href="https://www.youtube.com/watch?v=_6PSz6Aj8R0">
                   https://www.youtube.com/watch?v=_6PSz6Aj8R0
                 </a>
               </List.Content>
+            </List.Item>
+            <List.Item>
               <List.Icon name="linkify" />
               <List.Content>
                 <a href="https://www.youtube.com/watch?v=P2pBVwZNkH8">
