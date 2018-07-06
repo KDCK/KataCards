@@ -9,7 +9,7 @@ const MusicCredits = () => {
     <div className="credits-body">
       <ReactPlayer
         style={{ display: 'none' }}
-        url="https://www.youtube.com/watch?v=v2Ju6Q8yXR8"
+        url='https://www.youtube.com/watch?v=jbUg8lEKOBs'
         playing
         loop
       />
@@ -63,13 +63,13 @@ const MusicCredits = () => {
             </List.Item>
             <List.Item>
               <List.Icon name="male" />
-              <List.Content>AlmostAppropriate</List.Content>
+              <List.Content>Tim Walther - Kammerton</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name="linkify" />
               <List.Content>
-                <a href="https://www.youtube.com/watch?v=v2Ju6Q8yXR8">
-                  https://www.youtube.com/watch?v=v2Ju6Q8yXR8
+                <a href="https://www.youtube.com/watch?v=jbUg8lEKOBs">
+                  https://www.youtube.com/watch?v=jbUg8lEKOBs
                 </a>
               </List.Content>
             </List.Item>

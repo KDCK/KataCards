@@ -9,7 +9,7 @@ const Credits = () => {
     <div className="credits-body">
       <ReactPlayer
         style={{ display: 'none' }}
-        url="https://www.youtube.com/watch?v=v2Ju6Q8yXR8"
+        url="https://www.youtube.com/watch?v=jbUg8lEKOBs"
         playing
         loop
       />
