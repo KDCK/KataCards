@@ -52,12 +52,14 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <ReactPlayer
-          style={{ display: 'none' }}
-          url="https://www.youtube.com/watch?v=P2pBVwZNkH8"
-          playing
-          loop
-        />
+        {this.props.user.mute ? null : (
+          <ReactPlayer
+            style={{ display: 'none' }}
+            url="https://www.youtube.com/watch?v=P2pBVwZNkH8"
+            playing
+            loop
+          />
+        )}
         <img className="home-img" alt="home background" src="battle.gif" />
         <div className="home-buttons">
           <div className="code-wars-home">
@@ -76,6 +78,11 @@ class Home extends Component {
                 Codewars.com
               </Button>
             </div>
+          </div>
+          <div className="mute-button">
+            <Button onClick={() => this.props.mute(this.props.user)}>
+              Mute Audio
+            </Button>
           </div>
           <div className="home-buttons-top">
             {this.state.matchReady && (
@@ -174,6 +181,13 @@ const addDispatcher = (connector, ref) => ({
     if (user.in_battle) {
       ref(`queue/${connector.props.user.uid}`).remove()
       ref(`users/${connector.props.user.uid}`).update({ in_battle: false })
+    }
+  },
+  mute(user) {
+    if (user.mute) {
+      ref(`/users/${connector.props.user.uid}`).update({ mute: false })
+    } else {
+      ref(`/users/${connector.props.user.uid}`).update({ mute: true })
     }
   },
   joinBattle(user, queue, battles) {

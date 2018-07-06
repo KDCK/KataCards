@@ -64,6 +64,14 @@
   width: 20vw;
 }
 
+.mute-button {
+  position: absolute;
+  color: white;
+  padding: 0;
+  margin-top: 75vh;
+  margin-left: 5vw;
+}
+
 .queue-status {
   color: white;
 }
