@@ -64,12 +64,14 @@ class BuyCard extends Component {
   render() {
     return (
       <div>
-        <ReactPlayer
-          style={{ display: 'none' }}
-          url="https://www.youtube.com/watch?v=CfMMlT8Lyns"
-          playing
-          loop
-        />
+        {this.props.user.mute ? null : (
+          <ReactPlayer
+            style={{ display: 'none' }}
+            url="https://www.youtube.com/watch?v=CfMMlT8Lyns"
+            playing
+            loop
+          />
+        )}
         {!this.state.purchased ? (
           <div>
             <img

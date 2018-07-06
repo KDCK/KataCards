@@ -58,12 +58,14 @@ class GameBoard extends Component {
 
     return (
       <div className="game-container">
-        <ReactPlayer
-          style={{ display: 'none' }}
-          url="https://www.youtube.com/watch?v=RSREapeetNE"
-          playing
-          loop
-        />
+        {this.props.user.mute ? null : (
+          <ReactPlayer
+            style={{ display: 'none' }}
+            url="https://www.youtube.com/watch?v=RSREapeetNE"
+            playing
+            loop
+          />
+        )}
         <div className="player1-board-deck">
           {/* TODO: GET CARDBACK PLACEHOLDERS */}
         </div>

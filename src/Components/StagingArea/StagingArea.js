@@ -39,12 +39,14 @@ class StagingArea extends Component {
 
     return (
       <div className="staging-area-main">
-        <ReactPlayer
-          style={{ display: 'none' }}
-          url="https://www.youtube.com/watch?v=8RatUE6kfSk"
-          playing
-          loop
-        />
+        {this.props.user.mute ? null : (
+          <ReactPlayer
+            style={{ display: 'none' }}
+            url="https://www.youtube.com/watch?v=8RatUE6kfSk"
+            playing
+            loop
+          />
+        )}
         <div>
           <h1>Welcome to the Staging Area</h1>
           <div className="staging-area-subheader">

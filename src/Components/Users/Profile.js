@@ -13,12 +13,14 @@ class Profile extends Component {
     const { cards } = this.props.user
     return (
       <div className="profile">
-        <ReactPlayer
-          style={{ display: 'none' }}
-          url="https://www.youtube.com/watch?v=CrkS-Z-TACE"
-          playing
-          loop
-        />
+        {this.props.user.mute ? null : (
+          <ReactPlayer
+            style={{ display: 'none' }}
+            url="https://www.youtube.com/watch?v=CrkS-Z-TACE"
+            playing
+            loop
+          />
+        )}
         <UserCard />
         <h1 style={{ marginBottom: '40px' }}>Your Card Collection</h1>
         <Row>

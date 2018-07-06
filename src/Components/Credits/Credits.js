@@ -7,12 +7,14 @@ import './credits.css'
 const Credits = () => {
   return (
     <div className="credits-body">
-      <ReactPlayer
-        style={{ display: 'none' }}
-        url="https://www.youtube.com/watch?v=v2Ju6Q8yXR8"
-        playing
-        loop
-      />
+      {this.props.user.mute ? null : (
+        <ReactPlayer
+          style={{ display: 'none' }}
+          url="https://www.youtube.com/watch?v=v2Ju6Q8yXR8"
+          playing
+          loop
+        />
+      )}
       <div className="container">
         <div className="credits">
           <h1>Created by KDCK</h1>
