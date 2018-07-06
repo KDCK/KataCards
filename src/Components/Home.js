@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactPlayer from 'react-player'
 import { firebaseConnect } from 'fire-connect'
 import { Button } from 'react-materialize'
 import { withRouter, Link } from 'react-router-dom'
@@ -51,16 +52,22 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <ReactPlayer
+          style={{ display: 'none' }}
+          url="https://www.youtube.com/watch?v=2L39PYBKF_k"
+          playing
+          looping
+        />
         <img className="home-img" alt="home background" src="battle.gif" />
         <div className="home-buttons">
           <div className="code-wars-home">
             <h6>
-              Train your skills at Codewars.com <br /> to earn gold and buy better
-              cards for your deck!
+              Train your skills at Codewars.com <br /> to earn gold and buy
+              better cards for your deck!
             </h6>
-          <div>
+            <div>
               <Button
-                style={{width: '200px'}}
+                style={{ width: '200px' }}
                 target="_blank"
                 waves="light"
                 node="a"
@@ -71,24 +78,31 @@ class Home extends Component {
             </div>
           </div>
           <div className="home-buttons-top">
-            {this.state.matchReady &&
+            {this.state.matchReady && (
               <h2 className="queue-status">Match Found</h2>
-            }
-            {this.state.waiting &&
-              <h2 className="queue-status animated">Finding a match...</h2>}
-            {!this.state.waiting && !this.state.matchReady &&
+            )}
+            {this.state.waiting && (
+              <h2 className="queue-status animated">Finding a match...</h2>
+            )}
+            {!this.state.waiting &&
+              !this.state.matchReady && (
+                <Button
+                  large
+                  className="home-button"
+                  waves="purple"
+                  onClick={() => this.joinQueue(this.props.user)}
+                >
+                  Join Battle Queue
+                </Button>
+              )}
+            {this.state.waiting && (
               <Button
-                large
                 className="home-button"
-                waves="purple"
-                onClick={() => this.joinQueue(this.props.user)}
+                onClick={() => this.leaveQueue(this.props.user)}
               >
-                Join Battle Queue
-            </Button>
-            }
-            {this.state.waiting &&
-              <Button className="home-button" onClick={() => this.leaveQueue(this.props.user)}>Leave Queue</Button>
-            }
+                Leave Queue
+              </Button>
+            )}
           </div>
           {this.state.matchReady && (
             <div className="home-buttons-top">

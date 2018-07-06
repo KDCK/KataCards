@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import ReactPlayer from 'react-player'
 import { Button } from 'react-materialize'
-import { Icon } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react'
 
 import Login from '../Login'
 import Signup from '../Signup'
@@ -14,13 +15,17 @@ class LandingPage extends Component {
   render() {
     return (
       <div>
-        <img className="title-img" alt="title background"
-          src="/titleimg.gif" />
+        {/* <ReactPlayer
+          style={{ display: 'none' }}
+          url="https://www.youtube.com/watch?v=2L39PYBKF_k"
+          playing
+        /> */}
+        <img className="title-img" alt="title background" src="/titleimg.gif" />
         <div className="title">
           <img alt="titlepage" src="/title.png" />
         </div>
         <div className="title-buttons">
-          {this.state.status === null &&
+          {this.state.status === null && (
             <div>
               <Button
                 className="title-button login-input-button"
@@ -35,8 +40,8 @@ class LandingPage extends Component {
                 Sign up
               </Button>
             </div>
-          }
-          {this.state.status === 'login' &&
+          )}
+          {this.state.status === 'login' && (
             <div>
               <Login />
               <Button
@@ -45,10 +50,10 @@ class LandingPage extends Component {
               >
                 <Icon name="caret left" />
                 Back
-                </Button>
+              </Button>
             </div>
-          }
-          {this.state.status === 'signup' &&
+          )}
+          {this.state.status === 'signup' && (
             <div>
               <Signup />
               <Button
@@ -57,9 +62,9 @@ class LandingPage extends Component {
               >
                 <Icon name="caret left" />
                 Back
-                </Button>
+              </Button>
             </div>
-          }
+          )}
         </div>
       </div>
     )
