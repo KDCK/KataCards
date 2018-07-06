@@ -56,7 +56,7 @@ class Home extends Component {
           style={{ display: 'none' }}
           url="https://www.youtube.com/watch?v=P2pBVwZNkH8"
           playing
-          looping
+          loop
         />
         <img className="home-img" alt="home background" src="battle.gif" />
         <div className="home-buttons">

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 import Spinner from '../Loader/Spinner'
 
-export default function (ComposedComponent) {
+export default function(ComposedComponent) {
   class HandleLogins extends Component {
     componentDidMount() {
       this.props.checkUser().onAuthStateChanged(user => {
@@ -16,17 +16,20 @@ export default function (ComposedComponent) {
 
     render() {
       if (!this.props.user) {
-        return (<Spinner />)
+        return <Spinner />
       }
       return (
         <div>
-          <ComposedComponent uid={this.props.user.uid} history={this.props.history}/>
+          <ComposedComponent
+            uid={this.props.user.uid}
+            history={this.props.history}
+          />
         </div>
       )
     }
   }
 
-  const addDispatcher = (connector) => ({
+  const addDispatcher = connector => ({
     checkUser() {
       return connector.props.auth
     },
