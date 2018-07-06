@@ -15,11 +15,12 @@ class LandingPage extends Component {
   render() {
     return (
       <div>
-        {/* <ReactPlayer
+        <ReactPlayer
           style={{ display: 'none' }}
           url="https://www.youtube.com/watch?v=2L39PYBKF_k"
           playing
-        /> */}
+          loop
+        />
         <img className="title-img" alt="title background" src="/titleimg.gif" />
         <div className="title">
           <img alt="titlepage" src="/title.png" />

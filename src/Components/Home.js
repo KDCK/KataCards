@@ -54,7 +54,7 @@ class Home extends Component {
       <div>
         <ReactPlayer
           style={{ display: 'none' }}
-          url="https://www.youtube.com/watch?v=2L39PYBKF_k"
+          url="https://www.youtube.com/watch?v=P2pBVwZNkH8"
           playing
           looping
         />

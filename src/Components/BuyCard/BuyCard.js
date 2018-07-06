@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactPlayer from 'react-player'
 import { firebaseConnect } from 'fire-connect'
 
 import { withRouter } from 'react-router-dom'
@@ -18,7 +19,7 @@ class BuyCard extends Component {
       enoughCurrency: true,
       purchased: false,
       purchasedCard: undefined,
-      selected: false,
+      selected: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.purchaseCard = this.purchaseCard.bind(this)
@@ -44,7 +45,9 @@ class BuyCard extends Component {
         gold: Number(this.props.user.gold) - Number(goldSpent)
       }
     })
-    const cardsLength = this.props.user.cards ? Object.keys(this.props.user.cards).length : 0
+    const cardsLength = this.props.user.cards
+      ? Object.keys(this.props.user.cards).length
+      : 0
 
     this.props.updateUserCardAndGold(goldSpent, chosenCard, cardsLength)
   }
@@ -59,46 +62,64 @@ class BuyCard extends Component {
   }
 
   render() {
-    return !this.state.purchased ? (
+    return (
       <div>
-        <img className="store-img" alt="home background" src="cardstore.gif" />
-        <div className="store-container">
-          <h1>Welcome to the Card Store</h1>
-          <h4>
-            Purchasing from a higher Tier increases the likelihood of getting a
-            better card, but does not guarantee it!
-          </h4>
-          <h3>You have {this.props.user.gold} gold</h3>
-          <h3>How much do you want to spend?</h3>
-          <p>
-            Tier 1: 1 Gold<br />Tier 2: 2 Gold<br />Tier 3: 3 Gold
-          </p>
-          <DropDown
-            selected={this.state.selected}
-            purchaseCard={this.purchaseCard}
-            handleChange={this.handleChange}
-          />
-          {this.state.enoughCurrency ? null : <h1>Not enough gold!</h1>}
-        </div>
-      </div>
-    ) : (
-        <div>
-          <img className="store-img" alt="home background" src="cardstore.gif" />
-          <div className="store-bought">
-            <h1>You bought: {this.state.purchasedCard.name}!</h1>
-            <h2>Tier {this.state.purchasedCard.tier}</h2>
-            <SingleCard card={this.state.purchasedCard} />
-            <h3>You have {this.props.user.gold} gold left</h3>
-            <Button
-              onClick={this.backToStore}
-              className="back-to-store"
-              waves="red"
-            >
-              Try Again?
-          </Button>
+        <ReactPlayer
+          style={{ display: 'none' }}
+          url="https://www.youtube.com/watch?v=CfMMlT8Lyns"
+          playing
+          loop
+        />
+        {!this.state.purchased ? (
+          <div>
+            <img
+              className="store-img"
+              alt="home background"
+              src="cardstore.gif"
+            />
+            <div className="store-container">
+              <h1>Welcome to the Card Store</h1>
+              <h4>
+                Purchasing from a higher Tier increases the likelihood of
+                getting a better card, but does not guarantee it!
+              </h4>
+              <h3>You have {this.props.user.gold} gold</h3>
+              <h3>How much do you want to spend?</h3>
+              <p>
+                Tier 1: 1 Gold<br />Tier 2: 2 Gold<br />Tier 3: 3 Gold
+              </p>
+              <DropDown
+                selected={this.state.selected}
+                purchaseCard={this.purchaseCard}
+                handleChange={this.handleChange}
+              />
+              {this.state.enoughCurrency ? null : <h1>Not enough gold!</h1>}
+            </div>
           </div>
-        </div>
-      )
+        ) : (
+          <div>
+            <img
+              className="store-img"
+              alt="home background"
+              src="cardstore.gif"
+            />
+            <div className="store-bought">
+              <h1>You bought: {this.state.purchasedCard.name}!</h1>
+              <h2>Tier {this.state.purchasedCard.tier}</h2>
+              <SingleCard card={this.state.purchasedCard} />
+              <h3>You have {this.props.user.gold} gold left</h3>
+              <Button
+                onClick={this.backToStore}
+                className="back-to-store"
+                waves="red"
+              >
+                Try Again?
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    )
   }
 }
 
@@ -130,11 +151,10 @@ const addDispatcher = (connector, ref, user) => ({
       let prevGold = thisUser.gold
       prevGold -= goldSpent
       ref(`users/${user.uid}`).update({
-        gold: prevGold,
+        gold: prevGold
       })
       const cardsRef = ref(`users/${user.uid}/cards`)
       cardsRef.child(cardsLength).set({ ...chosenCard, id: cardsLength })
-
     })
   }
 })
