@@ -67,7 +67,7 @@ class BuyCard extends Component {
         {this.props.user.mute ? null : (
           <ReactPlayer
             style={{ display: 'none' }}
-            url="https://www.youtube.com/watch?v=CfMMlT8Lyns"
+            url="https://www.youtube.com/watch?v=9p70UVWn6P8"
             playing
             loop
           />
