@@ -81,7 +81,7 @@ class Home extends Component {
           </div>
           <div className="mute-button">
             <Button onClick={() => this.props.mute(this.props.user)}>
-              Mute Audio
+              Toggle Audio
             </Button>
           </div>
           <div className="home-buttons-top">
