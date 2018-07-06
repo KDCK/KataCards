@@ -4,7 +4,7 @@ import { Button, List } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import './credits.css'
 
-const Credits = () => {
+const MusicCredits = () => {
   return (
     <div className="credits-body">
       <ReactPlayer
@@ -19,97 +19,81 @@ const Credits = () => {
           <span>
             Kathleen Lopez, Daniel Howard, Chris Ardeljan, Kenneth Zhu
           </span>
-          <h1>Credit for Artwork to the Following Artists:</h1>
+          <h1>Credit for Music to the Following Artists:</h1>
           <List>
             <List.Item>
               <List.Icon name="male" />
-              <List.Content>Denecastre</List.Content>
+              <List.Content>Darren Curtis - DesperateMeasurez</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name="linkify" />
               <List.Content>
-                <a href="https://www.reddit.com/user/Denecastre">
-                  https://www.reddit.com/user/Denecastre
+                <a href="https://www.youtube.com/watch?v=CrkS-Z-TACE">
+                  https://www.youtube.com/watch?v=CrkS-Z-TACE
+                </a>
+              </List.Content>
+            </List.Item>
+            <List.Item>
+              <List.Icon name="linkify" />
+              <List.Content>
+                <a href="https://www.youtube.com/watch?v=_6PSz6Aj8R0">
+                  https://www.youtube.com/watch?v=_6PSz6Aj8R0
+                </a>
+              </List.Content>
+            </List.Item>
+            <List.Item>
+              <List.Icon name="linkify" />
+              <List.Content>
+                <a href="https://www.youtube.com/watch?v=P2pBVwZNkH8">
+                  https://www.youtube.com/watch?v=P2pBVwZNkH8
                 </a>
               </List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name="male" />
-              <List.Content>Nate Kling</List.Content>
+              <List.Content>Lewis Edwards</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name="linkify" />
               <List.Content>
-                <a href="https://imgur.com/r/PixelArt/ijWjGah">
-                  https://imgur.com/r/PixelArt/ijWjGah
-                </a>
-              </List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="linkify" />
-              <List.Content>
-                <a href="https://imgur.com/k7ksNbK">
-                  https://imgur.com/k7ksNbK
+                <a href="https://www.youtube.com/watch?v=9p70UVWn6P8">
+                  https://www.youtube.com/watch?v=9p70UVWn6P8
                 </a>
               </List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name="male" />
-              <List.Content>Michael Meyers</List.Content>
+              <List.Content>AlmostAppropriate</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name="linkify" />
               <List.Content>
-                <a href="https://www.behance.net/gallery/17281817/Transistor-fanart">
-                  https://www.behance.net/gallery/17281817/Transistor-fanart
-                </a>
-              </List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="users" />
-              <List.Content>Pixel Art Sprites</List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="linkify" />
-              <List.Content>
-                <a href="https://twitter.com/PixelArtSprites/media">
-                  https://twitter.com/PixelArtSprites/media
-                </a>
-              </List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="users" />
-              <List.Content>Unknown Artist(s)</List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="linkify" />
-              <List.Content>
-                <a href="http://www.canbum.net/cdn/27/1993/384/">
-                  http://www.canbum.net/cdn/27/1993/384/
+                <a href="https://www.youtube.com/watch?v=v2Ju6Q8yXR8">
+                  https://www.youtube.com/watch?v=v2Ju6Q8yXR8
                 </a>
               </List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name="male" />
-              <List.Content>kirokaze</List.Content>
+              <List.Content>Carbon Maestro</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name="linkify" />
               <List.Content>
-                <a href="https://www.deviantart.com/kirokaze/art/Last-ones-592421829">
-                  https://www.deviantart.com/kirokaze/art/Last-ones-592421829
+                <a href="https://www.youtube.com/watch?v=RSREapeetNE">
+                  https://www.youtube.com/watch?v=RSREapeetNE
                 </a>
               </List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name="male" />
-              <List.Content>faxdoc</List.Content>
+              <List.Content>Wingus Dingus</List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name="linkify" />
               <List.Content>
-                <a href="https://www.deviantart.com/faxdoc/">
-                  https://www.deviantart.com/faxdoc/
+                <a href="https://www.youtube.com/watch?v=8RatUE6kfSk">
+                  https://www.youtube.com/watch?v=8RatUE6kfSk
                 </a>
               </List.Content>
             </List.Item>
@@ -126,4 +110,4 @@ const Credits = () => {
   )
 }
 
-export default Credits
+export default MusicCredits

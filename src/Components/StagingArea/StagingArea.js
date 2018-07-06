@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactPlayer from 'react-player'
 import { firebaseConnect } from 'fire-connect'
 import { Row, Col } from 'react-materialize'
 import { withRouter } from 'react-router-dom'
@@ -21,25 +22,41 @@ class StagingArea extends Component {
   }
 
   render() {
-    if (!(this.props.battleInfo && this.props.player && this.props.user)) return <Spinner />
+    if (!(this.props.battleInfo && this.props.player && this.props.user))
+      return <Spinner />
     const { battleInfo, user, battleId } = this.props
     const { uid } = user
-    if (typeof battleInfo.p1 !== 'object' || typeof battleInfo.p2 !== 'object') return <Spinner />
+    if (typeof battleInfo.p1 !== 'object' || typeof battleInfo.p2 !== 'object')
+      return <Spinner />
 
-    const playerInfo = (battleInfo.p1).hasOwnProperty(uid) ? battleInfo.p1[uid] : battleInfo.p2[uid]
-    const readyButton = this.props.checkDeckLength(this.props.battleId, uid)//less than 3 returns undefined...bug
-    const playerDeck = battleInfo.p1.hasOwnProperty(uid) ? battleInfo.p1[uid].deck : battleInfo.p2[uid].deck
+    const playerInfo = battleInfo.p1.hasOwnProperty(uid)
+      ? battleInfo.p1[uid]
+      : battleInfo.p2[uid]
+    const readyButton = this.props.checkDeckLength(this.props.battleId, uid) //less than 3 returns undefined...bug
+    const playerDeck = battleInfo.p1.hasOwnProperty(uid)
+      ? battleInfo.p1[uid].deck
+      : battleInfo.p2[uid].deck
 
     return (
       <div className="staging-area-main">
+        {this.props.user.mute ? null : (
+          <ReactPlayer
+            style={{ display: 'none' }}
+            url="https://www.youtube.com/watch?v=8RatUE6kfSk"
+            playing
+            loop
+          />
+        )}
         <div>
           <h1>Welcome to the Staging Area</h1>
           <div className="staging-area-subheader">
             <h3 style={{ marginLeft: '5vw' }}>
               Select 5 cards for your battle deck!
               <span style={{ fontSize: 20, paddingLeft: 40 }}>
-                {battleInfo.p1.hasOwnProperty(uid) && battleInfo.p2ready ? 'Your opponent is ready.'
-                  : battleInfo.p2.hasOwnProperty(uid) && battleInfo.p1ready ? 'Your opponent is ready.'
+                {battleInfo.p1.hasOwnProperty(uid) && battleInfo.p2ready
+                  ? 'Your opponent is ready.'
+                  : battleInfo.p2.hasOwnProperty(uid) && battleInfo.p1ready
+                    ? 'Your opponent is ready.'
                     : 'Waiting for opponent...'}
               </span>
             </h3>
@@ -51,10 +68,9 @@ class StagingArea extends Component {
             >
               <Button.Content visible>Ready ?</Button.Content>
               <Button.Content hidden>
-                <Icon name='check' />
+                <Icon name="check" />
               </Button.Content>
             </Button>
-
           </div>
           {!playerDeck && <div className="staging-area-deck-placeholder" />}
         </div>
@@ -62,7 +78,9 @@ class StagingArea extends Component {
           {playerInfo.deck &&
             Object.values(playerInfo.deck).map(card => (
               <Col
-                onClick={() => this.props.removeFromDeck(battleId, card, user.uid)}
+                onClick={() =>
+                  this.props.removeFromDeck(battleId, card, user.uid)
+                }
                 key={card.id}
                 s={2}
                 m={2}
@@ -70,8 +88,7 @@ class StagingArea extends Component {
               >
                 <SingleCard card={card} />
               </Col>
-            ))
-          }
+            ))}
           <hr />
           {playerInfo.cards &&
             Object.values(playerInfo.cards).map(card => (
@@ -84,8 +101,7 @@ class StagingArea extends Component {
               >
                 <SingleCard card={card} />
               </Col>
-            ))
-          }
+            ))}
         </Row>
       </div>
     )
@@ -106,7 +122,7 @@ const addListener = (connector, ref, user, setEventType) => ({
       snapshot => {
         connector.setState({ battleInfo: snapshot.val() })
       }
-    ),
+    )
 })
 
 const addDispatcher = (connector, ref) => ({
@@ -158,14 +174,18 @@ const addDispatcher = (connector, ref) => ({
       if (battle.p1uid === uid) {
         ref(`battles/${battleId}/p1/${uid}/deck/`).once('value', snapshot => {
           if (snapshot.numChildren() < 5) {
-            ref(`battles/${battleId}/p1/${uid}/deck/`).child(card.id).set(card)
+            ref(`battles/${battleId}/p1/${uid}/deck/`)
+              .child(card.id)
+              .set(card)
             ref(`battles/${battleId}/p1/${uid}/cards/${card.id}`).remove()
           }
         })
       } else if (battle.p2uid === uid) {
         ref(`battles/${battleId}/p2/${uid}/deck/`).once('value', snapshot => {
           if (snapshot.numChildren() < 5) {
-            ref(`battles/${battleId}/p2/${uid}/deck/`).child(card.id).set(card)
+            ref(`battles/${battleId}/p2/${uid}/deck/`)
+              .child(card.id)
+              .set(card)
             ref(`battles/${battleId}/p2/${uid}/cards/${card.id}`).remove()
           }
         })
@@ -176,10 +196,14 @@ const addDispatcher = (connector, ref) => ({
     ref(`/battles/${battleId}`).once('value', snapshot => {
       const battle = snapshot.val()
       if (battle.p1uid === uid) {
-        ref(`battles/${battleId}/p1/${uid}/cards/`).child(card.id).set(card)
+        ref(`battles/${battleId}/p1/${uid}/cards/`)
+          .child(card.id)
+          .set(card)
         ref(`battles/${battleId}/p1/${uid}/deck/${card.id}`).remove()
       } else if (battle.p2uid === uid) {
-        ref(`battles/${battleId}/p2/${uid}/cards/`).child(card.id).set(card)
+        ref(`battles/${battleId}/p2/${uid}/cards/`)
+          .child(card.id)
+          .set(card)
         ref(`battles/${battleId}/p2/${uid}/deck/${card.id}`).remove()
       }
     })
@@ -233,7 +257,7 @@ const addDispatcher = (connector, ref) => ({
         result = true
       }
     })
-    return result;
+    return result
   }
 })
 

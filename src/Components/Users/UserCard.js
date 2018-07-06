@@ -16,9 +16,8 @@ const UserCard = props => {
       <h1>{props.user.codeName}</h1>
       <div className="user-info">Email: {props.user.email}</div>
       <div className="user-info">Gold: {props.user.gold}</div>
-      <div className="user-info">Battles Won: {props.user.total_wins}
-        <div className="user-info">Rank: {rank}</div>
-      </div>
+      <div className="user-info">Battles Won: {props.user.total_wins}</div>
+      <div className="user-info">Rank: {rank}</div>
     </CardPanel>
   )
 }
