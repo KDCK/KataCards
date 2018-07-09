@@ -58,6 +58,14 @@ const MusicCredits = () => {
               </List.Content>
             </List.Item>
             <List.Item>
+              <List.Icon name="linkify" />
+              <List.Content>
+                <a href="https://www.youtube.com/watch?v=5F2QDwqDLWU">
+                  https://www.youtube.com/watch?v=5F2QDwqDLWU
+                </a>
+              </List.Content>
+            </List.Item>
+            <List.Item>
               <List.Icon name="male" />
               <List.Content>Tim Walther - Kammerton</List.Content>
             </List.Item>
@@ -78,18 +86,6 @@ const MusicCredits = () => {
               <List.Content>
                 <a href="https://www.youtube.com/watch?v=RSREapeetNE">
                   https://www.youtube.com/watch?v=RSREapeetNE
-                </a>
-              </List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="male" />
-              <List.Content>Wingus Dingus</List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="linkify" />
-              <List.Content>
-                <a href="https://www.youtube.com/watch?v=8RatUE6kfSk">
-                  https://www.youtube.com/watch?v=8RatUE6kfSk
                 </a>
               </List.Content>
             </List.Item>
