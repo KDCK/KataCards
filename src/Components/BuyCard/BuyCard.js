@@ -67,7 +67,7 @@ class BuyCard extends Component {
         {this.props.user.mute ? null : (
           <ReactPlayer
             style={{ display: 'none' }}
-            url="https://www.youtube.com/watch?v=9p70UVWn6P8"
+            url="https://www.youtube.com/watch?v=yHqOzzxgC-U"
             playing
             loop
           />
@@ -99,27 +99,27 @@ class BuyCard extends Component {
             </div>
           </div>
         ) : (
-          <div>
-            <img
-              className="store-img"
-              alt="home background"
-              src="cardstore.gif"
-            />
-            <div className="store-bought">
-              <h1>You bought: {this.state.purchasedCard.name}!</h1>
-              <h2>Tier {this.state.purchasedCard.tier}</h2>
-              <SingleCard card={this.state.purchasedCard} />
-              <h3>You have {this.props.user.gold} gold left</h3>
-              <Button
-                onClick={this.backToStore}
-                className="back-to-store"
-                waves="red"
-              >
-                Try Again?
+            <div>
+              <img
+                className="store-img"
+                alt="home background"
+                src="cardstore.gif"
+              />
+              <div className="store-bought">
+                <h1>You bought: {this.state.purchasedCard.name}!</h1>
+                <h2>Tier {this.state.purchasedCard.tier}</h2>
+                <SingleCard card={this.state.purchasedCard} />
+                <h3>You have {this.props.user.gold} gold left</h3>
+                <Button
+                  onClick={this.backToStore}
+                  className="back-to-store"
+                  waves="red"
+                >
+                  Try Again?
               </Button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
     )
   }

@@ -50,14 +50,10 @@ const MusicCredits = () => {
               </List.Content>
             </List.Item>
             <List.Item>
-              <List.Icon name="male" />
-              <List.Content>Lewis Edwards</List.Content>
-            </List.Item>
-            <List.Item>
               <List.Icon name="linkify" />
               <List.Content>
-                <a href="https://www.youtube.com/watch?v=9p70UVWn6P8">
-                  https://www.youtube.com/watch?v=9p70UVWn6P8
+                <a href="https://www.youtube.com/watch?v=yHqOzzxgC-U">
+                  https://www.youtube.com/watch?v=yHqOzzxgC-U
                 </a>
               </List.Content>
             </List.Item>
@@ -111,3 +107,4 @@ const MusicCredits = () => {
 }
 
 export default MusicCredits
+
