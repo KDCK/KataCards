@@ -19,7 +19,7 @@ const MusicCredits = () => {
           <span>
             Kathleen Lopez, Daniel Howard, Chris Ardeljan, Kenneth Zhu
           </span>
-          <h1>Credit for Music to the Following Artists:</h1>
+          <h1>This game is not for commercial use, all art and music is meant as a place holder for our student project. Please see the following links for more information about the artists we've included in our project:</h1>
           <List>
             <List.Item>
               <List.Icon name="male" />
@@ -50,14 +50,18 @@ const MusicCredits = () => {
               </List.Content>
             </List.Item>
             <List.Item>
-              <List.Icon name="male" />
-              <List.Content>Lewis Edwards</List.Content>
+              <List.Icon name="linkify" />
+              <List.Content>
+                <a href="https://www.youtube.com/watch?v=yHqOzzxgC-U">
+                  https://www.youtube.com/watch?v=yHqOzzxgC-U
+                </a>
+              </List.Content>
             </List.Item>
             <List.Item>
               <List.Icon name="linkify" />
               <List.Content>
-                <a href="https://www.youtube.com/watch?v=9p70UVWn6P8">
-                  https://www.youtube.com/watch?v=9p70UVWn6P8
+                <a href="https://www.youtube.com/watch?v=5F2QDwqDLWU">
+                  https://www.youtube.com/watch?v=5F2QDwqDLWU
                 </a>
               </List.Content>
             </List.Item>
@@ -85,18 +89,6 @@ const MusicCredits = () => {
                 </a>
               </List.Content>
             </List.Item>
-            <List.Item>
-              <List.Icon name="male" />
-              <List.Content>Wingus Dingus</List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="linkify" />
-              <List.Content>
-                <a href="https://www.youtube.com/watch?v=8RatUE6kfSk">
-                  https://www.youtube.com/watch?v=8RatUE6kfSk
-                </a>
-              </List.Content>
-            </List.Item>
           </List>
 
           <Link to="/home">
@@ -111,3 +103,4 @@ const MusicCredits = () => {
 }
 
 export default MusicCredits
+
