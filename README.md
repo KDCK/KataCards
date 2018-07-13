@@ -25,7 +25,8 @@ To get started with Kata Cards simply fork and clone the repo.
 
 To attach your firebase db add a config file in src with the following:
 
-`const config = {
+```
+const config = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_FIREBASE_DB",
   databaseURL: "YOUR_FIREBASE_DB",
@@ -34,4 +35,5 @@ To attach your firebase db add a config file in src with the following:
   messagingSenderId: "YOUR_MESSAGING_ID"
 };
 
-export default config`
+export default config
+```
