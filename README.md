@@ -7,15 +7,20 @@ Battling
 ---
 
 -Users Enter Battle by joining the queue on their home screen
+
 -Once two players are enqueue they are pushed to the staging area
+
 -At the staging area, users are prompted to select 5 cards from their deck to bring into battle
+
 -Once both users are ready the battle beings.
+
 -In a turn-based system, users are prompted to place 4 of the cards they selecte onto the gameboard.
+
 -When all cards are submitted, the total defense of the opponent is subtracted from the attack of the user. The highest attack wins. 
 
 Stack
 ---
-Firebase, Node, React, Firebase Connect
+Firebase, Node, React, Express
 
 Getting Started
 ---
